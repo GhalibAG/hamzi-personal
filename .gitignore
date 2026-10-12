@@ -12,3 +12,4 @@ supabase/.branches
 .wrangler
 *.log
 .DS_Store
+supabase/functions/.env
