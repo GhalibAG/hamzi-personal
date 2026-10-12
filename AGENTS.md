@@ -9,14 +9,19 @@ PWA pribadi (Android + web) untuk tugas, kuliah, keuangan, target/investasi, **T
 - `docs/UI-SPEC.md` — spesifikasi per layar (urutan, teks, data, interaksi).
 - `docs/prototype/` — **sumber kebenaran visual**: `*.dc.html` + `screens/*.png`. Jangan diubah.
 - `docs/FEATURE-CHECKLIST.md` — centang hanya dengan bukti.
-- `docs/BUILD-PLAN.md` — milestone & sesi.
+- `docs/BUILD-PLAN.md` — milestone & sesi (rencana awal).
+- `docs/FRONTEND-GUIDE.md` — **cara kode ini disusun**: hook data, derive, komponen UI, store, pola halaman.
+- `docs/HANDOFF.md` — **status terkini**, bukti, celah yang diketahui, sesi lanjutan.
+- `docs/DEPLOY.md` — langkah produksi (Supabase, Cloudflare, VAPID, Gemini/Groq).
 Konflik: PRD menang untuk aturan/rumus; prototipe menang untuk tampilan/teks UI; TECH-SPEC untuk detail teknis. Masih ambigu → **tanya satu pertanyaan**, jangan menebak.
 
 ## Stack
-TypeScript strict · Vite + React · React Router · TanStack Query (persist IndexedDB) · Zustand (UI saja) · Tailwind + CSS variables · Radix UI · `motion` · Recharts (lazy) · react-hook-form + zod · date-fns(-tz) · vite-plugin-pwa (injectManifest) · Supabase (Postgres, Auth, Storage, Edge Functions) · Cloudflare Pages + Worker (cron) · Vitest · Playwright.
+TypeScript strict · Vite + React 19 · React Router 7 · TanStack Query (cache IndexedDB + outbox offline) · Zustand (UI saja) · Tailwind 4 + CSS variables (`src/styles/tokens.css`) · zod · vite-plugin-pwa (injectManifest, `src/sw.ts`) · Supabase (Postgres, Auth, Storage, Edge Functions Deno) · Cloudflare Pages + Worker (cron) · Vitest · Playwright · PGlite (test SQL).
+Sudah diputuskan (lihat HANDOFF §5): **tanpa** Radix/`motion`/Recharts/react-hook-form — pakai komponen di `src/components/ui` (Sheet/Dialog, Switch, Menu, Segmented, …) dan grafik SVG ringan. Jangan menambah pustaka UI tanpa alasan + ukuran bundle.
+**Mode demo**: tanpa `.env` → data di localStorage (`src/data/local.ts`, seed = data prototipe). Semua fitur harus tetap berjalan di mode demo.
 
 ## Perintah
-`npm run dev` · `build` · `typecheck` · `lint` · `test` · `e2e` · `visual` · `supabase start` · `supabase db reset` · `supabase functions serve`.
+`npm run dev` · `build` · `typecheck` · `lint` · `test` · `test:sql` · `e2e` · `visual` (butuh `npm run dev` berjalan) · `supabase start` · `supabase db reset` · `supabase functions serve`.
 Sebelum menyatakan selesai: jalankan `typecheck`, `lint`, `test` (+ `visual` bila menyentuh UI) dan **tempel outputnya**.
 
 ## Aturan UI (paling sering dilanggar)
@@ -32,7 +37,7 @@ Sebelum menyatakan selesai: jalankan `typecheck`, `lint`, `test` (+ `visual` bil
 9. Bahasa UI Indonesia; angka id-ID ("Rp 1.250.000", "3,62").
 
 ## Aturan kode
-- Struktur TECH-SPEC §3: `src/features/<fitur>/{api.ts,hooks.ts,schema.ts,components/,pages/}`; komponen tidak memanggil supabase langsung.
+- Struktur: `src/features/<fitur>/{derive.ts,hooks.ts,schema.ts,components/,pages/}` (lihat FRONTEND-GUIDE); data hanya lewat `src/data/hooks.ts` — komponen tidak memanggil supabase/localStorage langsung.
 - Tanpa `any`. Validasi zod. Kode bersama klien+Edge (skema zod, `calc`, bank kalimat) hanya di `supabase/functions/_shared/common/` (diimpor klien via alias `@common`).
 - **Semua rumus** (IPS/IPK, target IPK, anggaran, tabungan, XP, prioritas, tahap pohon, level kebun, streak, tetes air) hanya di `supabase/functions/_shared/common/calc/*` (alias `@common/calc`; + versi SQL yang setara bila diperlukan) dengan test vector TECH-SPEC §13. Dilarang menghitung di komponen atau di AI.
 - Uang = integer rupiah (bigint di DB). **Dilarang float untuk uang.**

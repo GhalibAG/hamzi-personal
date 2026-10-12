@@ -1,5 +1,7 @@
 # BUILD-PLAN — Hamzi: Plan Tracker Pribadi
 
+> **Status (Okt 2026):** milestone M0–M9 dan sebagian besar M10 sudah dibangun di repo ini (lihat `docs/HANDOFF.md` untuk bukti, celah, dan sesi lanjutan). Dokumen ini tetap berguna sebagai peta fitur; untuk pekerjaan berikutnya pakai tabel sesi di HANDOFF §6.
+
 Panduan membangun Hamzi bertahap bersama coding agent di **Antigravity** (model Gemini Flash). Pendamping `PRD.md` (apa), `TECH-SPEC.md` (bagaimana), `DESIGN-SYSTEM.md` + `UI-SPEC.md` + `prototype/` (tampilan), `FEATURE-CHECKLIST.md` (bukti lengkap), `AGENTS.md` (aturan agent).
 
 **Prinsip untuk model cepat (Flash):**

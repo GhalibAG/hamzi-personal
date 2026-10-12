@@ -38,6 +38,8 @@ supabase/functions/_shared/common/   @common: calc/* (SEMUA rumus), format.ts, s
 | `useProfile()`, `useUpdateProfile()`, `useStats()` | profil, XP |
 | `repo.invoke(fn, body)` (`@/data`) | Edge Function: `ai-generate`, `ai-chat`, `push-test`, `account-delete` (demo: `local-functions.ts`) |
 
+Offline (mode Supabase): `src/data/outbox.ts` mengantrekan tulisan yang gagal karena jaringan (IndexedDB) dan `src/data/persist.ts` menyimpan cache baca; keduanya dipasang di `src/main.tsx`. Komponen tidak perlu tahu.
+
 Aturan: uang = integer rupiah; tanggal hari = string `'YYYY-MM-DD'` WIB (`useToday()`); waktu disimpan ISO UTC (`wibToInstant(date,'HH:MM').toISOString()`). Hari minggu 1=Senin…7=Minggu.
 
 ## 3. Turunan (jangan hitung ulang di komponen)
