@@ -32,7 +32,7 @@ export function ManualSessionSheet({ open, onClose, moduleId, units }: { open: b
   const save = async () => {
     if (err || !at || finish.isPending) return;
     try {
-      const res = await finish.mutateAsync({ p_id: uuid(), p_started_at: at.toISOString(), p_duration_min: minutes, p_module_id: moduleId, p_unit_id: unitId || null });
+      const res = await finish.mutateAsync({ p_id: uuid(), p_started_at: at.toISOString(), p_duration_min: minutes, p_module_id: moduleId, p_unit_id: unitId || null, p_source: 'manual' });
       if (res.water_awarded) { markWatered(); toast('Sesi tercatat. +1 tetes air!'); } else toast('Sesi tercatat.');
       onClose();
     } catch {

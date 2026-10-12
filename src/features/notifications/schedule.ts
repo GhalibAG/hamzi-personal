@@ -6,7 +6,7 @@ import {
   addDays, budgetUsedPct, cycleStart, daysInMonth, diffDays, inQuietHours, isoWeekday, isRoutineDue, STUDY_WATER_MIN,
   SYSTEM_NOTIF_MAX_PER_DAY, wibDate, wibTime, wibToInstant, type DateStr,
 } from '@common/calc/index.ts';
-import { NOTIF_ACTIONS, notifBody } from '@common/notif-lines.id.ts';
+import { NOTIF_ACTIONS, NOTIF_BODY, notifBody } from '@common/notif-lines.id.ts';
 import type {
   Asset, Attendance, Budget, Course, CourseSchedule, Exam, LearningModule, Routine, RoutineLog, SavingsGoal, Semester,
   StudySession, Task, Transaction,
@@ -81,7 +81,7 @@ export type SkipReason = 'duplicate' | 'disabled' | 'quiet_hours' | 'daily_cap' 
 export interface PlanResult { fire: Reminder[]; skipped: { reminder: Reminder; reason: SkipReason }[] }
 
 const MIN = 60_000;
-const BUDGET100_BODY = 'Anggaran bulan ini sudah terpakai semua. Cek dulu yuk.';
+const BUDGET100_BODY = NOTIF_BODY.budget100[0];
 
 /** Benih kalimat stabil per kunci (variasi badan notifikasi tanpa acak). */
 function seedOf(key: string): number {
@@ -165,6 +165,10 @@ export function dueCandidates(input: PlanInput): Reminder[] {
   }
 
   // --- Pengingat sistem ---
+  const classBody = (startMs: number, now: number) => {
+    const m = Math.round((startMs - now) / MIN);
+    return m <= 0 ? 'Kelas sudah dimulai.' : `Kelas mulai ${m} menit lagi.`;
+  };
   const sem = activeSemester(D(data, 'semesters'));
   const attendances = D(data, 'attendances');
   for (const day of days) {
@@ -174,6 +178,7 @@ export function dueCandidates(input: PlanInput): Reminder[] {
       push({
         dedupe_key: `class:${slot.schedule.id}:${day}`, category: 'system', kind: 'class', system_key: 'class',
         ref_type: 'course_schedule', ref_id: slot.schedule.id, fire_at: new Date(at).toISOString(), title: slot.course.name,
+        body: classBody(wibToInstant(day, slot.start).getTime(), nowMs),
         url: `/kuliah?ref=${slot.schedule.id}`, actions: NOTIF_ACTIONS.class,
       });
     }

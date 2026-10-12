@@ -107,6 +107,7 @@ export function AppShell() {
             <Suspense fallback={<RouteFallback />}><ChatPanel onClose={toggleChat} /></Suspense>
           </aside>
         )}
+        <TimerChip />
         {overlays}
       </div>
     );

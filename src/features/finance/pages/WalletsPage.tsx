@@ -98,7 +98,7 @@ function RecurringRow({ r, onOpen }: { r: RecurringRule; onOpen: () => void }) {
       <div className="flex flex-wrap items-center gap-2 pl-13">
         <Tag tone={r.auto_post ? 'masuk' : 'neutral'}>{r.auto_post ? 'Otomatis' : 'Minta konfirmasi'}</Tag>
         {due && !r.auto_post && <Button size="xs" onClick={post}>Catat sekarang</Button>}
-        {due && r.auto_post && <span className="text-meta text-ink-3">Dicatat otomatis oleh server.</span>}
+        {due && r.auto_post && <span className="text-meta text-ink-3">Dicatat otomatis setiap hari.</span>}
       </div>
     </li>
   );

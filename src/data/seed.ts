@@ -1,7 +1,7 @@
 // Data contoh MODE DEMO — sama dengan prototipe (UI-SPEC: "data di prototipe = mock"), relatif terhadap hari ini (WIB).
 // Hanya dipakai saat VITE_SUPABASE_URL kosong. Akun asli (Supabase) mulai kosong (TECH-SPEC §5.2).
 import {
-  addDays, isoWeekday, isRoutineDue, wibDate, wibToInstant, weekStart, XP, taskXp, STUDY_WATER_MIN,
+  addDays, isoWeekday, isRoutineDue, wibDate, wibToInstant, XP, taskXp, STUDY_WATER_MIN,
 } from '@common/calc/index.ts';
 import type { Db } from './rpc-logic';
 import { recomputeStats } from './rpc-logic';
@@ -326,7 +326,9 @@ export function buildSeed(now: Date = new Date()): Db {
   }
   // hari ini: Bangun & Olahraga selesai, Minum air 5/8, Baca 10 hlm selesai
   logDay(T, [...todayDone, h2.id]);
-  db.routine_logs.push({ id: uuid(), routine_id: h1.id, log_date: T, value: 5, done: false, updated_at: nowIso });
+  const h1Today = db.routine_logs.find((l) => l.routine_id === h1.id && l.log_date === T);
+  if (h1Today) { h1Today.value = 5; h1Today.updated_at = nowIso; }
+  else db.routine_logs.push({ id: uuid(), routine_id: h1.id, log_date: T, value: 5, done: false, updated_at: nowIso });
   // koreksi: log harian kebiasaan "Baca" tidak menambah total di luar target 46 → hapus tetesnya bila lebih
   let extra = db.water_events.length - TARGET_WATER;
   if (extra > 0) {
@@ -352,20 +354,21 @@ export function buildSeed(now: Date = new Date()): Db {
   }
   recomputeStats(db);
 
-  // ---------- Notifikasi (kotak masuk) ----------
-  const N = (kind: string, title: string, body: string, url: string, off: number, hhmm: string, read: boolean, category: 'user' | 'system' = 'user') => {
-    const fire = at(off, hhmm);
+  // ---------- Notifikasi (kotak masuk) — dedupe_key sama dengan ReminderEngine/penjadwal ----------
+  const N = (o: { kind: string; key: string; title: string; body: string; url: string; off: number; hhmm: string; read: boolean; category?: 'user' | 'system'; ref_type?: string; ref_id?: string }) => {
+    const fire = at(o.off, o.hhmm);
     db.scheduled_notifications.push({
-      id: uuid(), category, kind, ref_type: null, ref_id: null, dedupe_key: `${kind}:${uuid()}`, fire_at: fire,
-      title, body, url, actions: [], status: 'sent', sent_at: fire, read_at: read ? fire : null, created_at: fire,
+      id: uuid(), category: o.category ?? 'user', kind: o.kind, ref_type: o.ref_type ?? null, ref_id: o.ref_id ?? null, dedupe_key: o.key, fire_at: fire,
+      title: o.title, body: o.body, url: o.url, actions: [], status: 'sent', sent_at: fire, read_at: o.read ? fire : null, created_at: fire,
     });
   };
-  N('routine', 'Bangun sebelum 05:30', 'Pohonmu nunggu disiram. Cuma butuh sebentar.', '/tumbuh', 0, '05:00', true);
-  N('routine', 'Olahraga 20 menit', 'Satu centang lagi buat pohonmu.', '/tumbuh', 0, '06:00', true);
-  N('exam', 'Kuis Analisis Sistem · H-3', 'Ujian makin dekat. Cicil materinya ya.', '/kuliah', -1, '19:00', false, 'system');
-  N('task', 'Kirim revisi proposal PKM', 'Tenggatnya sebentar lagi. Yuk dicicil.', '/rencana', -1, '22:59', false);
-  N('module', 'SQL & Basis Data', 'Waktunya belajar 25 menit. Aku jagain timernya.', '/tumbuh/sesi', -1, '20:00', true);
+  const pkmTask = db.tasks.find((t) => t.title === 'Kirim revisi proposal PKM')!;
+  const bdlSlot = db.course_schedules.find((x) => x.course_id === bdl.id)!;
+  N({ kind: 'routine', key: `routine:${r1.id}:${T}`, title: r1.name, body: 'Pohonmu nunggu disiram. Cuma butuh sebentar.', url: '/tumbuh', off: 0, hhmm: '05:00', read: true, ref_type: 'routine', ref_id: r1.id });
+  if (isRoutineDue(r2.repeat_days, T)) N({ kind: 'routine', key: `routine:${r2.id}:${T}`, title: r2.name, body: 'Satu centang lagi buat pohonmu.', url: '/tumbuh', off: 0, hhmm: '06:00', read: true, ref_type: 'routine', ref_id: r2.id });
+  N({ kind: 'class', key: `class:${bdlSlot.id}:${T}`, title: bdl.name, body: 'Kelas mulai 30 menit lagi.', url: '/kuliah', off: 0, hhmm: '07:30', read: true, category: 'system', ref_type: 'course_schedule', ref_id: bdlSlot.id });
+  N({ kind: 'module', key: `module:${sql.id}:${day(-1)}`, title: sql.title, body: 'Waktunya belajar 25 menit. Aku jagain timernya.', url: `/tumbuh/sesi?modul=${sql.id}`, off: -1, hhmm: '20:00', read: false, ref_type: 'module', ref_id: sql.id });
+  N({ kind: 'task', key: `task:${pkmTask.id}:60:${pkmTask.due_at}`, title: pkmTask.title, body: 'Tenggatnya sebentar lagi. Yuk dicicil.', url: '/rencana', off: -1, hhmm: '22:59', read: false, ref_type: 'task', ref_id: pkmTask.id });
 
-  void weekStart;
   return db;
 }

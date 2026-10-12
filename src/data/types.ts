@@ -99,7 +99,7 @@ export interface Exam extends Base { course_id: string; kind: 'kuis' | 'uts' | '
 export interface SavingsGoal extends Base {
   name: string; kind: 'dana_darurat' | 'barang' | 'pendidikan' | 'investasi' | 'lainnya'; target_amount: number;
   due_date?: string | null; icon?: string | null; color?: string | null; priority: number; assumed_return_pct: number;
-  status: 'aktif' | 'selesai' | 'dibatalkan'; monthly_plan?: number | null; plan_day?: number | null;
+  status: 'aktif' | 'selesai' | 'dibatalkan'; emergency_months?: number | null; monthly_plan?: number | null; plan_day?: number | null;
 }
 export interface GoalContribution extends Base { goal_id: string; amount: number; contributed_at: string; note?: string | null }
 export interface Asset extends Base { name: string; asset_class: string; platform_label?: string | null; archived: boolean }
@@ -121,7 +121,7 @@ export interface AiMessage extends Base {
   tools_used?: unknown[]; sent_payload?: unknown; provider?: string | null; model?: string | null;
   status: 'ok' | 'error' | 'fallback' | 'limited';
 }
-export interface AiAction extends Base { message_id: string; state: 'pending' | 'applied' | 'cancelled' | 'undone'; applied_refs: { table: string; id: string }[] }
+export interface AiAction extends Base { message_id: string; state: 'pending' | 'applied' | 'cancelled' | 'undone'; applied_refs: { table: string; id: string; item?: number }[] }
 export interface AiRequest extends Base { kind: string; cache_key: string; payload: unknown; response: unknown; provider?: string | null; model?: string | null; status: string; feedback?: -1 | 1 | null; error?: string | null }
 
 export interface Tables {

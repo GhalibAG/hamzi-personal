@@ -1,7 +1,7 @@
 // Turunan Tumbuh (setara rpc_growth_overview / rpc_garden_month): pohon, level kebun, bunga, streak.
 import {
   addDays, daysInMonth, fromParts, gardenLevel, hasBloom, isRoutineDue, qualifies, streak, treeStage, weekStart,
-  STUDY_WATER_MAX_PER_DAY, STUDY_WATER_MIN, type DateStr, type TreeStage,
+  STUDY_WATER_MAX_PER_DAY, STUDY_WATER_MIN, wibDate, type DateStr, type TreeStage,
 } from '@common/calc/index.ts';
 import type { Routine, RoutineLog, StudySession, WaterEvent } from '@/data/types';
 
@@ -17,7 +17,7 @@ export function buildGrowthIndex(routines: Routine[], logs: RoutineLog[], sessio
   const doneSet = new Set(logs.filter((l) => l.done).map((l) => `${l.routine_id}|${l.log_date}`));
   const studyByDay = new Map<string, number>();
   for (const s of sessions) studyByDay.set(s.started_on, (studyByDay.get(s.started_on) ?? 0) + s.duration_min);
-  const created = (r: Routine) => (r.created_at ? r.created_at.slice(0, 10) : '0000-00-00');
+  const created = (r: Routine) => (r.created_at ? wibDate(new Date(r.created_at)) : '0000-00-00');
   const cache = new Map<string, DayGrowth>();
   return {
     dayInfo(d) {
@@ -129,7 +129,7 @@ export function sessionEarnsWater(minutes: number, water: WaterEvent[], day: Dat
   return minutes >= STUDY_WATER_MIN && studyWaterOn(water, day) < STUDY_WATER_MAX_PER_DAY;
 }
 
-const createdDay = (r: Routine) => (r.created_at ? r.created_at.slice(0, 10) : '0000-00-00');
+const createdDay = (r: Routine) => (r.created_at ? wibDate(new Date(r.created_at)) : '0000-00-00');
 
 /**
  * Streak per rutinitas (RUT-06): hari terjadwal berturut-turut yang selesai sampai kemarin, +1 bila hari ini selesai.

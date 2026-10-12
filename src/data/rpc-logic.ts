@@ -37,7 +37,7 @@ export function recomputeStats(db: Db) {
 }
 
 function allRequiredDone(db: Db, day: string): boolean {
-  const req = db.routines.filter((r) => alive(r) && !r.archived && r.is_required && isRoutineDue(r.repeat_days, day));
+  const req = db.routines.filter((r) => alive(r) && !r.archived && r.is_required && isRoutineDue(r.repeat_days, day) && (!r.created_at || wibDate(new Date(r.created_at)) <= day));
   if (req.length === 0) return false;
   return req.every((r) => db.routine_logs.some((l) => l.routine_id === r.id && l.log_date === day && l.done));
 }
@@ -63,12 +63,12 @@ export function rpcRoutineSet(db: Db, a: { p_routine_id: string; p_date: string;
   return { done, water_total: db.water_events.length, stage: treeStage(db.water_events.length).name, all_required: allRequiredDone(db, a.p_date) };
 }
 
-export function rpcStudyFinish(db: Db, a: { p_id: string; p_started_at: string; p_duration_min: number; p_module_id?: string | null; p_unit_id?: string | null }) {
+export function rpcStudyFinish(db: Db, a: { p_id: string; p_started_at: string; p_duration_min: number; p_module_id?: string | null; p_unit_id?: string | null; p_source?: 'timer' | 'manual' }) {
   const day = wibDate(new Date(a.p_started_at));
   if (!db.study_sessions.some((s) => s.id === a.p_id)) {
     db.study_sessions.push({
       id: a.p_id, started_at: a.p_started_at, duration_min: Math.max(1, Math.round(a.p_duration_min)), started_on: day,
-      module_id: a.p_module_id ?? null, unit_id: a.p_unit_id ?? null, source: 'timer',
+      module_id: a.p_module_id ?? null, unit_id: a.p_unit_id ?? null, source: a.p_source === 'manual' ? 'manual' : 'timer',
     });
   }
   let waterAwarded = false;

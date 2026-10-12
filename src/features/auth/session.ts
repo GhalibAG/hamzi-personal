@@ -41,4 +41,6 @@ export async function signInWithEmail(email: string) {
 export async function signOut() {
   if (DEMO) return;
   await supabase().auth.signOut();
+  const { clearQueryCache } = await import('@/data/persist');
+  await clearQueryCache();
 }

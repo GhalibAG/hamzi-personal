@@ -23,6 +23,8 @@ export default function TimerPage() {
   // Mulai / tampilkan timer sekali saat halaman dibuka.
   useEffect(() => {
     if (shown.current || asked.current) return;
+    // Aksi notifikasi (mis. "Tunda 10 mnt") ditangani ReminderEngine — jangan memulai timer.
+    if (params.get('notif_action') && params.get('notif_action') !== 'start') return;
     const t = useTimer.getState();
     if (t.active) {
       t.setMinimized(false);
@@ -38,7 +40,7 @@ export default function TimerPage() {
     }
     asked.current = true;
     openQuick('timer');
-  }, [moduleId, learning.loading, learning.modules, start, openQuick]);
+  }, [moduleId, params, learning.loading, learning.modules, start, openQuick]);
 
   // Timer dikecilkan, selesai & dihapus, atau sheet ditutup tanpa memulai → kembali ke Tumbuh.
   // (Hanya setelah overlay/sheet benar-benar pernah tampil, agar tidak terpicu oleh nilai render lama.)

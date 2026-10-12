@@ -75,16 +75,5 @@ export function FormLabel({ children, id }: { children: ReactNode; id?: string }
   return <span id={id} className="text-label font-bold text-ink-muted">{children}</span>;
 }
 
-/**
- * Salinan lokal `Switch` dengan perbaikan posisi knob (`left-0`). Switch bersama di components/ui/basic.tsx memposisikan
- * knob dari posisi statis tengah (button text-align:center) sehingga keadaan aktif keluar dari track — diminta diperbaiki di sana.
- */
-export function ToggleSwitch({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
-  return (
-    <button type="button" role="switch" aria-checked={checked} aria-label={label} onClick={() => onChange(!checked)} className="flex h-11 w-13 shrink-0 items-center justify-center bg-transparent">
-      <span className={cx('relative h-6.5 w-11 rounded-full transition-colors duration-200', checked ? 'bg-brand-500' : 'bg-n-300')}>
-        <span className={cx('absolute top-0.75 left-0 size-5 rounded-full bg-n-0 shadow-1 transition-transform duration-200', checked ? 'translate-x-5.5' : 'translate-x-0.75')} />
-      </span>
-    </button>
-  );
-}
+/** Alias Switch bersama. */
+export { Switch as ToggleSwitch } from '@/components/ui';

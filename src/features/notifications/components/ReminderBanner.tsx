@@ -40,7 +40,7 @@ export function ReminderBanner({ item, queued, onAction, onOpen, onClose }: {
       onPointerLeave={() => setHold(false)}
       onFocus={() => setHold(true)}
       onBlur={() => setHold(false)}
-      className="fixed inset-x-2.5 top-3 z-50 mx-auto flex max-w-120 animate-pop-in flex-col gap-2 rounded-4xl bg-surface px-3.5 py-3 shadow-notif lg:right-6 lg:left-auto lg:w-95"
+      className="fixed inset-x-2.5 top-3 z-50 mx-auto flex max-w-120 animate-pop-in flex-col gap-2 rounded-4xl bg-surface px-3.5 py-3 shadow-notif lg:top-auto lg:right-6 lg:bottom-6 lg:left-auto lg:w-95"
     >
       <div className="flex items-center gap-2">
         <span aria-hidden="true" className="flex size-5.5 shrink-0 items-center justify-center rounded-xs bg-primary text-on-primary">

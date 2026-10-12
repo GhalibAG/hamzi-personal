@@ -87,3 +87,16 @@ export function attendanceWarn(present: number, held: number, minPct = 75): bool
 export function formatGpa(x: number): string {
   return roundHalfUp2(x).toFixed(2).replace('.', ',');
 }
+
+/**
+ * Matkul diulang → nilai terbaru menggantikan (PRD §7.1). `key` = nama matkul ternormalisasi,
+ * `order` = nomor semester; untuk key yang sama dipakai baris dengan order terbesar.
+ */
+export function latestAttempts<T extends { key: string; order: number }>(rows: T[]): T[] {
+  const best = new Map<string, T>();
+  for (const r of rows) {
+    const b = best.get(r.key);
+    if (!b || r.order >= b.order) best.set(r.key, r);
+  }
+  return [...best.values()];
+}

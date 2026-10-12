@@ -131,6 +131,8 @@
 @layer base {
   html { -webkit-text-size-adjust: 100%; }
   html, body, #root { height: 100%; }
+  /* Prototipe memakai line-height bawaan peramban ("normal"); paragraf panjang memakai leading eksplisit. */
+  html { line-height: normal; }
   body {
     margin: 0;
     background: var(--bg);

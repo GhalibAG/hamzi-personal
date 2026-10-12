@@ -226,7 +226,7 @@ export function Switch({ checked, onChange, label, disabled }: { checked: boolea
       className="flex h-11 w-13 shrink-0 items-center justify-center bg-transparent disabled:opacity-50"
     >
       <span className={cx('relative h-6.5 w-11 rounded-full transition-colors duration-200', checked ? 'bg-brand-500' : 'bg-n-300')}>
-        <span className={cx('absolute top-0.75 size-5 rounded-full bg-n-0 shadow-1 transition-transform duration-200', checked ? 'translate-x-5.5' : 'translate-x-0.75')} />
+        <span className={cx('absolute top-0.75 left-0 size-5 rounded-full bg-n-0 shadow-1 transition-transform duration-200', checked ? 'translate-x-5.5' : 'translate-x-0.75')} />
       </span>
     </button>
   );

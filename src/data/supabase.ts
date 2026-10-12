@@ -4,6 +4,7 @@ import { wibDate } from '@common/calc/index.ts';
 import type { Repo, RpcName } from './repo';
 import { DEFAULT_SETTINGS, uuid } from './repo';
 import { SOFT_DELETE, type Profile, type Settings, type TableName, type Tables, type UserStats } from './types';
+import { enqueue, flushOutbox, isNetworkError, type OutboxOp } from './outbox';
 
 export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
@@ -38,6 +39,49 @@ function fail(e: { message: string } | null): void {
   if (e) throw new Error(e.message);
 }
 
+/** Tabel yang tidak diantrekan offline (butuh server / tidak bermakna offline). */
+const NO_OUTBOX = new Set(['ai_conversations', 'ai_messages', 'ai_actions', 'ai_requests', 'push_subscriptions']);
+
+async function tryOrQueue<T>(op: OutboxOp, call: () => Promise<T>, fallback: () => T): Promise<T> {
+  const queueable = op.kind === 'rpc' || !NO_OUTBOX.has(op.table);
+  if (queueable && typeof navigator !== 'undefined' && !navigator.onLine) {
+    await enqueue(op);
+    return fallback();
+  }
+  try {
+    return await call();
+  } catch (e) {
+    if (queueable && isNetworkError(e)) {
+      await enqueue(op);
+      return fallback();
+    }
+    throw e;
+  }
+}
+
+/** Kirim satu operasi antrean langsung ke Supabase (tanpa antre ulang). */
+async function sendOp(op: OutboxOp): Promise<void> {
+  const sb = supabase();
+  switch (op.kind) {
+    case 'upsert': { const { error } = await sb.from(op.table).upsert(op.rows, { onConflict: 'id' }); fail(error); return; }
+    case 'update': { const { error } = await sb.from(op.table).update(op.patch).eq('id', op.id); fail(error); return; }
+    case 'remove': {
+      const { error } = SOFT_DELETE.includes(op.table as TableName) && !op.hard
+        ? await sb.from(op.table).update({ deleted_at: new Date().toISOString() }).eq('id', op.id)
+        : await sb.from(op.table).delete().eq('id', op.id);
+      fail(error);
+      return;
+    }
+    case 'restore': { const { error } = await sb.from(op.table).update({ deleted_at: null }).eq('id', op.id); fail(error); return; }
+    case 'rpc': { const { error } = await sb.rpc(op.fn, op.args); fail(error); return; }
+  }
+}
+
+/** Kirim ulang antrean offline (dipanggil saat online / app dibuka). Mengembalikan jumlah yang terkirim. */
+export function flushSupabaseOutbox(onDrop?: (msg: string) => void): Promise<number> {
+  return flushOutbox(sendOp, (_e, err) => onDrop?.(err instanceof Error ? err.message : String(err)));
+}
+
 export function createSupabaseRepo(): Repo {
   return {
     mode: 'supabase',
@@ -54,37 +98,51 @@ export function createSupabaseRepo(): Repo {
     },
 
     async upsert(table, rows) {
-      const arr = (Array.isArray(rows) ? rows : [rows]).map((r) => clean({ id: uuid(), ...r }));
-      const { data, error } = await supabase().from(table).upsert(arr, { onConflict: 'id' }).select('*');
-      fail(error);
-      return (data ?? []) as Tables[typeof table][];
+      const arr = (Array.isArray(rows) ? rows : [rows]).map((r) => clean({ id: uuid(), ...r })) as Record<string, unknown>[];
+      return tryOrQueue(
+        { kind: 'upsert', table, rows: arr },
+        async () => {
+          const { data, error } = await supabase().from(table).upsert(arr, { onConflict: 'id' }).select('*');
+          fail(error);
+          return (data ?? []) as Tables[typeof table][];
+        },
+        () => arr as unknown as Tables[typeof table][],
+      );
     },
 
     async update(table, id, patch) {
-      const { data, error } = await supabase().from(table).update(patch as Record<string, unknown>).eq('id', id).select('*').single();
-      fail(error);
-      return data as Tables[typeof table];
+      const p = patch as Record<string, unknown>;
+      return tryOrQueue(
+        { kind: 'update', table, id, patch: p },
+        async () => {
+          const { data, error } = await supabase().from(table).update(p).eq('id', id).select('*').single();
+          fail(error);
+          return data as Tables[typeof table];
+        },
+        () => ({ id, ...p }) as unknown as Tables[typeof table],
+      );
     },
 
     async remove(table, id, opts) {
-      if (SOFT_DELETE.includes(table) && !opts?.hard) {
-        const { error } = await supabase().from(table).update({ deleted_at: new Date().toISOString() }).eq('id', id);
-        fail(error);
-      } else {
-        const { error } = await supabase().from(table).delete().eq('id', id);
-        fail(error);
-      }
+      const op: OutboxOp = { kind: 'remove', table, id, hard: opts?.hard };
+      await tryOrQueue(op, () => sendOp(op), () => undefined);
     },
 
     async restore(table, id) {
-      const { error } = await supabase().from(table).update({ deleted_at: null }).eq('id', id);
-      fail(error);
+      const op: OutboxOp = { kind: 'restore', table, id };
+      await tryOrQueue(op, () => sendOp(op), () => undefined);
     },
 
     async rpc<T>(name: RpcName, args: Record<string, unknown>): Promise<T> {
-      const { data, error } = await supabase().rpc(name, args);
-      fail(error);
-      return data as T;
+      return tryOrQueue(
+        { kind: 'rpc', fn: name, args },
+        async () => {
+          const { data, error } = await supabase().rpc(name, args);
+          fail(error);
+          return data as T;
+        },
+        () => ({ queued: true }) as T,
+      );
     },
 
     async getProfile() {

@@ -1,9 +1,10 @@
 // Turunan Kuliah (setara rpc_gpa_summary / rpc_schedule_overview). Rumus di @common/calc/gpa.
 import {
-  attendancePct, attendanceWarn, ceil2, courseProjected, diffDays, formatGpa, ipk as ipkFn, isoWeekday, parseHHMM, points,
+  attendancePct, attendanceWarn, ceil2, courseProjected, diffDays, formatGpa, ipk as ipkFn, isoWeekday, latestAttempts, parseHHMM, points,
   projectedGpa, requiredIpsThisSemester, roundHalfUp2, scoreToGrade, wibDate, wibMinutes, wibTime, type DateStr, type GradeScale,
 } from '@common/calc/index.ts';
 import { BULAN_PENDEK, HARI } from '@common/format.ts';
+import { normName } from '@common/match.ts';
 import type { Attendance, Course, CourseSchedule, Exam, GradeComponent, Semester, Task } from '@/data/types';
 
 export function activeSemester(semesters: Semester[]): Semester | undefined {
@@ -54,18 +55,24 @@ export function gpaSummary(a: {
 }): GpaSummary {
   const active = activeSemester(a.semesters);
   const live = a.courses.filter((c) => !c.deleted_at);
-  const passed = live.filter((c) => c.final_grade);
+  // Matkul diulang → nilai terbaru menggantikan (PRD §7.1).
+  const semOrder = new Map(a.semesters.map((s) => [s.id, s.number]));
+  const keyOf = (c: Course) => normName(c.name);
+  const passed = latestAttempts(live.filter((c) => c.final_grade).map((c) => ({ c, key: keyOf(c), order: semOrder.get(c.semester_id) ?? 0 }))).map((x) => x.c);
   const p = points(passed.map((c) => ({ credits: c.credits, grade: c.final_grade })), a.scale);
   const ipk = p.credits > 0 ? ipkFn([p]) : null;
   const cur = live.filter((c) => c.semester_id === active?.id);
   const pending = cur.filter((c) => !c.final_grade);
   const semesterCredits = pending.reduce((s, c) => s + c.credits, 0);
+  // Untuk proyeksi & target: nilai lama matkul yang sedang diulang semester ini tidak dihitung lagi.
+  const retaken = new Set(pending.map(keyOf));
+  const base = points(passed.filter((c) => !retaken.has(keyOf(c))).map((c) => ({ credits: c.credits, grade: c.final_grade })), a.scale);
   const sim = points(pending.map((c) => ({ credits: c.credits, grade: c.sim_grade ?? c.target_grade ?? null })), a.scale);
   const ipsSim = sim.credits > 0 ? sim.points / sim.credits : null;
   const officialCur = points(cur.filter((c) => c.final_grade).map((c) => ({ credits: c.credits, grade: c.final_grade })), a.scale);
-  const projected = p.credits + sim.credits > 0 ? projectedGpa({ pointsDone: p.points, creditsDone: p.credits, semesterPoints: sim.points, semesterCredits: sim.credits }) : null;
+  const projected = base.credits + sim.credits > 0 ? projectedGpa({ pointsDone: base.points, creditsDone: base.credits, semesterPoints: sim.points, semesterCredits: sim.credits }) : null;
   const required = a.target && semesterCredits > 0
-    ? requiredIpsThisSemester({ pointsDone: p.points, creditsDone: p.credits, semesterCredits, target: a.target })
+    ? requiredIpsThisSemester({ pointsDone: base.points, creditsDone: base.credits, semesterCredits, target: a.target })
     : null;
   const curIds = new Set(cur.map((c) => c.id));
   const att = a.attendances.filter((x) => curIds.has(x.course_id));

@@ -176,7 +176,7 @@ grant execute on function public.rpc_routine_set(uuid, date, int) to authenticat
 
 -- ---------- RPC tulis: sesi belajar (TECH-SPEC §5.5) ----------
 create or replace function public.fn_study_finish_for(p_uid uuid, p_id uuid, p_started_at timestamptz, p_duration_min int,
-  p_module_id uuid default null, p_unit_id uuid default null)
+  p_module_id uuid default null, p_unit_id uuid default null, p_source text default 'timer')
 returns jsonb language plpgsql security definer set search_path = public as $$
 declare
   v_owner uuid;
@@ -203,7 +203,8 @@ begin
   if v_owner is not null and v_owner <> p_uid then raise exception 'Sesi tidak valid' using errcode = '42501'; end if;
 
   insert into public.study_sessions(id, user_id, started_at, duration_min, module_id, unit_id, source)
-  values (p_id, p_uid, p_started_at, v_dur, p_module_id, p_unit_id, 'timer')
+  values (p_id, p_uid, p_started_at, v_dur, p_module_id, p_unit_id,
+          case when p_source = 'manual' then 'manual' else 'timer' end)
   on conflict (id) do nothing;                         -- idempoten (outbox mengirim ulang)
   select started_on, duration_min into v_day, v_dur from public.study_sessions where id = p_id;
 
@@ -240,15 +241,15 @@ begin
     'water_awarded', v_awarded, 'water_total', v_water, 'xp', greatest(v_xp, 0),
     'stage', public.fn_tree_stage(v_water)->>'name', 'stage_index', (public.fn_tree_stage(v_water)->>'index')::int);
 end $$;
-revoke execute on function public.fn_study_finish_for(uuid, uuid, timestamptz, int, uuid, uuid) from public, anon, authenticated;
-grant execute on function public.fn_study_finish_for(uuid, uuid, timestamptz, int, uuid, uuid) to service_role;
+revoke execute on function public.fn_study_finish_for(uuid, uuid, timestamptz, int, uuid, uuid, text) from public, anon, authenticated;
+grant execute on function public.fn_study_finish_for(uuid, uuid, timestamptz, int, uuid, uuid, text) to service_role;
 
 create or replace function public.rpc_study_finish(p_id uuid, p_started_at timestamptz, p_duration_min int,
-  p_module_id uuid default null, p_unit_id uuid default null)
+  p_module_id uuid default null, p_unit_id uuid default null, p_source text default 'timer')
 returns jsonb language sql security definer set search_path = public as $$
-  select public.fn_study_finish_for(auth.uid(), p_id, p_started_at, p_duration_min, p_module_id, p_unit_id) $$;
-revoke execute on function public.rpc_study_finish(uuid, timestamptz, int, uuid, uuid) from public, anon;
-grant execute on function public.rpc_study_finish(uuid, timestamptz, int, uuid, uuid) to authenticated;
+  select public.fn_study_finish_for(auth.uid(), p_id, p_started_at, p_duration_min, p_module_id, p_unit_id, p_source) $$;
+revoke execute on function public.rpc_study_finish(uuid, timestamptz, int, uuid, uuid, text) from public, anon;
+grant execute on function public.rpc_study_finish(uuid, timestamptz, int, uuid, uuid, text) to authenticated;
 
 -- ---------- RPC tulis: status unit belajar ----------
 create or replace function public.fn_unit_set_status_for(p_uid uuid, p_unit_id uuid, p_status text)

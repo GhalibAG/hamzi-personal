@@ -1,5 +1,6 @@
 // Riwayat transaksi `/keuangan/transaksi` (FIN-07, FIN-10): per hari (judul + total), cari, filter chip, edit, hapus + Urungkan, CSV.
 import { useMemo, useState, type ReactNode } from 'react';
+import { useSearchParams } from 'react-router';
 import { dayLabelComma } from '@common/format.ts';
 import { Icon } from '@/components/icons';
 import { Button, Chip, EmptyState, ErrorState, IconButton, ListSkeleton, Page, ScreenHeader } from '@/components/ui';
@@ -56,7 +57,8 @@ export default function TransactionsPage() {
   const remover = useRemove('transactions');
   const openQuick = useUi((s) => s.openQuick);
   const editor = useTxEditor();
-  const [q, setQ] = useState('');
+  const [params] = useSearchParams();
+  const [q, setQ] = useState(() => params.get('q') ?? '');
   const [kind, setKind] = useState<KindFilter>('all');
   const [cat, setCat] = useState('');
   const [wal, setWal] = useState('');

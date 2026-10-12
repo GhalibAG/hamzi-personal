@@ -7,6 +7,8 @@ export const NOTIF_BODY: Record<string, string[]> = {
   exam: ['Ujian makin dekat. Cicil materinya ya.'],
   expense_nudge: ['Ada pengeluaran hari ini yang belum dicatat?'],
   budget: ['Anggaran bulan ini hampir habis. Cek dulu yuk.'],
+  budget100: ['Anggaran bulan ini sudah habis. Cek dulu yuk.'],
+  recurring: ['Ada transaksi berulang yang perlu dikonfirmasi.'],
   weekly_review: ['Review mingguanmu siap. Lihat sebentar?'],
   goal: ['Hari ini jadwal setor ke target tabungan.'],
   backup: ['Sudah 14 hari sejak backup terakhir. Export dulu yuk.'],

@@ -4,8 +4,12 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import { fileURLToPath, URL } from 'node:url';
+import { readFileSync } from 'node:fs';
+
+const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as { version: string };
 
 export default defineConfig({
+  define: { 'import.meta.env.VITE_APP_VERSION': JSON.stringify(pkg.version) },
   plugins: [
     react(),
     tailwindcss(),
@@ -33,10 +37,10 @@ export default defineConfig({
           { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
         shortcuts: [
-          { name: 'Catat pengeluaran', url: '/keuangan?quick=expense' },
-          { name: 'Tambah tugas', url: '/rencana?quick=task' },
-          { name: 'Mulai belajar', url: '/tumbuh?quick=timer' },
-          { name: 'Chat Hamzi', url: '/chat' },
+          { name: 'Catat pengeluaran', url: '/keuangan?quick=expense', icons: [{ src: '/icons/sc-expense.png', sizes: '96x96', type: 'image/png' }] },
+          { name: 'Tambah tugas', url: '/rencana?quick=task', icons: [{ src: '/icons/sc-task.png', sizes: '96x96', type: 'image/png' }] },
+          { name: 'Mulai belajar', url: '/tumbuh?quick=timer', icons: [{ src: '/icons/sc-timer.png', sizes: '96x96', type: 'image/png' }] },
+          { name: 'Chat Hamzi', url: '/chat', icons: [{ src: '/icons/sc-chat.png', sizes: '96x96', type: 'image/png' }] },
         ],
         share_target: {
           action: '/share-target',

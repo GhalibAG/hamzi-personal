@@ -1,5 +1,7 @@
 // Repo MODE DEMO: semua data di localStorage peramban (tanpa server). Perilaku RPC = rpc-logic.ts.
-import { wibDate, XP, goalProgressPct } from '@common/calc/index.ts';
+import { wibDate, wibToInstant, XP, goalProgressPct } from '@common/calc/index.ts';
+import { NOTIF_BODY } from '@common/notif-lines.id.ts';
+import { advanceRun } from '@/features/finance/derive';
 import type { Repo, RpcName } from './repo';
 import { DEFAULT_SETTINGS, uuid } from './repo';
 import {
@@ -23,6 +25,7 @@ function load(): Db {
     if (raw) {
       const parsed = JSON.parse(raw) as Db;
       cache = { ...emptyDb(), ...parsed, _settings: { ...DEFAULT_SETTINGS, ...parsed._settings } };
+      if (runDemoJobs(cache)) persist();
       return cache;
     }
   } catch {
@@ -31,6 +34,43 @@ function load(): Db {
   cache = buildSeed();
   persist();
   return cache;
+}
+
+/**
+ * Job harian versi demo (setara fn_run_recurring di server): transaksi berulang `auto_post` dicatat sendiri,
+ * yang minta konfirmasi dimasukkan ke kotak notifikasi. Mengembalikan true bila ada perubahan.
+ */
+function runDemoJobs(db: Db): boolean {
+  const today = wibDate();
+  let changed = false;
+  for (const r of db.recurring_rules) {
+    if (!r.active || r.next_run > today) continue;
+    if (r.auto_post) {
+      for (let guard = 0; r.next_run <= today && guard < 400; guard++) {
+        const at = wibToInstant(r.next_run, '08:00').toISOString();
+        const tx = {
+          id: uuid(), kind: r.template.kind, amount: r.template.amount, direction: 1 as const, wallet_id: r.template.wallet_id,
+          to_wallet_id: null, category_id: r.template.category_id, note: r.template.note ?? null, recurring_rule_id: r.id,
+          occurred_at: at, occurred_on: r.next_run, created_at: at, updated_at: at, deleted_at: null,
+        };
+        db.transactions.push(tx);
+        r.next_run = advanceRun(r);
+      }
+      changed = true;
+    } else {
+      const key = `recurring:${r.id}:${r.next_run}`;
+      if (!db.scheduled_notifications.some((n) => n.dedupe_key === key)) {
+        const now = new Date().toISOString();
+        db.scheduled_notifications.push({
+          id: uuid(), category: 'user', kind: 'recurring', ref_type: 'recurring_rule', ref_id: r.id, dedupe_key: key, fire_at: now,
+          title: `Konfirmasi ${r.template.note || (r.template.kind === 'income' ? 'pemasukan' : 'pengeluaran')} berulang`,
+          body: NOTIF_BODY.recurring[0], url: '/keuangan/dompet', actions: [], status: 'sent', sent_at: now, read_at: null, created_at: now,
+        });
+        changed = true;
+      }
+    }
+  }
+  return changed;
 }
 
 function persist() {

@@ -39,7 +39,7 @@ language sql immutable as $$
   end $$;
 
 -- Bank kalimat badan notifikasi — salinan common/notif-lines.id.ts (NOTIF_BODY). Tanpa nominal.
--- 'budget100' & 'recurring' adalah tambahan SQL (belum ada di bank TS).
+-- 'budget100' & 'recurring' juga ada di bank TS.
 create or replace function public.fn_notif_body(p_kind text, p_seed text default '') returns text
 language plpgsql immutable as $$
 declare arr text[];

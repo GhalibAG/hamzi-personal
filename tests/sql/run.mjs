@@ -853,6 +853,26 @@ await test('#1/#21/#22 rpc_gpa_summary: IPS 3,56; IPS dibutuhkan; proyeksi', asy
   assert.equal(Number(g.ips_sim), 4);
 });
 
+await test('PRD §7.1 rpc_gpa_summary: matkul diulang → nilai terbaru menggantikan', async () => {
+  const UR = await newUser('Ulang');
+  await as(UR);
+  const s1 = await one(`insert into public.semesters(number, label, start_date, end_date) values (1, 'S1', '2025-09-01', '2026-01-31') returning id`);
+  const s2 = await one(`insert into public.semesters(number, label, start_date, end_date) values (2, 'S2', '2026-02-01', '2026-07-31') returning id`);
+  await db.query(`insert into public.courses(semester_id, name, credits, final_grade) values ($1, 'Kalkulus', 3, 'C'), ($1, 'Fisika', 3, 'A')`, [s1]);
+  await db.query(`insert into public.courses(semester_id, name, credits, final_grade) values ($1, 'kalkulus ', 3, 'B')`, [s2]);
+  let g = await one(`select public.rpc_gpa_summary()`);
+  assert.equal(g.credits_passed, 6);
+  assert.equal(Number(g.ipk), 3.5);
+  // diulang lagi di semester aktif (simulasi A): proyeksi & target tidak memakai nilai lama
+  await db.query(`update public.user_settings set target_gpa = 3.9`);
+  const s3 = await one(`insert into public.semesters(number, label, start_date, end_date, is_active) values (3, 'S3', '2026-08-01', '2027-01-31', true) returning id`);
+  await db.query(`insert into public.courses(semester_id, name, credits, sim_grade) values ($1, 'Kalkulus', 3, 'A')`, [s3]);
+  g = await one(`select public.rpc_gpa_summary()`);
+  assert.equal(Number(g.ipk), 3.5);
+  assert.equal(Number(g.projected), 4);
+  assert.equal(Number(g.required.display), 3.8);
+});
+
 // =====================================================================================
 console.log('\nHapus akun');
 

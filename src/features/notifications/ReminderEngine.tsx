@@ -13,6 +13,7 @@ import { useUpsert } from '@/data/hooks';
 import type { ScheduledNotification } from '@/data/types';
 import { useBannerQueue } from './banner';
 import { ReminderBanner } from './components/ReminderBanner';
+import { useTimer } from '@/stores/timer';
 import { rowToReminder, useNotifActions, useReminderData } from './hooks';
 import { notifPermission } from './push';
 import { planReminders, type Reminder, type ReminderData, type SentLog } from './schedule';
@@ -68,6 +69,8 @@ export function ReminderEngine() {
   const [params, setParams] = useSearchParams();
   const queue = useBannerQueue((s) => s.queue);
   const shift = useBannerQueue((s) => s.shift);
+  // Jangan menutupi layar timer fokus yang terbuka penuh; antrean tetap disimpan.
+  const timerOpen = useTimer((s) => !!s.active && !s.minimized);
 
   // Nilai terbaru untuk callback interval (tanpa memasang ulang timer).
   const latest = useRef({ data, ready, notifs, settings, profile, upsert });
@@ -139,7 +142,7 @@ export function ReminderEngine() {
   }, [action, ready, loc.key, params, setParams, nav, notifs, data, run]);
 
   const current = queue[0];
-  if (!current) return null;
+  if (!current || timerOpen) return null;
   const next = shift;
   return (
     <ReminderBanner
