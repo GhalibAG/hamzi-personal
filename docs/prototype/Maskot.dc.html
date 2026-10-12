@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Hamzi — 8 mood</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 1120px; height: 640px; box-sizing: border-box; padding: 32px 40px; background: #FAFBFA; font-family: 'Plus Jakarta Sans', sans-serif; color: #14201B; display: flex; flex-direction: column; gap: 20px">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <h1 style="margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.5px">Hamzi</h1>
+      <span style="font-size: 14px; color: #4F5B56">Kucing krem bersyal hijau. Kedua matanya huruf hamzah (ء) yang diputar dan diskalakan per mood.</span>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
+      <span style="font-size: 12px; font-weight: 700; color: #4F5B56">Orientasi mata</span>
+      <div style="background: #EAEFEC; border-radius: 999px; padding: 4px; display: flex; gap: 4px">
+        <button onClick="{{pickA}}" aria-pressed="{{isA}}" style="{{styleA}}">A · sama arah</button>
+        <button onClick="{{pickB}}" aria-pressed="{{isB}}" style="{{styleB}}">B · dicerminkan</button>
+      </div>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; flex: 1">
+    <sc-for list="{{moods}}" as="m" hint-placeholder-count="8">
+      <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 22px; padding: 14px 16px; display: flex; gap: 12px; align-items: center">
+        <div style="width: 112px; height: 112px; border-radius: 20px; background: #ECFDF3; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+          <dc-import name="Hamzi" mood="{{m.id}}" size="108" mirror="{{mirror}}" hint-size="108px,108px"></dc-import>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+          <span style="font-size: 15px; font-weight: 800">{{m.name}}</span>
+          <span style="font-size: 11.5px; color: #6B7873; line-height: 1.4">{{m.when}}</span>
+          <span style="font-size: 12.5px; color: #05603A; font-weight: 600; line-height: 1.4">“{{m.line}}”</span>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1120,"height":640}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { mirror: false }; }
+  renderVals() {
+    const s = this.state;
+    const seg = (on) => 'height: 36px; padding: 0 14px; border-radius: 999px; border: 0; cursor: pointer; font-size: 13px; font-weight: 700; ' + (on ? 'background: #FFFFFF; color: #14201B; box-shadow: 0 1px 3px rgba(20,32,27,0.12)' : 'background: transparent; color: #4F5B56');
+    return {
+      mirror: s.mirror,
+      isA: !s.mirror, isB: s.mirror,
+      styleA: seg(!s.mirror), styleB: seg(s.mirror),
+      pickA: () => this.setState({ mirror: false }),
+      pickB: () => this.setState({ mirror: true }),
+      moods: [
+        { id: 'calm', name: 'Tenang', when: 'Default, napas pelan', line: 'Halo! Mau mulai dari mana hari ini?' },
+        { id: 'happy', name: 'Senang', when: 'Tugas atau sesi selesai', line: 'Mantap, satu beres!' },
+        { id: 'excited', name: 'Bersemangat', when: 'Streak atau level naik', line: 'Streak 4 hari! Kamu keren.' },
+        { id: 'focus', name: 'Fokus', when: 'Timer jalan, AI memproses', line: 'Fokus dulu, aku jagain waktunya.' },
+        { id: 'worried', name: 'Khawatir', when: 'Tenggat < 24 jam, anggaran ≥ 80%', line: 'Tenggatnya dekat, mau dipecah kecil?' },
+        { id: 'sleepy', name: 'Mengantuk', when: 'Lewat 23:00 atau absen 2 hari', line: 'Sudah malam. Sisanya besok.' },
+        { id: 'sleeping', name: 'Tidur', when: 'Tidak dibuka ≥ 3 hari', line: 'Zzz… aku nunggu kamu balik.' },
+        { id: 'celebrate', name: 'Merayakan', when: 'Target 25/50/75/100%, lencana', line: 'Target 50% tercapai!' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+/* Pemetaan token → utilitas Tailwind (pakai kelas ini, bukan hex/px ajaib). */
+@theme inline {
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-ink: var(--text);
+  --color-ink-2: var(--text-2);
+  --color-ink-3: var(--text-3);
+  --color-ink-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-on-primary-soft: var(--on-primary-soft);
+  --color-primary-hover: var(--primary-hover);
+  --color-nav-pill: var(--nav-active-pill);
+  --color-header: var(--header-bg);
+  --color-header-c1: var(--header-circle-1);
+  --color-header-c2: var(--header-circle-2);
+  --color-header-c3: var(--header-circle-3);
+  --color-on-header-sub: var(--on-header-sub);
+  --color-scrim: var(--scrim);
+  --color-white-14: var(--white-14);
+  --color-white-16: var(--white-16);
+  --color-badge-dot: var(--badge-dot);
+
+  --color-brand-50: var(--brand-50); --color-brand-100: var(--brand-100); --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300); --color-brand-400: var(--brand-400); --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600); --color-brand-700: var(--brand-700); --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900); --color-brand-tint: var(--brand-tint);
+
+  --color-n-0: var(--n-0); --color-n-25: var(--n-25); --color-n-50: var(--n-50); --color-n-100: var(--n-100);
+  --color-n-200: var(--n-200); --color-n-300: var(--n-300); --color-n-400: var(--n-400); --color-n-500: var(--n-500);
+  --color-n-600: var(--n-600); --color-n-700: var(--n-700); --color-n-900: var(--n-900);
+
+  --color-warn-bg: var(--warn-bg); --color-warn-fg: var(--warn-fg); --color-warn-strong: var(--warn-strong);
+  --color-warn-banner: var(--warn-banner-bg); --color-warn-banner-line: var(--warn-banner-border);
+  --color-danger: var(--danger); --color-danger-bg: var(--danger-bg); --color-danger-fg: var(--danger-fg);
+  --color-danger-soft: var(--danger-soft); --color-danger-line: var(--danger-border); --color-danger-tint: var(--danger-tint);
+  --color-danger-deep: var(--danger-deep);
+  --color-info-bg: var(--info-bg); --color-info-fg: var(--info-fg);
+
+  --color-rencana-bg: var(--mod-rencana-bg); --color-rencana-fg: var(--mod-rencana-fg);
+  --color-rencana-bar: var(--mod-rencana-bar); --color-rencana-text: var(--mod-rencana-text);
+  --color-kuliah-bg: var(--mod-kuliah-bg); --color-kuliah-fg: var(--mod-kuliah-fg); --color-kuliah-bar: var(--mod-kuliah-bar);
+  --color-kuliah-hero: var(--mod-kuliah-hero); --color-kuliah-deep: var(--mod-kuliah-deep);
+  --color-kuliah-line: var(--mod-kuliah-line); --color-kuliah-sub: var(--mod-kuliah-sub);
+  --color-keuangan-bg: var(--mod-keuangan-bg); --color-keuangan-fg: var(--mod-keuangan-fg);
+  --color-target-bg: var(--mod-target-bg); --color-target-fg: var(--mod-target-fg);
+  --color-target-bar: var(--mod-target-bar); --color-target-track: var(--mod-target-track);
+  --color-invest-bg: var(--mod-invest-bg); --color-invest-fg: var(--mod-invest-fg); --color-invest-bar: var(--mod-invest-bar);
+  --color-belajar-bg: var(--mod-belajar-bg); --color-belajar-fg: var(--mod-belajar-fg);
+  --color-belajar-bar: var(--mod-belajar-bar); --color-belajar-text: var(--mod-belajar-text);
+  --color-rutin-bg: var(--mod-rutin-bg); --color-rutin-fg: var(--mod-rutin-fg);
+
+  --color-lm-0-bg: var(--lm-0-bg); --color-lm-0-fg: var(--lm-0-fg); --color-lm-0-bar: var(--lm-0-bar);
+  --color-lm-1-bg: var(--lm-1-bg); --color-lm-1-fg: var(--lm-1-fg); --color-lm-1-bar: var(--lm-1-bar);
+  --color-lm-2-bg: var(--lm-2-bg); --color-lm-2-fg: var(--lm-2-fg); --color-lm-2-bar: var(--lm-2-bar);
+  --color-lm-3-bg: var(--lm-3-bg); --color-lm-3-fg: var(--lm-3-fg); --color-lm-3-bar: var(--lm-3-bar);
+  --color-lm-4-bg: var(--lm-4-bg); --color-lm-4-fg: var(--lm-4-fg); --color-lm-4-bar: var(--lm-4-bar);
+
+  --color-tree-ground: var(--tree-ground); --color-tree-soil: var(--tree-soil); --color-tree-trunk: var(--tree-trunk);
+  --color-tree-leaf-1: var(--tree-leaf-1); --color-tree-leaf-2: var(--tree-leaf-2); --color-tree-leaf-3: var(--tree-leaf-3);
+  --color-tree-fruit: var(--tree-fruit); --color-tree-flower: var(--tree-flower);
+
+  /* Radius (menimpa skala bawaan Tailwind) */
+  --radius-xs: var(--r-xs); --radius-sm: var(--r-sm); --radius-md: var(--r-md); --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl); --radius-2xl: var(--r-2xl); --radius-3xl: var(--r-3xl); --radius-4xl: var(--r-4xl);
+  --radius-5xl: var(--r-5xl); --radius-6xl: var(--r-6xl); --radius-sheet: var(--r-sheet);
+
+  /* Bayangan */
+  --shadow-1: var(--shadow-1); --shadow-bubble: var(--shadow-bubble); --shadow-float: var(--shadow-float);
+  --shadow-hero-green: var(--shadow-hero-green); --shadow-hero-purple: var(--shadow-hero-purple);
+  --shadow-fab: var(--shadow-fab); --shadow-pop: var(--shadow-pop); --shadow-toast: var(--shadow-toast);
+  --shadow-notif: var(--shadow-notif); --shadow-sheet: var(--shadow-sheet); --shadow-day-sel: var(--shadow-day-sel);
+}
+
+/* Skala tipografi DESIGN-SYSTEM §3 (rem; 1rem = 16px) */
+@theme {
+  --text-2xs: 0.65625rem;      /* 10.5 */
+  --text-micro: 0.6875rem;     /* 11 */
+  --text-small: 0.71875rem;    /* 11.5 */
+  --text-meta: 0.75rem;        /* 12 */
+  --text-meta-lg: 0.78125rem;  /* 12.5 */
+  --text-label: 0.8125rem;     /* 13 */
+  --text-label-lg: 0.84375rem; /* 13.5 */
+  --text-body: 0.875rem;       /* 14 */
+  --text-card: 0.9375rem;      /* 15 */
+  --text-section: 1rem;        /* 16 */
+  --text-section-lg: 1.0625rem;/* 17 */
+  --text-h3: 1.125rem;         /* 18 */
+  --text-stage: 1.1875rem;     /* 19 */
+  --text-h2: 1.25rem;          /* 20 */
+  --text-name: 1.375rem;       /* 22 */
+  --text-stat: 1.5rem;         /* 24 */
+  --text-title: 1.625rem;      /* 26 */
+  --text-h1: 1.75rem;          /* 28 */
+  --text-timer-sm: 1.875rem;   /* 30 */
+  --text-display: 2rem;        /* 32 */
+  --text-display-lg: 2.375rem; /* 38 */
+  --text-display-xl: 2.5rem;   /* 40 */
+  --text-display-2xl: 2.75rem; /* 44 */
+
+  --ease-out-soft: cubic-bezier(.2,.8,.2,1);
+
+  --animate-shimmer: shimmer 1.4s ease-in-out infinite;
+  --animate-fade-in: fade-in 200ms var(--ease-out) both;
+  --animate-pop-in: pop-in 200ms var(--ease-out) both;
+  --animate-sheet-up: sheet-up 320ms var(--ease-out) both;
+  --animate-dialog-in: dialog-in 200ms var(--ease-out) both;
+  --animate-toast-in: toast-in 200ms var(--ease-out) both;
+  --animate-sway: sway 5s ease-in-out infinite;
+  --animate-dot: dot 1.2s ease-in-out infinite;
+}
+
+@keyframes shimmer { 0%, 100% { opacity: 1 } 50% { opacity: .55 } }
+@keyframes fade-in { from { opacity: 0 } to { opacity: 1 } }
+@keyframes pop-in { from { opacity: 0; transform: scale(.9) } to { opacity: 1; transform: scale(1) } }
+@keyframes sheet-up { from { transform: translateY(100%) } to { transform: translateY(0) } }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(8px) scale(.98) } to { opacity: 1; transform: none } }
+@keyframes toast-in { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
+@keyframes sway { 0%, 100% { transform: rotate(-1deg) } 50% { transform: rotate(1deg) } }
+@keyframes dot { 0%, 80%, 100% { transform: translateY(0); opacity: .6 } 40% { transform: translateY(-4px); opacity: 1 } }
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  html, body, #root { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  :focus-visible { outline: 2px solid var(--brand-400); outline-offset: 2px; }
+  a { color: var(--primary); }
+  input[type='time']::-webkit-calendar-picker-indicator { opacity: .6; }
+}
+
+@layer utilities {
+  .tabular { font-variant-numeric: tabular-nums; }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .sr-only-focusable:not(:focus) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+}
+
+/* Mode Minimal & reduced motion: matikan animasi dekoratif */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 100ms !important; animation-iteration-count: 1 !important; transition-duration: 100ms !important; }
+}
+:root[data-minimal='true'] *, :root[data-minimal='true'] *::before, :root[data-minimal='true'] *::after {
+  animation: none !important; transition-duration: 0ms !important;
+}

@@ -1,0 +1,89 @@
+/* Token desain Hamzi — DESIGN-SYSTEM §2.1 (nilai dari prototipe). Jangan memakai hex di komponen. */
+:root {
+  /* Brand hijau */
+  --brand-50:#ECFDF3; --brand-100:#D1FADF; --brand-200:#A6F4C5; --brand-300:#6CE9A6; --brand-400:#32D583;
+  --brand-500:#12B76A; --brand-600:#039855; --brand-700:#027A48; --brand-800:#05603A; --brand-900:#054F31;
+  --brand-tint:#E7F8EF;
+
+  /* Netral */
+  --n-0:#FFFFFF; --n-25:#FAFBFA; --n-50:#F4F7F5; --n-100:#EAEFEC; --n-200:#DCE3DF; --n-300:#C3CDC8;
+  --n-400:#98A5A0; --n-500:#6B7873; --n-600:#4F5B56; --n-700:#3A4541; --n-900:#14201B;
+
+  /* Peran */
+  --bg:var(--n-25); --surface:var(--n-0); --surface-2:var(--n-50); --border:var(--n-100); --border-strong:var(--n-200);
+  --text:var(--n-900); --text-2:var(--n-600); --text-3:var(--n-500); --text-muted:var(--n-700);
+  --primary:var(--brand-700); --on-primary:#FFFFFF; --primary-soft:var(--brand-50); --on-primary-soft:var(--brand-800);
+  --primary-hover:var(--brand-800);
+  --nav-active-pill:var(--brand-100);
+  --header-bg:var(--brand-700);
+  --header-circle-1:var(--brand-600);
+  --header-circle-2:var(--brand-800);
+  --header-circle-3:var(--brand-500);
+  --on-header-sub:var(--brand-100);
+  --scrim:rgba(20,32,27,.40);
+  --white-14:rgba(255,255,255,.14); --white-16:rgba(255,255,255,.16);
+  --badge-dot:#FDB022;
+
+  /* Status */
+  --warn-bg:#FEF0C7; --warn-fg:#93370D; --warn-strong:#B54708; --warn-banner-bg:#FFFAEB; --warn-banner-border:#FEDF89;
+  --danger:#F04438; --danger-bg:#FEE4E2; --danger-fg:#B42318; --danger-soft:#FFFBFA; --danger-border:#FECDCA; --danger-tint:#FEECEB; --danger-deep:#912018;
+  --info-bg:#E6F7FB; --info-fg:#0E7090;
+
+  /* Aksen modul */
+  --mod-rencana-bg:#EAF4FF;   --mod-rencana-fg:#1570EF;   --mod-rencana-bar:#2E90FA;  --mod-rencana-text:#175CD3;
+  --mod-kuliah-bg:#F1EEFF;    --mod-kuliah-fg:#6938EF;    --mod-kuliah-bar:#7A5AF8;
+  --mod-kuliah-hero:#5925DC;  --mod-kuliah-deep:#4A1FB8;  --mod-kuliah-line:#D9D6FE; --mod-kuliah-sub:#EBE9FE;
+  --mod-keuangan-bg:#E7F8EF;  --mod-keuangan-fg:#039855;
+  --mod-target-bg:#FEF4E6;    --mod-target-fg:#DC6803;    --mod-target-bar:#F79009;   --mod-target-track:#FEF0C7;
+  --mod-invest-bg:#FDEDF8;    --mod-invest-fg:#C11574;    --mod-invest-bar:#EE46BC;
+  --mod-belajar-bg:#E6F7FB;   --mod-belajar-fg:#088AB2;   --mod-belajar-bar:#06AED4;  --mod-belajar-text:#0E7090;
+  --mod-rutin-bg:#FEECEB;     --mod-rutin-fg:#D92D20;
+
+  /* Palet modul belajar (color_index 0..4) */
+  --lm-0-bg:#E6F7FB; --lm-0-fg:#0E7090; --lm-0-bar:#06AED4;
+  --lm-1-bg:#EAF4FF; --lm-1-fg:#175CD3; --lm-1-bar:#2E90FA;
+  --lm-2-bg:#FEF4E6; --lm-2-fg:#B54708; --lm-2-bar:#F79009;
+  --lm-3-bg:#F1EEFF; --lm-3-fg:#5925DC; --lm-3-bar:#7A5AF8;
+  --lm-4-bg:#FDEDF8; --lm-4-fg:#C11574; --lm-4-bar:#EE46BC;
+
+  /* Maskot */
+  --cat-fur:#FFF4E0; --cat-fur-2:#F3E6CC; --cat-shade:#F2E0BD; --cat-ear:#FDA29B; --cat-nose:#F97066;
+  --cat-ink:#054F31; --cat-scarf:#12B76A; --cat-scarf-line:#027A48; --cat-scarf-knot:#039855;
+  --spark-1:#F79009; --spark-2:#FDB022;
+
+  /* Pohon */
+  --tree-ground:#A6F4C5; --tree-soil:#B88A5F; --tree-trunk:#93623C; --tree-leaf-1:#32D583; --tree-leaf-2:#12B76A;
+  --tree-leaf-3:#039855; --tree-fruit:#F79009; --tree-flower:#FDA29B;
+
+  /* Radius */
+  --r-xs:6px; --r-sm:8px; --r-md:12px; --r-lg:14px; --r-xl:16px; --r-2xl:18px; --r-3xl:20px; --r-4xl:22px;
+  --r-5xl:24px; --r-6xl:26px; --r-sheet:28px; --r-pill:999px;
+
+  /* Bayangan */
+  --shadow-1:0 1px 3px rgba(20,32,27,.12);
+  --shadow-bubble:0 4px 12px rgba(5,79,49,.18);
+  --shadow-float:0 16px 40px rgba(2,122,72,.18);
+  --shadow-hero-green:0 16px 40px rgba(2,122,72,.22);
+  --shadow-hero-purple:0 16px 40px rgba(89,37,220,.25);
+  --shadow-fab:0 12px 32px rgba(2,122,72,.35);
+  --shadow-pop:0 12px 32px rgba(20,32,27,.16);
+  --shadow-toast:0 12px 32px rgba(20,32,27,.25);
+  --shadow-notif:0 16px 40px rgba(20,32,27,.22);
+  --shadow-sheet:0 -12px 32px rgba(20,32,27,.12);
+  --shadow-day-sel:0 8px 20px rgba(2,122,72,.25);
+
+  /* Motion */
+  --dur-fast:120ms; --dur-base:200ms; --dur-slow:320ms; --dur-fill:600ms;
+  --ease-out:cubic-bezier(.2,.8,.2,1);
+
+  /* Layout */
+  --nav-h:76px; --sidebar-w:240px; --chat-panel-w:380px; --content-max:1120px;
+}
+
+/* Mode gelap (P1) — hanya peran yang didefinisikan ulang; aksen modul tetap. */
+:root[data-theme="dark"] {
+  --bg:#0B1410; --surface:#121D18; --surface-2:#1A2822; --border:#22332B; --border-strong:#2C4036;
+  --text:#E8F1EC; --text-2:#B2C2BA; --text-3:#8A9C93; --text-muted:#C9D6CF;
+  --primary:var(--brand-400); --on-primary:#052E1D; --primary-soft:#123526; --on-primary-soft:var(--brand-200);
+  --primary-hover:var(--brand-300); --nav-active-pill:#1C4632; --header-bg:var(--brand-800);
+}

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Hamzi — Kuliah</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#027A48}a:hover{color:#05603A}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #FAFBFA; font-family: 'Plus Jakarta Sans', sans-serif; color: #14201B">
+  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 76px; overflow-y: auto">
+
+    <div style="padding: 20px 16px 0; display: flex; align-items: center; justify-content: space-between">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 12px; color: #6B7873; font-weight: 600">Semester 6 · Ganjil 2026/2027</span>
+        <h1 style="margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px">Kuliah</h1>
+      </div>
+      <button aria-label="Pengaturan semester" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #EAEFEC; background: #FFFFFF; color: #3A4541; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"></path><circle cx="16" cy="7" r="2"></circle><circle cx="10" cy="17" r="2"></circle></svg></button>
+    </div>
+
+    <div style="margin: 16px 16px 0; background: #5925DC; border-radius: 24px; padding: 18px; color: #FFFFFF; position: relative; overflow: hidden; box-shadow: 0 16px 40px rgba(89,37,220,0.25)">
+      <div aria-hidden="true" style="position: absolute; width: 180px; height: 180px; border-radius: 50%; background: #6938EF; right: -60px; top: -70px"></div>
+      <div aria-hidden="true" style="position: absolute; width: 90px; height: 90px; border-radius: 50%; background: #7A5AF8; right: 40px; bottom: -50px; opacity: 0.6"></div>
+      <div style="position: relative; display: flex; justify-content: space-between; align-items: flex-end">
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 12px; font-weight: 600; color: #EBE9FE">IPK saat ini</span>
+          <span style="font-size: 40px; font-weight: 800; letter-spacing: -1px; line-height: 1.1">3,62</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px">
+          <span style="font-size: 12px; color: #EBE9FE; font-weight: 600">Proyeksi akhir semester</span>
+          <span style="font-size: 22px; font-weight: 800">{{projIpk}}</span>
+        </div>
+      </div>
+      <div style="position: relative; margin-top: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <div style="background: rgba(255,255,255,0.14); border-radius: 14px; padding: 8px 10px; display: flex; flex-direction: column"><span style="font-size: 11px; color: #EBE9FE">SKS lulus</span><span style="font-size: 15px; font-weight: 800">95/144</span></div>
+        <div style="background: rgba(255,255,255,0.14); border-radius: 14px; padding: 8px 10px; display: flex; flex-direction: column"><span style="font-size: 11px; color: #EBE9FE">Target IPK</span><span style="font-size: 15px; font-weight: 800">3,65</span></div>
+        <div style="background: rgba(255,255,255,0.14); border-radius: 14px; padding: 8px 10px; display: flex; flex-direction: column"><span style="font-size: 11px; color: #EBE9FE">Kehadiran</span><span style="font-size: 15px; font-weight: 800">94%</span></div>
+      </div>
+    </div>
+
+    <div style="margin: 16px 16px 0; background: #EAEFEC; border-radius: 999px; padding: 4px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px">
+      <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="3">
+        <button onClick="{{tb.pick}}" aria-pressed="{{tb.sel}}" style="{{tb.style}}">{{tb.label}}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{isJadwal}}" hint-placeholder-val="{{ true }}">
+      <div style="padding: 18px 16px 24px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; align-items: center; gap: 12px; background: #FFFAEB; border: 1px solid #FEDF89; border-radius: 18px; padding: 12px 14px">
+          <span style="width: 40px; height: 40px; border-radius: 14px; background: #FEF0C7; color: #B54708; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"></path><path d="M10.3 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg></span>
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 14px; font-weight: 700">Kuis Analisis Sistem · H-3</span>
+            <span style="font-size: 12px; color: #4F5B56">Kamis 10:00 · bab 1–3 · 2 sesi belajar dijadwalkan</span>
+          </div>
+        </div>
+
+        <h2 style="margin: 0; font-size: 14px; font-weight: 800">Senin, 12 Okt</h2>
+        <div style="display: flex; flex-direction: column; gap: 0; position: relative">
+          <div style="display: flex; gap: 12px">
+            <div style="display: flex; flex-direction: column; align-items: center; width: 44px"><span style="font-size: 13px; font-weight: 700; color: #6B7873">08:00</span><span style="flex: 1; width: 2px; background: #EAEFEC; margin: 4px 0; min-height: 40px"></span></div>
+            <div style="flex: 1; background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 18px; padding: 12px 14px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; opacity: 0.75">
+              <div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 700">Basis Data Lanjut</span><span style="font-size: 11px; font-weight: 700; color: #05603A; background: #ECFDF3; padding: 3px 8px; border-radius: 999px">Hadir ✓</span></div>
+              <span style="font-size: 12px; color: #6B7873">08:00–10:30 · R. 2.3 · Pak Hendra</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px">
+            <div style="display: flex; flex-direction: column; align-items: center; width: 44px"><span style="font-size: 13px; font-weight: 800; color: #5925DC">16:30</span><span style="flex: 1; width: 2px; background: #D9D6FE; margin: 4px 0; min-height: 40px"></span></div>
+            <div style="flex: 1; background: #F1EEFF; border: 1px solid #D9D6FE; border-radius: 18px; padding: 12px 14px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px">
+              <div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 700">Pemrograman Web</span><span style="font-size: 11px; font-weight: 700; color: #4A1FB8">22 mnt lagi</span></div>
+              <span style="font-size: 12px; color: #4F5B56">16:30–18:10 · Lab Komputer 2 · Bu Rina</span>
+              <div style="display: flex; gap: 8px">
+                <button onClick="{{checkIn}}" style="{{checkStyle}}">{{checkLabel}}</button>
+                <button style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #D9D6FE; background: #FFFFFF; color: #4A1FB8; font-size: 12px; font-weight: 700; cursor: pointer">Catatan</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="margin: 0; font-size: 14px; font-weight: 800">Kehadiran per mata kuliah</h2>
+        <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 20px; padding: 6px 14px">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #EAEFEC"><span style="font-size: 13px; font-weight: 600">Basis Data Lanjut</span><span style="font-size: 13px; font-weight: 700">6/6 · 100%</span></div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #EAEFEC"><span style="font-size: 13px; font-weight: 600">Pemrograman Web</span><span style="font-size: 13px; font-weight: 700">5/6 · 83%</span></div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0"><span style="font-size: 13px; font-weight: 600">Manajemen Proyek SI</span><span style="font-size: 13px; font-weight: 700; color: #B42318">4/6 · 67% · batas 75%</span></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{isTugas}}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 18px 16px 24px; display: flex; flex-direction: column; gap: 10px">
+        <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 700">Laporan praktikum 4</span><span style="font-size: 12px; font-weight: 700; color: #B42318">Besok</span></div><span style="font-size: 12px; color: #6B7873">Basis Data Lanjut · bobot 10%</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 700">Mockup sistem informasi akademik</span><span style="font-size: 12px; font-weight: 700; color: #6B7873">19 Okt</span></div><span style="font-size: 12px; color: #6B7873">Interaksi Manusia Komputer · kelompok</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 700">Gantt chart proyek</span><span style="font-size: 12px; font-weight: 700; color: #6B7873">23 Okt</span></div><span style="font-size: 12px; color: #6B7873">Manajemen Proyek SI</span></div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{isNilai}}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 18px 16px 24px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <h2 style="margin: 0; font-size: 14px; font-weight: 800">Simulasi IPS semester ini</h2>
+          <span style="font-size: 20px; font-weight: 800; color: #5925DC">{{ips}}</span>
+        </div>
+        <span style="font-size: 12px; color: #4F5B56; margin-top: -6px">Ketuk nilai untuk mencoba skenario. {{targetText}}</span>
+        <sc-for list="{{courses}}" as="c" hint-placeholder-count="5">
+          <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 700">{{c.name}}</span><span style="font-size: 12px; color: #6B7873; font-weight: 600">{{c.sks}} SKS</span></div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap">
+              <sc-for list="{{c.opts}}" as="o" hint-placeholder-count="5">
+                <button onClick="{{o.pick}}" aria-pressed="{{o.sel}}" aria-label="{{o.aria}}" style="{{o.style}}">{{o.g}}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+
+  <nav aria-label="Navigasi utama" style="position: absolute; left: 0; right: 0; bottom: 0; height: 76px; background: #FFFFFF; border-top: 1px solid #EAEFEC; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 6px 4px 10px; box-sizing: border-box; z-index: 4">
+    <a href="Main.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5L12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Beranda</span>
+    </a>
+    <a href="Rencana.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"></rect><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Rencana</span>
+    </a>
+    <a href="Kuliah.dc.html" aria-current="page" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #027A48">
+      <span style="width: 56px; height: 30px; border-radius: 999px; background: #D1FADF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="#027A48" stroke="#027A48" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5L12 4.5l10 5-10 5z"></path><path d="M6 11.5v4.5c0 1.6 2.7 3 6 3s6-1.4 6-3v-4.5"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 800">Kuliah</span>
+    </a>
+    <a href="Keuangan.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2H5"></path><circle cx="16.5" cy="14" r="1.2" fill="currentColor"></circle></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Keuangan</span>
+    </a>
+    <a href="Belajar.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"></path><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7z"></path><path d="M12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 6 7 5.5z"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Tumbuh</span>
+    </a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tab: 'jadwal', checked: false, g: { bd: 'A', pw: 'A', as: 'B+', mp: 'B+', imk: 'A', sb: 'B' } };
+  }
+  renderVals() {
+    const s = this.state;
+    const tabsDef = [['jadwal', 'Jadwal'], ['tugas', 'Tugas kuliah'], ['nilai', 'Nilai']];
+    const tabs = tabsDef.map(([id, label]) => {
+      const sel = s.tab === id;
+      return { label: label, sel: sel, pick: () => this.setState({ tab: id }),
+        style: 'height: 40px; border-radius: 999px; border: 0; cursor: pointer; font-size: 13px; font-weight: 700; ' + (sel ? 'background: #FFFFFF; color: #14201B; box-shadow: 0 1px 3px rgba(20,32,27,0.12)' : 'background: transparent; color: #4F5B56') };
+    });
+    const scale = { 'A': 4, 'B+': 3.5, 'B': 3, 'C+': 2.5, 'C': 2 };
+    const grades = ['A', 'B+', 'B', 'C+', 'C'];
+    const list = [['bd', 'Basis Data Lanjut', 3], ['pw', 'Pemrograman Web', 3], ['as', 'Analisis & Perancangan Sistem', 3], ['mp', 'Manajemen Proyek SI', 3], ['imk', 'Interaksi Manusia Komputer', 3], ['sb', 'Statistika Bisnis', 2]];
+    let pts = 0, sks = 0;
+    list.forEach(([id, n, k]) => { pts += scale[s.g[id]] * k; sks += k; });
+    const ips = pts / sks;
+    const proj = (3.62 * 95 + ips * sks) / (95 + sks);
+    const fmt = (x) => (Math.round(x * 100 + 1e-9) / 100).toFixed(2).replace('.', ',');
+    const reqRaw = (3.65 * (95 + sks) - 3.62 * 95) / sks;
+    const req = Math.ceil(reqRaw * 100 - 1e-9) / 100;
+    const targetText = reqRaw > 4 ? 'Target IPK 3,65 tidak tercapai dengan SKS semester ini.' : 'Target IPK 3,65 butuh IPS ≥ ' + req.toFixed(2).replace('.', ',') + (ips >= reqRaw ? ' · skenario ini tercapai ✓' : ' · skenario ini belum cukup');
+    const courses = list.map(([id, name, k]) => ({
+      name: name, sks: k,
+      opts: grades.map((gr) => {
+        const sel = s.g[id] === gr;
+        return { g: gr, sel: sel, aria: name + ' nilai ' + gr,
+          pick: () => this.setState({ g: Object.assign({}, s.g, { [id]: gr }) }),
+          style: 'min-width: 44px; height: 36px; padding: 0 10px; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 800; ' + (sel ? 'background: #5925DC; color: #FFFFFF; border: 0' : 'background: #FFFFFF; color: #3A4541; border: 1px solid #DCE3DF') };
+      })
+    }));
+    return {
+      tabs: tabs, courses: courses,
+      isJadwal: s.tab === 'jadwal', isTugas: s.tab === 'tugas', isNilai: s.tab === 'nilai',
+      ips: 'IPS ' + fmt(ips),
+      targetText: targetText,
+      projIpk: fmt(proj),
+      checkIn: () => this.setState({ checked: !s.checked }),
+      checkLabel: s.checked ? 'Hadir ✓' : 'Tandai hadir',
+      checkStyle: 'height: 36px; padding: 0 14px; border-radius: 999px; border: 0; font-size: 12px; font-weight: 700; cursor: pointer; ' + (s.checked ? 'background: #ECFDF3; color: #05603A' : 'background: #5925DC; color: #FFFFFF')
+    };
+  }
+}
+</script>
+</body>
+</html>

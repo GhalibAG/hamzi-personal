@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Hamzi — Kuliah (desktop)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button,input{font-family:inherit}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; height: 100vh; min-height: 640px; background: #FAFBFA; font-family: 'Plus Jakarta Sans', sans-serif; color: #14201B">
+  <div style="flex: 0 0 240px; height: 100%">
+    <dc-import name="DeskSidebar" active="kuliah" chat-open="{{chatOpen}}" on-toggle-chat="{{toggleChat}}" hint-size="240px,100%"></dc-import>
+  </div>
+  <main style="flex: 999 1 560px; min-width: 0; height: 100%; overflow-y: auto">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 18px">
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+        <div style="display: flex; flex-direction: column; flex: 1; min-width: 200px">
+          <span style="font-size: 12px; color: #6B7873; font-weight: 600">Semester 6 · Ganjil 2026/2027</span>
+          <h1 style="margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px">Kuliah</h1>
+        </div>
+        <button style="height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #EAEFEC; background: #FFFFFF; color: #3A4541; font-size: 13.5px; font-weight: 700; cursor: pointer">Kelola semester &amp; matkul</button>
+        <button style="height: 44px; padding: 0 18px; border-radius: 999px; border: 0; background: #027A48; color: #FFFFFF; font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(2,122,72,0.25)">+ Tugas / Ujian</button>
+      </div>
+
+      <div style="position: relative; overflow: hidden; background: #5925DC; border-radius: 24px; padding: 20px 24px; color: #FFFFFF; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; box-shadow: 0 16px 40px rgba(89,37,220,0.25)">
+        <div aria-hidden="true" style="position: absolute; width: 260px; height: 260px; border-radius: 50%; background: #6938EF; right: -60px; top: -120px"></div>
+        <div style="position: relative; display: flex; flex-direction: column; min-width: 140px"><span style="font-size: 12px; font-weight: 600; color: #EBE9FE">IPK saat ini</span><span style="font-size: 40px; font-weight: 800; letter-spacing: -1px; line-height: 1.1">3,62</span></div>
+        <div style="position: relative; display: flex; flex-direction: column; min-width: 150px"><span style="font-size: 12px; font-weight: 600; color: #EBE9FE">Proyeksi akhir semester</span><span style="font-size: 26px; font-weight: 800">{{projIpk}}</span></div>
+        <div style="position: relative; display: grid; grid-template-columns: repeat(3, minmax(110px, 1fr)); gap: 10px; flex: 1 1 360px">
+          <div style="background: rgba(255,255,255,0.14); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column"><span style="font-size: 11px; color: #EBE9FE">SKS lulus</span><span style="font-size: 16px; font-weight: 800">95/144</span></div>
+          <div style="background: rgba(255,255,255,0.14); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column"><span style="font-size: 11px; color: #EBE9FE">Target IPK</span><span style="font-size: 16px; font-weight: 800">3,65</span></div>
+          <div style="background: rgba(255,255,255,0.14); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column"><span style="font-size: 11px; color: #EBE9FE">Kehadiran</span><span style="font-size: 16px; font-weight: 800">94%</span></div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start">
+        <section style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; align-items: center; gap: 12px; background: #FFFAEB; border: 1px solid #FEDF89; border-radius: 18px; padding: 12px 14px">
+            <span style="width: 40px; height: 40px; border-radius: 14px; background: #FEF0C7; color: #B54708; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"></path><path d="M10.3 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg></span>
+            <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 700">Kuis Analisis Sistem · H-3</span><span style="font-size: 12px; color: #4F5B56">Kamis 10:00 · bab 1–3 · 2 sesi belajar dijadwalkan</span></div>
+          </div>
+          <h2 style="margin: 0; font-size: 14px; font-weight: 800">Jadwal hari ini · Senin, 12 Okt</h2>
+          <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 18px; padding: 12px 14px; display: flex; gap: 14px; align-items: center; opacity: 0.8">
+            <span style="font-size: 13px; font-weight: 700; color: #6B7873; min-width: 44px">08:00</span>
+            <div style="display: flex; flex-direction: column; flex: 1"><span style="font-size: 14px; font-weight: 700">Basis Data Lanjut</span><span style="font-size: 12px; color: #6B7873">08:00–10:30 · R. 2.3 · Pak Hendra</span></div>
+            <span style="font-size: 11px; font-weight: 700; color: #05603A; background: #ECFDF3; padding: 3px 8px; border-radius: 999px">Hadir ✓</span>
+          </div>
+          <div style="background: #F1EEFF; border: 1px solid #D9D6FE; border-radius: 18px; padding: 12px 14px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap">
+            <span style="font-size: 13px; font-weight: 800; color: #5925DC; min-width: 44px">16:30</span>
+            <div style="display: flex; flex-direction: column; flex: 1; min-width: 160px"><span style="font-size: 14px; font-weight: 700">Pemrograman Web · <span style="color: #4A1FB8">22 mnt lagi</span></span><span style="font-size: 12px; color: #4F5B56">16:30–18:10 · Lab Komputer 2 · Bu Rina</span></div>
+            <button onClick="{{checkIn}}" style="{{checkStyle}}">{{checkLabel}}</button>
+            <button style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #D9D6FE; background: #FFFFFF; color: #4A1FB8; font-size: 12px; font-weight: 700; cursor: pointer">Catatan</button>
+          </div>
+          <h2 style="margin: 6px 0 0; font-size: 14px; font-weight: 800">Tugas kuliah</h2>
+          <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 18px; padding: 4px 14px">
+            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F4F7F5; gap: 8px"><span style="font-size: 13.5px; font-weight: 700">Laporan praktikum 4 <span style="font-weight: 500; color: #6B7873">· Basis Data Lanjut</span></span><span style="font-size: 12px; font-weight: 700; color: #B42318">Besok</span></div>
+            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F4F7F5; gap: 8px"><span style="font-size: 13.5px; font-weight: 700">Mockup SI akademik <span style="font-weight: 500; color: #6B7873">· IMK · kelompok</span></span><span style="font-size: 12px; font-weight: 700; color: #6B7873">19 Okt</span></div>
+            <div style="display: flex; justify-content: space-between; padding: 10px 0; gap: 8px"><span style="font-size: 13.5px; font-weight: 700">Gantt chart proyek <span style="font-weight: 500; color: #6B7873">· Manajemen Proyek SI</span></span><span style="font-size: 12px; font-weight: 700; color: #6B7873">23 Okt</span></div>
+          </div>
+          <h2 style="margin: 6px 0 0; font-size: 14px; font-weight: 800">Kehadiran per mata kuliah</h2>
+          <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 18px; padding: 4px 14px">
+            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F4F7F5"><span style="font-size: 13px; font-weight: 600">Basis Data Lanjut</span><span style="font-size: 13px; font-weight: 700">6/6 · 100%</span></div>
+            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F4F7F5"><span style="font-size: 13px; font-weight: 600">Pemrograman Web</span><span style="font-size: 13px; font-weight: 700">5/6 · 83%</span></div>
+            <div style="display: flex; justify-content: space-between; padding: 10px 0"><span style="font-size: 13px; font-weight: 600">Manajemen Proyek SI</span><span style="font-size: 13px; font-weight: 700; color: #B42318">4/6 · 67% · batas 75%</span></div>
+          </div>
+        </section>
+
+        <section style="flex: 1 1 360px; min-width: 0; background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline"><h2 style="margin: 0; font-size: 15px; font-weight: 800">Simulasi IPS semester ini</h2><span style="font-size: 20px; font-weight: 800; color: #5925DC">{{ips}}</span></div>
+          <span style="font-size: 12px; color: #4F5B56">{{targetText}}</span>
+          <sc-for list="{{courses}}" as="c" hint-placeholder-count="6">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid #F4F7F5; flex-wrap: wrap">
+              <div style="display: flex; flex-direction: column; flex: 1; min-width: 150px"><span style="font-size: 13.5px; font-weight: 700">{{c.name}}</span><span style="font-size: 11.5px; color: #6B7873">{{c.sks}} SKS</span></div>
+              <div style="display: flex; gap: 4px">
+                <sc-for list="{{c.opts}}" as="o" hint-placeholder-count="5">
+                  <button onClick="{{o.pick}}" aria-pressed="{{o.sel}}" aria-label="{{o.aria}}" style="{{o.style}}">{{o.g}}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </section>
+      </div>
+    </div>
+  </main>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div style="flex: 0 0 380px; height: 100%"><dc-import name="DeskChat" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import></div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { chatOpen: false, checked: false, g: { bd: 'A', pw: 'A', as: 'B+', mp: 'B+', imk: 'A', sb: 'B' } }; }
+  renderVals() {
+    const s = this.state;
+    const scale = { 'A': 4, 'B+': 3.5, 'B': 3, 'C+': 2.5, 'C': 2 };
+    const list = [['bd', 'Basis Data Lanjut', 3], ['pw', 'Pemrograman Web', 3], ['as', 'Analisis & Perancangan Sistem', 3], ['mp', 'Manajemen Proyek SI', 3], ['imk', 'Interaksi Manusia Komputer', 3], ['sb', 'Statistika Bisnis', 2]];
+    let pts = 0, sks = 0; list.forEach(([id, n, k]) => { pts += scale[s.g[id]] * k; sks += k; });
+    const ips = pts / sks; const proj = (3.62 * 95 + pts) / (95 + sks);
+    const fmt = (x) => (Math.round(x * 100 + 1e-9) / 100).toFixed(2).replace('.', ',');
+    const reqRaw = (3.65 * (95 + sks) - 3.62 * 95) / sks; const req = Math.ceil(reqRaw * 100 - 1e-9) / 100;
+    return {
+      chatOpen: s.chatOpen, toggleChat: () => this.setState((p) => ({ chatOpen: !p.chatOpen })),
+      ips: 'IPS ' + fmt(ips), projIpk: fmt(proj),
+      targetText: 'Ketuk nilai untuk mencoba skenario. Target IPK 3,65 butuh IPS ≥ ' + req.toFixed(2).replace('.', ',') + (ips >= reqRaw ? ' · skenario ini tercapai ✓' : ' · skenario ini belum cukup'),
+      courses: list.map(([id, name, k]) => ({ name: name, sks: k, opts: Object.keys(scale).map((gr) => { const sel = s.g[id] === gr; return { g: gr, sel: sel, aria: name + ' nilai ' + gr,
+        pick: () => this.setState({ g: Object.assign({}, s.g, { [id]: gr }) }),
+        style: 'min-width: 40px; height: 34px; padding: 0 8px; border-radius: 10px; cursor: pointer; font-size: 12.5px; font-weight: 800; ' + (sel ? 'background: #5925DC; color: #FFFFFF; border: 0' : 'background: #FFFFFF; color: #3A4541; border: 1px solid #DCE3DF') }; }) })),
+      checkIn: () => this.setState({ checked: !s.checked }), checkLabel: s.checked ? 'Hadir ✓' : 'Tandai hadir',
+      checkStyle: 'height: 36px; padding: 0 14px; border-radius: 999px; border: 0; font-size: 12px; font-weight: 700; cursor: pointer; ' + (s.checked ? 'background: #ECFDF3; color: #05603A' : 'background: #5925DC; color: #FFFFFF')
+    };
+  }
+}
+</script>
+</body>
+</html>

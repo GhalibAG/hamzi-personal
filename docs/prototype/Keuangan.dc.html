@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Hamzi — Keuangan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#027A48}a:hover{color:#05603A}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #FAFBFA; font-family: 'Plus Jakarta Sans', sans-serif; color: #14201B">
+  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 76px; overflow-y: auto">
+
+    <div style="padding: 20px 16px 0; display: flex; align-items: center; justify-content: space-between">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 12px; color: #6B7873; font-weight: 600">Siklus 1–31 Oktober · sisa 20 hari</span>
+        <h1 style="margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px">Keuangan</h1>
+      </div>
+      <button aria-label="Dompet" style="height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #EAEFEC; background: #FFFFFF; color: #3A4541; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2H5"></path></svg>3 dompet</button>
+    </div>
+
+    <div style="margin: 16px 16px 0; background: #027A48; border-radius: 24px; padding: 18px; color: #FFFFFF; position: relative; overflow: hidden; box-shadow: 0 16px 40px rgba(2,122,72,0.22)">
+      <div aria-hidden="true" style="position: absolute; width: 200px; height: 200px; border-radius: 50%; background: #039855; right: -70px; top: -90px; opacity: 0.7"></div>
+      <div aria-hidden="true" style="position: absolute; width: 120px; height: 120px; border-radius: 50%; background: #05603A; left: -40px; bottom: -70px; opacity: 0.6"></div>
+      <div style="position: relative; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 12px; font-weight: 600; color: #D1FADF">Saldo semua dompet</span>
+        <span style="font-size: 32px; font-weight: 800; letter-spacing: -0.8px">{{balance}}</span>
+      </div>
+      <div style="position: relative; margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+        <div style="background: rgba(255,255,255,0.14); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 11px; color: #D1FADF; font-weight: 600">↓ Masuk bulan ini</span><span style="font-size: 15px; font-weight: 800">Rp 2.500.000</span></div>
+        <div style="background: rgba(255,255,255,0.14); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 11px; color: #D1FADF; font-weight: 600">↑ Keluar bulan ini</span><span style="font-size: 15px; font-weight: 800">{{spentCycle}}</span></div>
+      </div>
+    </div>
+
+    <div style="padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 18px">
+
+      <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span style="font-size: 14px; font-weight: 800">Anggaran Oktober</span>
+          <span style="font-size: 13px; font-weight: 700; color: #4F5B56">{{budgetText}}</span>
+        </div>
+        <div style="height: 10px; border-radius: 999px; background: #EAEFEC; overflow: hidden"><div style="{{budgetBar}}"></div></div>
+        <div style="display: flex; gap: 8px">
+          <div style="flex: 1; background: #ECFDF3; border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column"><span style="font-size: 11px; color: #05603A; font-weight: 600">Aman per hari</span><span style="font-size: 15px; font-weight: 800; color: #054F31">{{safeDaily}}</span></div>
+          <div style="flex: 1; background: #F4F7F5; border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column"><span style="font-size: 11px; color: #4F5B56; font-weight: 600">Keluar hari ini</span><span style="font-size: 15px; font-weight: 800">{{spentToday}}</span></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px">
+          <div style="display: grid; grid-template-columns: 84px 1fr 44px; gap: 8px; align-items: center; font-size: 12px"><span style="font-weight: 600">Makan</span><div style="height: 8px; border-radius: 999px; background: #EAEFEC"><div style="width: 46%; height: 100%; border-radius: 999px; background: #12B76A"></div></div><span style="text-align: right; font-weight: 700">46%</span></div>
+          <div style="display: grid; grid-template-columns: 84px 1fr 44px; gap: 8px; align-items: center; font-size: 12px"><span style="font-weight: 600">Transport</span><div style="height: 8px; border-radius: 999px; background: #EAEFEC"><div style="width: 21%; height: 100%; border-radius: 999px; background: #12B76A"></div></div><span style="text-align: right; font-weight: 700">21%</span></div>
+          <div style="display: grid; grid-template-columns: 84px 1fr 44px; gap: 8px; align-items: center; font-size: 12px"><span style="font-weight: 600">Kuota</span><div style="height: 8px; border-radius: 999px; background: #EAEFEC"><div style="width: 14%; height: 100%; border-radius: 999px; background: #12B76A"></div></div><span style="text-align: right; font-weight: 700">14%</span></div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 800">Hari ini</h2>
+          <span style="font-size: 12px; color: #6B7873; font-weight: 600">{{txCount}} transaksi</span>
+        </div>
+        <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 20px; padding: 4px 14px">
+          <sc-for list="{{tx}}" as="x" hint-placeholder-count="3">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F4F7F5">
+              <span style="{{x.iconStyle}}">{{x.initial}}</span>
+              <div style="display: flex; flex-direction: column; gap: 2px; flex: 1"><span style="font-size: 14px; font-weight: 700">{{x.cat}}</span><span style="font-size: 12px; color: #6B7873">{{x.meta}}</span></div>
+              <span style="{{x.amtStyle}}">{{x.amt}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <h2 style="margin: 0; font-size: 16px; font-weight: 800">Target &amp; investasi</h2>
+        <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px">
+          <div style="min-width: 160px; background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+            <span style="width: 36px; height: 36px; border-radius: 12px; background: #FEF4E6; color: #DC6803; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle></svg></span>
+            <span style="font-size: 13px; font-weight: 700">Dana darurat</span>
+            <div style="height: 6px; border-radius: 999px; background: #FEF0C7"><div style="width: 34%; height: 100%; border-radius: 999px; background: #F79009"></div></div>
+            <span style="font-size: 12px; color: #4F5B56">34% · Rp 1,7 jt / 5 jt</span>
+          </div>
+          <div style="min-width: 160px; background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+            <span style="width: 36px; height: 36px; border-radius: 12px; background: #FEF4E6; color: #DC6803; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="2"></rect><path d="M2 19h20"></path></svg></span>
+            <span style="font-size: 13px; font-weight: 700">Laptop baru</span>
+            <div style="height: 6px; border-radius: 999px; background: #FEF0C7"><div style="width: 60%; height: 100%; border-radius: 999px; background: #F79009"></div></div>
+            <span style="font-size: 12px; color: #4F5B56">60% · nabung Rp 473rb/bln</span>
+          </div>
+          <div style="min-width: 160px; background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+            <span style="width: 36px; height: 36px; border-radius: 12px; background: #FDEDF8; color: #C11574; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"></path><path d="M15 7h6v6"></path></svg></span>
+            <span style="font-size: 13px; font-weight: 700">Reksa dana PU</span>
+            <span style="font-size: 18px; font-weight: 800; color: #027A48">+2,1%</span>
+            <span style="font-size: 12px; color: #4F5B56">Diperbarui manual · 3 hari lalu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{toast}}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 92px; background: #14201B; color: #FFFFFF; border-radius: 16px; padding: 14px; font-size: 13px; font-weight: 600; z-index: 6">Tersimpan. Sisa aman hari ini {{safeDaily}}.</div>
+  </sc-if>
+
+  <sc-if value="{{noToast}}" hint-placeholder-val="{{ true }}">
+  <button aria-label="Catat transaksi" onClick="{{openSheet}}" style="position: absolute; right: 16px; bottom: 92px; width: 56px; height: 56px; border-radius: 50%; border: 0; background: #027A48; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 32px rgba(2,122,72,0.35); cursor: pointer; z-index: 5">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+  </button>
+  </sc-if>
+
+  <nav aria-label="Navigasi utama" style="position: absolute; left: 0; right: 0; bottom: 0; height: 76px; background: #FFFFFF; border-top: 1px solid #EAEFEC; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 6px 4px 10px; box-sizing: border-box; z-index: 4">
+    <a href="Main.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5L12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Beranda</span>
+    </a>
+    <a href="Rencana.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"></rect><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Rencana</span>
+    </a>
+    <a href="Kuliah.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5L12 4.5l10 5-10 5z"></path><path d="M6 11.5v4.5c0 1.6 2.7 3 6 3s6-1.4 6-3v-4.5"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Kuliah</span>
+    </a>
+    <a href="Keuangan.dc.html" aria-current="page" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #027A48">
+      <span style="width: 56px; height: 30px; border-radius: 999px; background: #D1FADF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="#027A48" stroke="#027A48" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2H5"></path><circle cx="16.5" cy="14" r="1.4" fill="#FFFFFF" stroke="none"></circle></svg></span>
+      <span style="font-size: 11px; font-weight: 800">Keuangan</span>
+    </a>
+    <a href="Belajar.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"></path><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7z"></path><path d="M12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 6 7 5.5z"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Tumbuh</span>
+    </a>
+  </nav>
+
+  <sc-if value="{{sheet}}" hint-placeholder-val="{{ false }}">
+    <button aria-label="Tutup" onClick="{{closeSheet}}" style="position: absolute; inset: 0; border: 0; background: rgba(20,32,27,0.4); cursor: pointer; z-index: 8"></button>
+    <div role="dialog" aria-label="Catat transaksi" style="position: absolute; left: 0; right: 0; bottom: 0; background: #FFFFFF; border-radius: 28px 28px 0 0; padding: 10px 16px 16px; z-index: 9; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 -12px 32px rgba(20,32,27,0.12)">
+      <span aria-hidden="true" style="align-self: center; width: 36px; height: 4px; border-radius: 999px; background: #DCE3DF"></span>
+      <div style="background: #EAEFEC; border-radius: 999px; padding: 4px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px">
+        <sc-for list="{{types}}" as="ty" hint-placeholder-count="2">
+          <button onClick="{{ty.pick}}" aria-pressed="{{ty.sel}}" style="{{ty.style}}">{{ty.label}}</button>
+        </sc-for>
+      </div>
+      <div style="text-align: center; display: flex; flex-direction: column; gap: 2px; padding: 4px 0">
+        <span style="font-size: 12px; color: #6B7873; font-weight: 600">{{typeLabel}}</span>
+        <span aria-live="polite" style="{{amountStyle}}">{{amountText}}</span>
+      </div>
+      <div style="display: flex; gap: 6px; justify-content: center">
+        <sc-for list="{{quick}}" as="q" hint-placeholder-count="4">
+          <button onClick="{{q.pick}}" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #DCE3DF; background: #FFFFFF; font-size: 13px; font-weight: 700; color: #3A4541; cursor: pointer">{{q.label}}</button>
+        </sc-for>
+      </div>
+      <div style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px">
+        <sc-for list="{{cats}}" as="c" hint-placeholder-count="5">
+          <button onClick="{{c.pick}}" aria-pressed="{{c.sel}}" style="{{c.style}}">{{c.label}}</button>
+        </sc-for>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: #4F5B56; font-weight: 600; padding: 0 2px"><span>Dompet: Tunai ▾</span><span>Hari ini, 16:08 ▾</span></div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{keys}}" as="k" hint-placeholder-count="12">
+          <button onClick="{{k.press}}" aria-label="{{k.aria}}" style="height: 52px; border-radius: 16px; border: 0; background: #F4F7F5; font-size: 20px; font-weight: 700; color: #14201B; cursor: pointer">{{k.label}}</button>
+        </sc-for>
+      </div>
+      <button onClick="{{save}}" style="{{saveStyle}}">Simpan</button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startOpen":{"editor":"boolean","default":false,"tsType":"boolean"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sheet: props.startOpen === true || props.startOpen === 'true',
+      type: 'out', amt: '', cat: 'Makan', toast: false,
+      tx: [
+        { cat: 'Makan', meta: 'Tunai · 12:30 · nasi padang', amt: 25000, out: true },
+        { cat: 'Transport', meta: 'E-wallet · 07:15 · ojek ke kampus', amt: 18000, out: true },
+        { cat: 'Kuota', meta: 'E-wallet · 06:40', amt: 42000, out: true }
+      ]
+    };
+  }
+  componentWillUnmount() { clearTimeout(this._t); }
+  renderVals() {
+    const s = this.state;
+    const rp = (n) => 'Rp ' + n.toLocaleString('id-ID');
+    const today = s.tx.filter((t) => t.out).reduce((a, t) => a + t.amt, 0);
+    const income = s.tx.filter((t) => !t.out).reduce((a, t) => a + t.amt, 0);
+    const budget = 2000000;
+    const cycleBefore = 1075000;
+    const spentCycle = cycleBefore + today;
+    const pct = Math.min(100, Math.round(spentCycle / budget * 100));
+    const remaining = Math.max(0, budget - spentCycle);
+    const safe = Math.floor(remaining / 20 / 1000) * 1000;
+    const barColor = pct >= 100 ? '#F04438' : pct >= 80 ? '#F79009' : '#12B76A';
+    const colors = { Makan: ['#E7F8EF', '#05603A'], Transport: ['#EAF4FF', '#175CD3'], Kuota: ['#F1EEFF', '#5925DC'], Belanja: ['#FDEDF8', '#C11574'], Kos: ['#FEF4E6', '#B54708'], Lainnya: ['#F4F7F5', '#3A4541'], Gaji: ['#ECFDF3', '#05603A'], Kiriman: ['#ECFDF3', '#05603A'] };
+    const tx = s.tx.map((t) => {
+      const c = colors[t.cat] || colors.Lainnya;
+      return {
+        cat: t.cat, meta: t.meta, initial: t.cat.charAt(0),
+        amt: (t.out ? '−' : '+') + rp(t.amt),
+        iconStyle: 'width: 40px; height: 40px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; flex-shrink: 0; background: ' + c[0] + '; color: ' + c[1],
+        amtStyle: 'font-size: 14px; font-weight: 800; color: ' + (t.out ? '#14201B' : '#027A48')
+      };
+    });
+    const typesDef = [['out', 'Pengeluaran'], ['in', 'Pemasukan']];
+    const types = typesDef.map(([id, label]) => {
+      const sel = s.type === id;
+      return { label: label, sel: sel, pick: () => this.setState({ type: id, cat: id === 'out' ? 'Makan' : 'Kiriman' }),
+        style: 'height: 40px; border-radius: 999px; border: 0; cursor: pointer; font-size: 13px; font-weight: 700; ' + (sel ? 'background: #FFFFFF; color: #14201B; box-shadow: 0 1px 3px rgba(20,32,27,0.12)' : 'background: transparent; color: #4F5B56') };
+    });
+    const catList = s.type === 'out' ? ['Makan', 'Transport', 'Kuota', 'Belanja', 'Kos', 'Lainnya'] : ['Kiriman', 'Gaji', 'Lainnya'];
+    const cats = catList.map((c) => {
+      const sel = s.cat === c;
+      return { label: c, sel: sel, pick: () => this.setState({ cat: c }),
+        style: 'height: 36px; padding: 0 14px; border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 700; white-space: nowrap; ' + (sel ? 'background: #ECFDF3; color: #05603A; border: 1px solid #6CE9A6' : 'background: #FFFFFF; color: #3A4541; border: 1px solid #DCE3DF') };
+    });
+    const n = parseInt(s.amt || '0', 10);
+    const setAmt = (v) => this.setState({ amt: String(v).replace(/^0+/, '').slice(0, 10) });
+    const quick = [5000, 10000, 20000, 50000].map((v) => ({ label: (v / 1000) + 'rb', pick: () => setAmt(n + v) }));
+    const keyDefs = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '000', '0', '⌫'];
+    const keys = keyDefs.map((k) => ({
+      label: k, aria: k === '⌫' ? 'Hapus' : k,
+      press: () => {
+        if (k === '⌫') this.setState({ amt: s.amt.slice(0, -1) });
+        else setAmt(s.amt + k);
+      }
+    }));
+    const valid = n > 0;
+    return {
+      balance: rp(1335000 - today + income),
+      spentCycle: rp(spentCycle),
+      spentToday: rp(today),
+      safeDaily: rp(safe),
+      budgetText: pct + '% dari ' + rp(budget),
+      budgetBar: 'height: 100%; border-radius: 999px; transition: width 600ms cubic-bezier(.2,.8,.2,1); width: ' + pct + '%; background: ' + barColor,
+      tx: tx, txCount: s.tx.length,
+      sheet: s.sheet,
+      openSheet: () => this.setState({ sheet: true, amt: '', toast: false }),
+      closeSheet: () => this.setState({ sheet: false }),
+      types: types, cats: cats, quick: quick, keys: keys,
+      typeLabel: s.type === 'out' ? 'Berapa yang keluar?' : 'Berapa yang masuk?',
+      amountText: rp(n),
+      amountStyle: 'font-size: 38px; font-weight: 800; letter-spacing: -1px; color: ' + (n > 0 ? (s.type === 'out' ? '#14201B' : '#027A48') : '#98A5A0'),
+      toast: s.toast,
+      noToast: !s.toast,
+      save: () => {
+        if (!valid) return;
+        const now = s.type === 'out' ? 'Tunai · 16:08' : 'Tunai · 16:08';
+        clearTimeout(this._t);
+        this.setState({ tx: [{ cat: s.cat, meta: now, amt: n, out: s.type === 'out' }].concat(s.tx), sheet: false, amt: '', toast: true });
+        this._t = setTimeout(() => this.setState({ toast: false }), 3500);
+      },
+      saveStyle: 'height: 56px; border-radius: 999px; border: 0; font-size: 16px; font-weight: 800; cursor: pointer; ' + (valid ? 'background: #027A48; color: #FFFFFF' : 'background: #DCE3DF; color: #6B7873')
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Hamzi — Beranda</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#027A48}a:hover{color:#05603A}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #FAFBFA; font-family: 'Plus Jakarta Sans', sans-serif; color: #14201B">
+
+  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 76px; overflow-y: auto">
+
+    <div style="position: relative; background: #027A48; padding: 20px 20px 92px; overflow: hidden">
+      <div aria-hidden="true" style="position: absolute; width: 260px; height: 260px; border-radius: 50%; background: #039855; right: -90px; top: -110px; opacity: 0.55"></div>
+      <div aria-hidden="true" style="position: absolute; width: 180px; height: 180px; border-radius: 50%; background: #05603A; left: -70px; bottom: -60px; opacity: 0.45"></div>
+      <div aria-hidden="true" style="position: absolute; width: 90px; height: 90px; border-radius: 50%; background: #12B76A; right: 70px; bottom: 30px; opacity: 0.18"></div>
+
+      <div style="position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 13px; color: #D1FADF; font-weight: 500">Selamat sore,</span>
+          <span style="font-size: 22px; color: #FFFFFF; font-weight: 800; letter-spacing: -0.3px">Iqbal</span>
+        </div>
+        <div style="display: flex; gap: 8px">
+          <button aria-label="{{eyeLabel}}" onClick="{{toggleHide}}" style="width: 44px; height: 44px; border-radius: 999px; border: 0; background: rgba(255,255,255,0.16); color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer">
+            <sc-if value="{{hidden}}" hint-placeholder-val="{{ false }}">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"></path><path d="M10.6 5.1A10 10 0 0 1 12 5c6 0 9.5 7 9.5 7a17 17 0 0 1-3 3.8M6.6 6.6C3.9 8.4 2.5 12 2.5 12S6 19 12 19c1.8 0 3.3-.5 4.6-1.2"></path><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"></path></svg>
+            </sc-if>
+            <sc-if value="{{shown}}" hint-placeholder-val="{{ true }}">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </sc-if>
+          </button>
+          <button aria-label="Notifikasi" style="width: 44px; height: 44px; border-radius: 999px; border: 0; background: rgba(255,255,255,0.16); color: #FFFFFF; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9z"></path><path d="M10 20a2 2 0 0 0 4 0"></path></svg>
+            <span style="position: absolute; top: 10px; right: 11px; width: 8px; height: 8px; border-radius: 50%; background: #FDB022; border: 2px solid #027A48"></span>
+          </button>
+        </div>
+      </div>
+
+      <div style="position: relative; display: flex; align-items: flex-end; gap: 10px; margin-top: 14px">
+        <button aria-label="Ketuk Hamzi" onClick="{{nextMood}}" style="border: 0; background: transparent; padding: 0; cursor: pointer; flex-shrink: 0; width: 76px; height: 76px">
+          <dc-import name="Hamzi" mood="{{mood}}" size="76" hint-size="76px,76px"></dc-import>
+        </button>
+        <a href="Chat.dc.html" style="text-decoration: none; background: #FFFFFF; color: #14201B; border-radius: 18px 18px 18px 6px; padding: 10px 14px; font-size: 13px; line-height: 1.45; font-weight: 500; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(5,79,49,0.18); display: flex; flex-direction: column; gap: 4px">{{line}}<span style="font-size: 12px; font-weight: 800; color: #027A48">Ngobrol sama Hamzi →</span></a>
+      </div>
+      <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 28px; background: #FAFBFA; border-radius: 28px 28px 0 0"></div>
+    </div>
+
+    <div style="position: relative; margin: -76px 16px 0; background: #FFFFFF; border-radius: 22px; padding: 16px; box-shadow: 0 16px 40px rgba(2,122,72,0.18); z-index: 2">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start">
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 12px; color: #4F5B56; font-weight: 600">Pengeluaran hari ini</span>
+          <span style="font-size: 26px; font-weight: 800; letter-spacing: -0.5px">{{spentToday}}</span>
+        </div>
+        <span style="background: #FEF0C7; color: #93370D; font-size: 11px; font-weight: 700; padding: 5px 9px; border-radius: 999px">▲ 37% dari rata-rata</span>
+      </div>
+      <div style="margin-top: 14px; display: flex; justify-content: space-between; font-size: 12px; color: #4F5B56; font-weight: 500">
+        <span>Anggaran Oktober</span><span style="font-weight: 700; color: #14201B">58%</span>
+      </div>
+      <div style="margin-top: 6px; height: 8px; border-radius: 999px; background: #EAEFEC; overflow: hidden">
+        <div style="width: 58%; height: 100%; border-radius: 999px; background: #12B76A"></div>
+      </div>
+      <div style="margin-top: 12px; display: flex; gap: 8px">
+        <div style="flex: 1; background: #ECFDF3; border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 11px; color: #05603A; font-weight: 600">Aman per hari</span>
+          <span style="font-size: 15px; font-weight: 800; color: #054F31">{{safeDaily}}</span>
+        </div>
+        <div style="flex: 1; background: #F4F7F5; border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 11px; color: #4F5B56; font-weight: 600">Saldo semua dompet</span>
+          <span style="font-size: 15px; font-weight: 800">{{balance}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding: 22px 16px 24px; display: flex; flex-direction: column; gap: 22px">
+
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 6px">
+        <a href="Rencana.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #3A4541">
+          <span style="width: 52px; height: 52px; border-radius: 18px; background: #EAF4FF; color: #1570EF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"></rect><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg></span>
+          <span style="font-size: 11.5px; font-weight: 600">Tugas</span>
+        </a>
+        <a href="Rencana.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #3A4541">
+          <span style="width: 52px; height: 52px; border-radius: 18px; background: #EAF4FF; color: #1570EF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg></span>
+          <span style="font-size: 11.5px; font-weight: 600">Kalender</span>
+        </a>
+        <a href="Kuliah.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #3A4541">
+          <span style="width: 52px; height: 52px; border-radius: 18px; background: #F1EEFF; color: #6938EF; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5L12 4.5l10 5-10 5z"></path><path d="M6 11.5v4.5c0 1.6 2.7 3 6 3s6-1.4 6-3v-4.5"></path></svg></span>
+          <span style="font-size: 11.5px; font-weight: 600">Kuliah</span>
+        </a>
+        <a href="Keuangan.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #3A4541">
+          <span style="width: 52px; height: 52px; border-radius: 18px; background: #E7F8EF; color: #039855; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"></path><path d="M9 8h6M9 12h6"></path></svg></span>
+          <span style="font-size: 11.5px; font-weight: 600">Catat</span>
+        </a>
+        <a href="Keuangan.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #3A4541">
+          <span style="width: 52px; height: 52px; border-radius: 18px; background: #FEF4E6; color: #DC6803; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="0.8" fill="currentColor"></circle></svg></span>
+          <span style="font-size: 11.5px; font-weight: 600">Tabungan</span>
+        </a>
+        <a href="Keuangan.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #3A4541">
+          <span style="width: 52px; height: 52px; border-radius: 18px; background: #FDEDF8; color: #C11574; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"></path><path d="M15 7h6v6"></path></svg></span>
+          <span style="font-size: 11.5px; font-weight: 600">Investasi</span>
+        </a>
+        <a href="Belajar.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #3A4541">
+          <span style="width: 52px; height: 52px; border-radius: 18px; background: #E6F7FB; color: #088AB2; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5.5h6a3.5 3.5 0 0 1 3.5 3.5v11a3 3 0 0 0-3-3H2.5z"></path><path d="M21.5 5.5h-6A3.5 3.5 0 0 0 12 9v11a3 3 0 0 1 3-3h6.5z"></path></svg></span>
+          <span style="font-size: 11.5px; font-weight: 600">Belajar</span>
+        </a>
+        <a href="Belajar.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #3A4541">
+          <span style="width: 52px; height: 52px; border-radius: 18px; background: #FEECEB; color: #D92D20; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l3 3-3 3"></path><path d="M4 11V9a4 4 0 0 1 4-4h12"></path><path d="M7 22l-3-3 3-3"></path><path d="M20 13v2a4 4 0 0 1-4 4H4"></path></svg></span>
+          <span style="font-size: 11.5px; font-weight: 600">Rutinitas</span>
+        </a>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <h2 style="margin: 0; font-size: 17px; font-weight: 800">Hari ini</h2>
+          <a href="Rencana.dc.html" style="font-size: 13px; font-weight: 700; text-decoration: none">Lihat semua</a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px; background: #F1EEFF; border-radius: 18px; padding: 12px 14px">
+          <div style="display: flex; flex-direction: column; align-items: center; min-width: 44px">
+            <span style="font-size: 15px; font-weight: 800; color: #4A1FB8">16:30</span>
+            <span style="font-size: 10.5px; color: #5925DC; font-weight: 600">22 mnt lagi</span>
+          </div>
+          <div style="width: 1px; align-self: stretch; background: #D9D6FE"></div>
+          <div style="display: flex; flex-direction: column; gap: 2px; flex: 1">
+            <span style="font-size: 14px; font-weight: 700">Pemrograman Web</span>
+            <span style="font-size: 12px; color: #4F5B56">Lab Komputer 2 · Bu Rina</span>
+          </div>
+        </div>
+
+        <sc-for list="{{tasks}}" as="t" hint-placeholder-count="3">
+          <div style="display: flex; align-items: center; gap: 12px; background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 18px; padding: 10px 14px 10px 8px">
+            <button aria-label="{{t.ariaLabel}}" aria-pressed="{{t.done}}" onClick="{{t.toggle}}" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0">
+              <span style="{{t.boxStyle}}">
+                <sc-if value="{{t.done}}" hint-placeholder-val="{{ false }}">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+                </sc-if>
+              </span>
+            </button>
+            <div style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0">
+              <span style="{{t.titleStyle}}">{{t.title}}</span>
+              <span style="font-size: 12px; color: #6B7873">{{t.meta}}</span>
+            </div>
+            <span style="{{t.prioStyle}}">{{t.prio}}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <a href="Keuangan.dc.html" style="text-decoration: none; color: #14201B; background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+          <svg width="56" height="56" viewBox="0 0 56 56" role="img" aria-label="Dana darurat 34 persen">
+            <circle cx="28" cy="28" r="22" fill="none" stroke="#FEF0C7" stroke-width="7"></circle>
+            <circle cx="28" cy="28" r="22" fill="none" stroke="#F79009" stroke-width="7" stroke-linecap="round" stroke-dasharray="47 138.2" transform="rotate(-90 28 28)"></circle>
+            <text x="28" y="32" text-anchor="middle" font-size="12" font-weight="800" fill="#14201B" font-family="Plus Jakarta Sans, sans-serif">34%</text>
+          </svg>
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 13px; font-weight: 700">Dana darurat</span>
+            <span style="font-size: 12px; color: #6B7873">{{goalAmt}}</span>
+          </div>
+        </a>
+        <a href="Belajar.dc.html" style="text-decoration: none; color: #14201B; background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 8px; height: 56px">
+            <span style="width: 40px; height: 40px; border-radius: 14px; background: #FEECEB; color: #D92D20; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c4 0 7-2.7 7-7 0-3.5-2.4-6-4-8-.3 2-1.3 3.4-2.6 4C12.5 7.6 11 4.5 8.5 2.5 8.5 6 5 9 5 15c0 4.3 3 7 7 7z"></path></svg></span>
+            <span style="font-size: 24px; font-weight: 800">4<span style="font-size: 13px; font-weight: 600; color: #6B7873"> hari</span></span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 13px; font-weight: 700">Streak harian · Lv 3</span>
+            <div style="height: 6px; border-radius: 999px; background: #EAEFEC; overflow: hidden"><div style="width: 62%; height: 100%; background: #06AED4; border-radius: 999px"></div></div>
+          </div>
+        </a>
+      </div>
+
+      <div style="background: #ECFDF3; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: center; gap: 8px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#027A48" aria-hidden="true"><path d="M12 2l1.8 5.6L19.5 9.5 13.8 11.4 12 17l-1.8-5.6L4.5 9.5l5.7-1.9z"></path><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"></path></svg>
+          <span style="font-size: 13px; font-weight: 800; color: #05603A">Kata Hamzi</span>
+          <span style="font-size: 11px; color: #05603A; margin-left: auto">ringkasan minggu ini</span>
+        </div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #14201B">Jajan makan 3 hari terakhir naik. Coba bawa bekal 2× minggu ini. Laporan Basis Data tenggatnya besok, cicil 30 menit malam ini ya.</p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap">
+          <button style="height: 40px; padding: 0 16px; border-radius: 999px; border: 0; background: #027A48; color: #FFFFFF; font-size: 13px; font-weight: 700; cursor: pointer">Buat tugas cicil</button>
+          <a href="Chat.dc.html" style="height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid #A6F4C5; background: #FFFFFF; color: #05603A; font-size: 13px; font-weight: 700; text-decoration: none; display: flex; align-items: center; box-sizing: border-box">Tanya Hamzi</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <sc-if value="{{fabOpen}}" hint-placeholder-val="{{ false }}">
+    <button aria-label="Tutup menu tambah" onClick="{{toggleFab}}" style="position: absolute; inset: 0; border: 0; background: rgba(20,32,27,0.4); cursor: pointer; z-index: 5"></button>
+    <div style="position: absolute; right: 16px; bottom: 160px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 6">
+      <a href="Keuangan.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; background: #FFFFFF; color: #14201B; padding: 0 16px 0 8px; height: 48px; border-radius: 999px; font-size: 14px; font-weight: 700; box-shadow: 0 12px 32px rgba(20,32,27,0.16)"><span style="width: 34px; height: 34px; border-radius: 50%; background: #E7F8EF; color: #039855; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"></path></svg></span>Catat pengeluaran</a>
+      <a href="Rencana.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; background: #FFFFFF; color: #14201B; padding: 0 16px 0 8px; height: 48px; border-radius: 999px; font-size: 14px; font-weight: 700; box-shadow: 0 12px 32px rgba(20,32,27,0.16)"><span style="width: 34px; height: 34px; border-radius: 50%; background: #EAF4FF; color: #1570EF; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg></span>Tugas baru</a>
+      <a href="Belajar.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; background: #FFFFFF; color: #14201B; padding: 0 16px 0 8px; height: 48px; border-radius: 999px; font-size: 14px; font-weight: 700; box-shadow: 0 12px 32px rgba(20,32,27,0.16)"><span style="width: 34px; height: 34px; border-radius: 50%; background: #E6F7FB; color: #088AB2; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2M9 2h6"></path></svg></span>Mulai timer belajar</a>
+    </div>
+  </sc-if>
+
+  <button aria-label="Tambah cepat" onClick="{{toggleFab}}" style="position: absolute; right: 16px; bottom: 92px; width: 56px; height: 56px; border-radius: 50%; border: 0; background: #027A48; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 32px rgba(2,122,72,0.35); cursor: pointer; z-index: 7">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true" style="{{fabIconStyle}}"><path d="M12 5v14M5 12h14"></path></svg>
+  </button>
+
+  <nav aria-label="Navigasi utama" style="position: absolute; left: 0; right: 0; bottom: 0; height: 76px; background: #FFFFFF; border-top: 1px solid #EAEFEC; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 6px 4px 10px; box-sizing: border-box; z-index: 4">
+    <a href="Main.dc.html" aria-current="page" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #027A48">
+      <span style="width: 56px; height: 30px; border-radius: 999px; background: #D1FADF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="#027A48" stroke="#027A48" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5L12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 800">Beranda</span>
+    </a>
+    <a href="Rencana.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"></rect><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Rencana</span>
+    </a>
+    <a href="Kuliah.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5L12 4.5l10 5-10 5z"></path><path d="M6 11.5v4.5c0 1.6 2.7 3 6 3s6-1.4 6-3v-4.5"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Kuliah</span>
+    </a>
+    <a href="Keuangan.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2H5"></path><circle cx="16.5" cy="14" r="1.2" fill="currentColor"></circle></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Keuangan</span>
+    </a>
+    <a href="Belajar.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"></path><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7z"></path><path d="M12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 6 7 5.5z"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Tumbuh</span>
+    </a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hidden: false,
+      fabOpen: false,
+      moodIdx: 0,
+      done: { t1: false, t2: false, t3: true }
+    };
+  }
+  renderVals() {
+    const s = this.state;
+    const moods = [
+      { m: 'calm', line: 'Hari ini 3 tugas & 1 kelas. Mulai dari yang kecil ya!' },
+      { m: 'happy', line: 'Satu tugas sudah beres. Mantap!' },
+      { m: 'worried', line: 'Laporan Basis Data tenggatnya besok, mau dicicil?' },
+      { m: 'excited', line: 'Streak belajar 4 hari! Kamu keren.' },
+      { m: 'sleepy', line: 'Jangan begadang ya, catat yang penting saja.' }
+    ];
+    const doneCount = Object.values(s.done).filter(Boolean).length;
+    let cur = moods[s.moodIdx % moods.length];
+    const rp = (n) => s.hidden ? 'Rp •••••' : 'Rp ' + n.toLocaleString('id-ID');
+    const list = [
+      { id: 't1', title: 'Laporan praktikum Basis Data', meta: 'Besok 19:00 · Kuliah', prio: 'Tinggi', pc: ['#FEE4E2', '#B42318'] },
+      { id: 't2', title: 'Baca bab 3 Analisis Sistem', meta: 'Hari ini · 30 mnt', prio: 'Sedang', pc: ['#FEF0C7', '#93370D'] },
+      { id: 't3', title: 'Bayar kos Oktober', meta: 'Hari ini · Keuangan', prio: 'Rendah', pc: ['#EAEFEC', '#3A4541'] }
+    ];
+    const tasks = list.map((t) => {
+      const d = !!s.done[t.id];
+      return {
+        title: t.title, meta: t.meta, prio: t.prio, done: d,
+        ariaLabel: (d ? 'Batalkan selesai: ' : 'Tandai selesai: ') + t.title,
+        toggle: () => this.setState({ done: Object.assign({}, s.done, { [t.id]: !d }), moodIdx: !d ? 1 : 0 }),
+        boxStyle: 'width: 24px; height: 24px; border-radius: 8px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; ' + (d ? 'background: #12B76A; border: 0' : 'border: 2px solid #C3CDC8; background: #FFFFFF'),
+        titleStyle: 'font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ' + (d ? 'text-decoration: line-through; color: #6B7873' : 'color: #14201B'),
+        prioStyle: 'font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 999px; background: ' + t.pc[0] + '; color: ' + t.pc[1]
+      };
+    });
+    return {
+      hidden: s.hidden,
+      shown: !s.hidden,
+      eyeLabel: s.hidden ? 'Tampilkan nominal' : 'Sembunyikan nominal',
+      toggleHide: () => this.setState({ hidden: !s.hidden }),
+      mood: cur.m,
+      line: cur.line,
+      nextMood: () => this.setState({ moodIdx: (s.moodIdx + 1) % moods.length }),
+      spentToday: rp(85000),
+      safeDaily: rp(42000),
+      balance: rp(1250000),
+      goalAmt: s.hidden ? 'Rp ••• / Rp •••' : 'Rp 1,7 jt / Rp 5 jt',
+      tasks: tasks,
+      fabOpen: s.fabOpen,
+      toggleFab: () => this.setState({ fabOpen: !s.fabOpen }),
+      fabIconStyle: 'transition: transform 200ms cubic-bezier(.2,.8,.2,1); transform: rotate(' + (s.fabOpen ? 45 : 0) + 'deg)',
+      doneCount: doneCount
+    };
+  }
+}
+</script>
+</body>
+</html>

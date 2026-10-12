@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Hamzi — Tumbuh</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#027A48}a:hover{color:#05603A}
+button,input{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #FAFBFA; font-family: 'Plus Jakarta Sans', sans-serif; color: #14201B">
+  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 76px; overflow-y: auto">
+
+    <div style="padding: 20px 16px 0; display: flex; align-items: center; justify-content: space-between">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 12px; color: #6B7873; font-weight: 600">Rutinitas + belajar mandiri</span>
+        <h1 style="margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px">Tumbuh</h1>
+      </div>
+      <span style="display: flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border-radius: 999px; background: #FEECEB; color: #B42318; font-size: 14px; font-weight: 800"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 22c4 0 7-2.7 7-7 0-3.5-2.4-6-4-8-.3 2-1.3 3.4-2.6 4C12.5 7.6 11 4.5 8.5 2.5 8.5 6 5 9 5 15c0 4.3 3 7 7 7z"></path></svg>{{streak}} hari</span>
+    </div>
+
+    <div style="margin: 14px 16px 0; background: #ECFDF3; border-radius: 26px; padding: 14px 16px 16px; display: flex; gap: 8px; align-items: flex-end; position: relative; overflow: hidden">
+      <div aria-hidden="true" style="position: absolute; width: 140px; height: 140px; border-radius: 50%; background: #D1FADF; right: -40px; top: -50px"></div>
+      <svg width="170" height="160" viewBox="0 0 200 190" role="img" aria-label="{{treeAria}}" style="flex-shrink: 0; position: relative">
+        <ellipse cx="100" cy="174" rx="86" ry="13" fill="#A6F4C5"></ellipse>
+        <ellipse cx="100" cy="171" rx="34" ry="7" fill="#B88A5F"></ellipse>
+        <g display="{{s0}}"><ellipse cx="100" cy="165" rx="8" ry="5.5" fill="#93623C"></ellipse><path d="M100 160 Q103 154 107 153" fill="none" stroke="#32D583" stroke-width="3" stroke-linecap="round"></path></g>
+        <g display="{{s1}}">
+          <path d="M100 170 L100 146" stroke="#039855" stroke-width="4" stroke-linecap="round"></path>
+          <path d="M100 150 C92 138 80 140 81 148 C84 155 95 154 100 150 Z" fill="#32D583"></path>
+          <path d="M100 150 C108 138 120 140 119 148 C116 155 105 154 100 150 Z" fill="#12B76A"></path>
+        </g>
+        <g display="{{s2}}">
+          <path d="M100 170 L100 118" stroke="#039855" stroke-width="5" stroke-linecap="round"></path>
+          <path d="M100 148 C90 136 74 138 75 147 C78 155 93 154 100 148 Z" fill="#32D583"></path>
+          <path d="M100 136 C110 124 126 126 125 135 C122 143 107 142 100 136 Z" fill="#12B76A"></path>
+          <path d="M100 122 C92 108 78 110 79 119 C82 127 94 127 100 122 Z" fill="#12B76A"></path>
+          <path d="M100 120 C106 106 118 106 118 114 C116 121 106 122 100 120 Z" fill="#32D583"></path>
+        </g>
+        <g display="{{s3}}">
+          <path d="M95 171 L97 116 L103 116 L105 171 Z" fill="#93623C"></path>
+          <g>
+            <animateTransform attributeName="transform" type="rotate" values="-1.2 100 170;1.2 100 170;-1.2 100 170" dur="5s" repeatCount="indefinite"></animateTransform>
+            <circle cx="100" cy="100" r="38" fill="#12B76A"></circle>
+            <circle cx="88" cy="88" r="14" fill="#32D583"></circle>
+          </g>
+        </g>
+        <g display="{{s4}}">
+          <path d="M92 172 L95 110 Q100 104 105 110 L108 172 Z" fill="#93623C"></path>
+          <path d="M100 132 L80 116 M100 126 L118 112" stroke="#93623C" stroke-width="5" stroke-linecap="round"></path>
+          <g>
+            <animateTransform attributeName="transform" type="rotate" values="-1 100 172;1 100 172;-1 100 172" dur="5s" repeatCount="indefinite"></animateTransform>
+            <circle cx="68" cy="102" r="30" fill="#039855"></circle>
+            <circle cx="132" cy="102" r="30" fill="#039855"></circle>
+            <circle cx="100" cy="74" r="44" fill="#12B76A"></circle>
+            <circle cx="84" cy="60" r="15" fill="#32D583"></circle>
+            <g display="{{fruit}}">
+              <circle cx="72" cy="104" r="6" fill="#F79009"></circle>
+              <circle cx="128" cy="96" r="6" fill="#F79009"></circle>
+              <circle cx="112" cy="70" r="6" fill="#F79009"></circle>
+              <circle cx="90" cy="86" r="6" fill="#F79009"></circle>
+            </g>
+          </g>
+        </g>
+        <g display="{{bloom}}">
+          <circle cx="150" cy="40" r="5" fill="#FDA29B"></circle><circle cx="150" cy="40" r="2" fill="#FFFFFF"></circle>
+          <circle cx="48" cy="56" r="5" fill="#FDA29B"></circle><circle cx="48" cy="56" r="2" fill="#FFFFFF"></circle>
+          <circle cx="160" cy="120" r="4" fill="#FDA29B"></circle>
+        </g>
+      </svg>
+      <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; padding-bottom: 6px; position: relative">
+        <span style="font-size: 11px; font-weight: 700; color: #05603A; text-transform: uppercase; letter-spacing: 0.5px">Pohonmu</span>
+        <span style="font-size: 19px; font-weight: 800; line-height: 1.2">{{stageName}}</span>
+        <div style="height: 8px; border-radius: 999px; background: #FFFFFF; overflow: hidden"><div style="{{growBar}}"></div></div>
+        <span style="font-size: 12px; color: #05603A; font-weight: 600">{{growText}}</span>
+        <sc-if value="{{justWatered}}" hint-placeholder-val="{{ false }}">
+          <span role="status" style="font-size: 12px; font-weight: 800; color: #0E7090; background: #E6F7FB; border-radius: 999px; padding: 4px 10px; align-self: flex-start">+1 tetes air</span>
+        </sc-if>
+      </div>
+    </div>
+
+    <div style="margin: 14px 16px 0; background: #EAEFEC; border-radius: 999px; padding: 4px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px">
+      <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="3">
+        <button onClick="{{tb.pick}}" aria-pressed="{{tb.sel}}" style="{{tb.style}}">{{tb.label}}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{isToday}}" hint-placeholder-val="{{ true }}">
+      <div style="padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 18px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; justify-content: space-between; align-items: center">
+            <h2 style="margin: 0; font-size: 16px; font-weight: 800">Rutinitas wajib · {{rDone}}</h2>
+            <button onClick="{{addRoutine}}" style="height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #DCE3DF; background: #FFFFFF; color: #027A48; font-size: 13px; font-weight: 800; cursor: pointer">+ Rutinitas</button>
+          </div>
+          <sc-for list="{{routines}}" as="r" hint-placeholder-count="5">
+            <div style="{{r.rowStyle}}">
+              <button aria-label="{{r.aria}}" aria-pressed="{{r.done}}" onClick="{{r.toggle}}" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0">
+                <span style="{{r.boxStyle}}">
+                  <sc-if value="{{r.done}}" hint-placeholder-val="{{ false }}">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+                  </sc-if>
+                </span>
+              </button>
+              <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+                <span style="{{r.titleStyle}}">{{r.name}}</span>
+                <span style="font-size: 12px; color: #6B7873">{{r.meta}}</span>
+              </div>
+              <span style="display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; color: #3A4541; background: #F4F7F5; border-radius: 999px; padding: 4px 9px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9z"></path></svg>{{r.time}}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; justify-content: space-between; align-items: center">
+            <h2 style="margin: 0; font-size: 16px; font-weight: 800">Belajar mandiri</h2>
+            <button onClick="{{addModule}}" style="height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #DCE3DF; background: #FFFFFF; color: #027A48; font-size: 13px; font-weight: 800; cursor: pointer">+ Modul</button>
+          </div>
+          <sc-for list="{{mods}}" as="m" hint-placeholder-count="3">
+            <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 20px; padding: 12px 14px; display: flex; gap: 12px; align-items: center">
+              <span style="{{m.iconStyle}}">{{m.ini}}</span>
+              <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0">
+                <div style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{m.name}}</span><span style="font-size: 12px; font-weight: 700; color: #4F5B56; white-space: nowrap">{{m.prog}}</span></div>
+                <div style="height: 6px; border-radius: 999px; background: #EAEFEC; overflow: hidden"><div style="{{m.bar}}"></div></div>
+                <span style="font-size: 11.5px; color: #6B7873">{{m.meta}}</span>
+              </div>
+              <button aria-label="{{m.startAria}}" onClick="{{m.start}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: #027A48; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"></path></svg></button>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{isCal}}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 14px">
+        <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 22px; padding: 14px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px">
+            <span style="font-size: 16px; font-weight: 800">Kebun Oktober 2026</span>
+            <span style="font-size: 12px; color: #4F5B56; font-weight: 600">{{gardenCount}} pohon</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; text-align: center; font-size: 11px; font-weight: 700; color: #6B7873; margin-bottom: 4px">
+            <span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px">
+            <sc-for list="{{cal}}" as="c" hint-placeholder-count="35">
+              <button onClick="{{c.pick}}" aria-label="{{c.aria}}" style="{{c.style}}">
+                <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="18" r="1.6" fill="#C3CDC8" display="{{c.d0}}"></circle>
+                  <g display="{{c.d1}}"><path d="M12 21v-6" stroke="#039855" stroke-width="2" stroke-linecap="round"></path><path d="M12 16c-1-3-4-3.5-4.5-2 0 1.6 2.5 2.6 4.5 2zM12 16c1-3 4-3.5 4.5-2 0 1.6-2.5 2.6-4.5 2z" fill="#32D583"></path></g>
+                  <g display="{{c.d2}}"><path d="M12 21v-7" stroke="#93623C" stroke-width="2.2" stroke-linecap="round"></path><circle cx="12" cy="11" r="5.5" fill="#32D583"></circle></g>
+                  <g display="{{c.d3}}"><path d="M12 22v-8" stroke="#93623C" stroke-width="2.6" stroke-linecap="round"></path><circle cx="12" cy="9.5" r="8" fill="#12B76A"></circle></g>
+                  <circle cx="15.5" cy="7" r="2.4" fill="#FDA29B" display="{{c.fl}}"></circle>
+                </svg>
+                <span style="font-size: 10.5px; font-weight: 700">{{c.n}}</span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; font-size: 11px; color: #4F5B56; font-weight: 600">
+            <span>· kosong</span><span>tunas = sebagian</span><span>pohon = semua wajib</span><span>bunga = + belajar</span>
+          </div>
+        </div>
+        <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 14px; font-weight: 800">{{dayTitle}}</span>
+          <span style="font-size: 13px; color: #4F5B56; line-height: 1.5">{{dayDetail}}</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{isRem}}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 12px">
+        <div style="background: #E6F7FB; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 13px; color: #0E7090; font-weight: 600; line-height: 1.5">Pengingat muncul sebagai notifikasi HP walau app ditutup (setelah dipasang ke layar utama). Bisa langsung ditandai selesai dari notifikasi.</span>
+          <button onClick="{{testNotif}}" style="align-self: flex-start; height: 40px; padding: 0 16px; border-radius: 999px; border: 0; background: #0E7090; color: #FFFFFF; font-size: 13px; font-weight: 800; cursor: pointer">Coba pengingat</button>
+        </div>
+        <sc-for list="{{rems}}" as="x" hint-placeholder-count="6">
+          <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 18px; padding: 10px 10px 10px 14px; display: flex; align-items: center; gap: 12px">
+            <span style="font-size: 16px; font-weight: 800; min-width: 50px; font-variant-numeric: tabular-nums">{{x.time}}</span>
+            <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0"><span style="font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{x.name}}</span><span style="font-size: 12px; color: #6B7873">{{x.kind}}</span></div>
+            <button role="switch" aria-checked="{{x.on}}" aria-label="{{x.aria}}" onClick="{{x.toggle}}" style="width: 52px; height: 44px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+              <span style="{{x.track}}"><span style="{{x.knob}}"></span></span>
+            </button>
+          </div>
+        </sc-for>
+        <div style="background: #FFFFFF; border: 1px solid #EAEFEC; border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 14px; font-weight: 700">Jam tenang 23:00–05:00</span>
+          <span style="font-size: 12px; color: #6B7873">Pengingat otomatis dari sistem tidak dikirim di jam ini dan maksimal 6 per hari. Pengingat buatanmu selalu dikirim.</span>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{notif}}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="position: absolute; top: 12px; left: 10px; right: 10px; background: #FFFFFF; border-radius: 22px; padding: 12px 14px; box-shadow: 0 16px 40px rgba(20,32,27,0.22); z-index: 12; display: flex; flex-direction: column; gap: 8px">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <span style="width: 22px; height: 22px; border-radius: 6px; background: #027A48; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 21v-9"></path><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7z"></path></svg></span>
+        <span style="font-size: 12px; color: #4F5B56; font-weight: 600">Hamzi · sekarang</span>
+      </div>
+      <span style="font-size: 14px; font-weight: 800">{{notifTitle}}</span>
+      <span style="font-size: 13px; color: #3A4541">Pohonmu nunggu disiram. Cuma butuh sebentar.</span>
+      <div style="display: flex; gap: 8px">
+        <button onClick="{{notifDone}}" style="flex: 1; height: 40px; border-radius: 12px; border: 0; background: #ECFDF3; color: #05603A; font-size: 13px; font-weight: 800; cursor: pointer">Tandai selesai</button>
+        <button onClick="{{notifSnooze}}" style="flex: 1; height: 40px; border-radius: 12px; border: 0; background: #F4F7F5; color: #3A4541; font-size: 13px; font-weight: 800; cursor: pointer">Tunda 10 mnt</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <nav aria-label="Navigasi utama" style="position: absolute; left: 0; right: 0; bottom: 0; height: 76px; background: #FFFFFF; border-top: 1px solid #EAEFEC; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 6px 4px 10px; box-sizing: border-box; z-index: 4">
+    <a href="Main.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5L12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Beranda</span>
+    </a>
+    <a href="Rencana.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"></rect><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Rencana</span>
+    </a>
+    <a href="Kuliah.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5L12 4.5l10 5-10 5z"></path><path d="M6 11.5v4.5c0 1.6 2.7 3 6 3s6-1.4 6-3v-4.5"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Kuliah</span>
+    </a>
+    <a href="Keuangan.dc.html" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6B7873">
+      <span style="width: 56px; height: 30px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2H5"></path><circle cx="16.5" cy="14" r="1.2" fill="currentColor"></circle></svg></span>
+      <span style="font-size: 11px; font-weight: 600">Keuangan</span>
+    </a>
+    <a href="Belajar.dc.html" aria-current="page" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #027A48">
+      <span style="width: 56px; height: 30px; border-radius: 999px; background: #D1FADF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="#027A48" stroke="#027A48" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"></path><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7z"></path><path d="M12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 6 7 5.5z"></path></svg></span>
+      <span style="font-size: 11px; font-weight: 800">Tumbuh</span>
+    </a>
+  </nav>
+
+  <sc-if value="{{sheetOpen}}" hint-placeholder-val="{{ false }}">
+    <button aria-label="Tutup" onClick="{{closeSheet}}" style="position: absolute; inset: 0; border: 0; background: rgba(20,32,27,0.4); cursor: pointer; z-index: 8"></button>
+    <div role="dialog" aria-label="{{sheetTitle}}" style="position: absolute; left: 0; right: 0; bottom: 0; background: #FFFFFF; border-radius: 28px 28px 0 0; padding: 10px 16px 20px; z-index: 9; display: flex; flex-direction: column; gap: 14px">
+      <span aria-hidden="true" style="align-self: center; width: 36px; height: 4px; border-radius: 999px; background: #DCE3DF"></span>
+      <span style="font-size: 18px; font-weight: 800">{{sheetTitle}}</span>
+      <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; color: #3A4541">{{nameLabel}}
+        <input value="{{draftName}}" onChange="{{onName}}" placeholder="{{namePh}}" style="height: 48px; border-radius: 14px; border: 1px solid #DCE3DF; padding: 0 14px; font-size: 15px; color: #14201B; outline-color: #32D583"></input>
+      </label>
+      <sc-if value="{{isModSheet}}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 13px; font-weight: 700; color: #3A4541">Jumlah unit / bab</span>
+          <div style="display: flex; gap: 6px">
+            <sc-for list="{{unitOpts}}" as="u" hint-placeholder-count="4">
+              <button onClick="{{u.pick}}" aria-pressed="{{u.sel}}" style="{{u.style}}">{{u.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{isRoutSheet}}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 13px; font-weight: 700; color: #3A4541">Ulangi</span>
+          <div style="display: flex; gap: 6px">
+            <sc-for list="{{repOpts}}" as="u" hint-placeholder-count="3">
+              <button onClick="{{u.pick}}" aria-pressed="{{u.sel}}" style="{{u.style}}">{{u.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <label style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; font-weight: 700; color: #3A4541">Jam pengingat
+        <input type="time" value="{{draftTime}}" onChange="{{onTime}}" style="height: 44px; border-radius: 14px; border: 1px solid #DCE3DF; padding: 0 12px; font-size: 15px; font-weight: 700; color: #14201B"></input>
+      </label>
+      <button onClick="{{saveSheet}}" style="{{saveStyle}}">Simpan</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{timerOn}}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-label="Timer fokus" style="position: absolute; inset: 0; background: #ECFDF3; z-index: 10; display: flex; flex-direction: column; align-items: center; padding: 20px 24px 28px; box-sizing: border-box">
+      <div style="align-self: stretch; display: flex; justify-content: space-between; align-items: center">
+        <button aria-label="Kecilkan timer" onClick="{{minimize}}" style="width: 44px; height: 44px; border-radius: 999px; border: 0; background: #FFFFFF; color: #3A4541; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+        <span style="font-size: 13px; font-weight: 700; color: #05603A">{{sessionLabel}}</span>
+        <span style="width: 44px"></span>
+      </div>
+      <span style="margin-top: 12px; font-size: 18px; font-weight: 800; text-align: center">{{modName}}</span>
+      <span style="font-size: 13px; color: #4F5B56; margin-top: 2px">{{modUnit}}</span>
+      <div style="position: relative; width: 260px; height: 260px; margin-top: 18px">
+        <svg width="260" height="260" viewBox="0 0 260 260" aria-hidden="true" style="position: absolute; inset: 0">
+          <circle cx="130" cy="130" r="118" fill="#FFFFFF"></circle>
+          <circle cx="130" cy="130" r="118" fill="none" stroke="#D1FADF" stroke-width="12"></circle>
+          <circle cx="130" cy="130" r="118" fill="none" stroke="#12B76A" stroke-width="12" stroke-linecap="round" stroke-dasharray="{{ringDash}}" transform="rotate(-90 130 130)"></circle>
+        </svg>
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
+          <dc-import name="Hamzi" mood="{{timerMood}}" size="120" hint-size="120px,120px"></dc-import>
+          <span role="timer" style="font-size: 44px; font-weight: 800; letter-spacing: -1px; font-variant-numeric: tabular-nums; margin-top: -6px">{{clock}}</span>
+        </div>
+      </div>
+      <span style="margin-top: 18px; font-size: 14px; font-weight: 600; color: #05603A; text-align: center; min-height: 20px">{{hamziLine}}</span>
+      <div style="margin-top: auto; align-self: stretch; display: flex; flex-direction: column; gap: 10px">
+        <sc-if value="{{notFinished}}" hint-placeholder-val="{{ true }}">
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+            <button onClick="{{pauseResume}}" style="height: 56px; border-radius: 999px; border: 2px solid #027A48; background: #FFFFFF; color: #027A48; font-size: 16px; font-weight: 800; cursor: pointer">{{pauseLabel}}</button>
+            <button onClick="{{finish}}" style="height: 56px; border-radius: 999px; border: 0; background: #027A48; color: #FFFFFF; font-size: 16px; font-weight: 800; cursor: pointer">Selesai</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{finished}}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{close}}" style="height: 56px; border-radius: 999px; border: 0; background: #027A48; color: #FFFFFF; font-size: 16px; font-weight: 800; cursor: pointer">Siram pohon &amp; kembali</button>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: 'today', water: 46, watered: false, selDay: 12, notif: false,
+      routines: [
+        { id: 1, name: 'Bangun sebelum 05:30', time: '05:00', rep: 'Setiap hari', done: true, on: true },
+        { id: 2, name: 'Olahraga 20 menit', time: '06:00', rep: 'Sen–Jum', done: true, on: true },
+        { id: 3, name: 'Catat pengeluaran hari ini', time: '21:00', rep: 'Setiap hari', done: false, on: true },
+        { id: 4, name: 'Tidur sebelum 23:00', time: '22:30', rep: 'Setiap hari', done: false, on: true }
+      ],
+      mods: [
+        { id: 1, name: 'SQL & Basis Data', unit: 'Unit 7 · Normalisasi', done: 6, total: 10, time: '20:00', on: true, todayDone: false },
+        { id: 2, name: 'React dasar', unit: 'Unit 4 · State & props', done: 3, total: 12, time: '19:30', on: true, todayDone: false },
+        { id: 3, name: 'Bahasa Inggris (TOEFL)', unit: 'Unit 9 · Reading', done: 8, total: 20, time: '07:00', on: false, todayDone: false }
+      ],
+      sheet: null, draft: { name: '', time: '20:00', units: 10, rep: 'Setiap hari' },
+      open: false, mod: 0, running: false, startedAt: 0, elapsed: 0, finished: false
+    };
+  }
+  componentDidMount() { this._iv = setInterval(() => { if (this.state.running) this.forceUpdate(); }, 500); }
+  componentWillUnmount() { clearInterval(this._iv); clearTimeout(this._w); }
+  water(delta) {
+    clearTimeout(this._w);
+    this.setState((p) => ({ water: Math.max(0, p.water + delta), watered: delta > 0 }));
+    if (delta > 0) this._w = setTimeout(() => this.setState({ watered: false }), 1800);
+  }
+  renderVals() {
+    const s = this.state;
+    const seg = (on) => 'height: 40px; border-radius: 999px; border: 0; cursor: pointer; font-size: 13px; font-weight: 700; ' + (on ? 'background: #FFFFFF; color: #14201B; box-shadow: 0 1px 3px rgba(20,32,27,0.12)' : 'background: transparent; color: #4F5B56');
+    const chip = (on) => 'height: 40px; padding: 0 14px; border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 700; ' + (on ? 'background: #ECFDF3; color: #05603A; border: 1px solid #6CE9A6' : 'background: #FFFFFF; color: #3A4541; border: 1px solid #DCE3DF');
+
+    const stages = [[0, 'Biji'], [5, 'Tunas'], [15, 'Bibit'], [30, 'Pohon muda'], [50, 'Pohon rindang'], [80, 'Pohon berbuah']];
+    let st = 0; stages.forEach((x, i) => { if (s.water >= x[0]) st = i; });
+    const next = stages[st + 1];
+    const base = stages[st][0];
+    const pct = next ? Math.round((s.water - base) / (next[0] - base) * 100) : 100;
+    const shown = st >= 4 ? 4 : st;
+    const dsp = (k) => (shown === k ? 'inline' : 'none');
+
+    const rTotal = s.routines.length;
+    const rDoneN = s.routines.filter((r) => r.done).length;
+    const allWajib = rTotal > 0 && rDoneN === rTotal;
+    const learned = s.mods.some((m) => m.todayDone);
+    const todayLvl = rDoneN === 0 ? 0 : allWajib ? 3 : (rDoneN / rTotal >= 0.5 ? 2 : 1);
+
+    const routines = s.routines.map((r) => ({
+      name: r.name, time: r.time, done: r.done, meta: r.rep + ' · wajib',
+      aria: (r.done ? 'Batalkan: ' : 'Selesai: ') + r.name,
+      toggle: () => {
+        this.setState({ routines: s.routines.map((x) => x.id === r.id ? Object.assign({}, x, { done: !x.done }) : x) });
+        this.water(r.done ? -1 : 1);
+      },
+      rowStyle: 'display: flex; align-items: center; gap: 10px; border-radius: 18px; padding: 8px 12px 8px 6px; ' + (r.done ? 'background: #ECFDF3; border: 1px solid #A6F4C5' : 'background: #FFFFFF; border: 1px solid #EAEFEC'),
+      boxStyle: 'width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-sizing: border-box; ' + (r.done ? 'background: #12B76A' : 'border: 2px solid #C3CDC8; background: #FFFFFF'),
+      titleStyle: 'font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ' + (r.done ? 'color: #05603A' : 'color: #14201B')
+    }));
+
+    const palette = [['#E6F7FB', '#0E7090', '#06AED4'], ['#EAF4FF', '#175CD3', '#2E90FA'], ['#FEF4E6', '#B54708', '#F79009'], ['#F1EEFF', '#5925DC', '#7A5AF8'], ['#FDEDF8', '#C11574', '#EE46BC']];
+    const mods = s.mods.map((x, i) => {
+      const c = palette[i % palette.length];
+      const words = x.name.split(/\s+/).filter(Boolean);
+      const ini = ((words[0] || '?').charAt(0) + (words[1] ? words[1].charAt(0) : (words[0] || '').charAt(1) || '')).toUpperCase();
+      return {
+        name: x.name, ini: ini,
+        prog: x.done + '/' + x.total,
+        meta: (x.todayDone ? 'Sudah belajar hari ini · ' : 'Berikutnya: ' + x.unit + ' · ') + (x.on ? 'ingat ' + x.time : 'tanpa pengingat'),
+        iconStyle: 'width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0; background: ' + c[0] + '; color: ' + c[1],
+        bar: 'height: 100%; border-radius: 999px; background: ' + c[2] + '; width: ' + Math.round(x.done / x.total * 100) + '%',
+        startAria: 'Mulai fokus 25 menit: ' + x.name,
+        start: () => this.setState({ open: true, mod: i, running: true, startedAt: Date.now(), elapsed: 0, finished: false })
+      };
+    });
+
+    const past = [3, 2, 3, 1, 0, 2, 3, 3, 2, 3, 3];
+    const bloomPast = [true, false, true, false, false, false, true, true, false, true, true];
+    const cal = [];
+    for (let k = 0; k < 3; k++) cal.push({ n: '', aria: 'kosong', d0: 'none', d1: 'none', d2: 'none', d3: 'none', fl: 'none', pick: () => {}, style: 'height: 44px; border: 0; background: transparent' });
+    for (let d = 1; d <= 31; d++) {
+      const lvl = d < 12 ? past[d - 1] : d === 12 ? todayLvl : -1;
+      const sel = s.selDay === d;
+      const isToday = d === 12;
+      cal.push({
+        n: String(d),
+        aria: d + ' Oktober' + (lvl >= 0 ? ', level ' + lvl : ''),
+        d0: lvl <= 0 ? 'inline' : 'none', d1: lvl === 1 ? 'inline' : 'none', d2: lvl === 2 ? 'inline' : 'none', d3: lvl === 3 ? 'inline' : 'none',
+        fl: (lvl === 3 && (d < 12 ? bloomPast[d - 1] : d === 12 ? learned : false)) ? 'inline' : 'none',
+        pick: () => this.setState({ selDay: d }),
+        style: 'height: 48px; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; padding: 0; color: ' + (lvl < 0 ? '#98A5A0' : '#3A4541') + '; ' + (sel ? 'background: #ECFDF3; border: 2px solid #12B76A' : isToday ? 'background: #FFFFFF; border: 2px dashed #6CE9A6' : 'background: transparent; border: 2px solid transparent')
+      });
+    }
+    const gardenCount = past.filter((x) => x === 3).length + (todayLvl === 3 ? 1 : 0);
+    const dl = s.selDay < 12 ? past[s.selDay - 1] : s.selDay === 12 ? todayLvl : -1;
+    const detailMap = { 0: 'Tidak ada rutinitas tercatat. Tidak apa-apa, besok mulai lagi.', 1: 'Sebagian kecil rutinitas selesai, jadi tunas.', 2: 'Lebih dari separuh rutinitas selesai, jadi bibit.', 3: 'Semua rutinitas wajib selesai, jadi satu pohon di kebun.' };
+    const dayDetail = dl < 0 ? 'Belum terjadi. Rutinitas wajib akan diingatkan sesuai jamnya.'
+      : (s.selDay === 12 ? 'Hari ini: ' + rDoneN + ' dari ' + rTotal + ' rutinitas wajib' + (learned ? ', plus sesi belajar. ' : '. ') + detailMap[dl]
+        : detailMap[dl] + (bloomPast[s.selDay - 1] ? ' Ada sesi belajar mandiri, jadi berbunga.' : ''));
+
+    const rems = s.routines.map((r) => ({ id: 'r' + r.id, time: r.time, name: r.name, kind: 'Rutinitas wajib · ' + r.rep, on: r.on, src: 'r', rid: r.id }))
+      .concat(s.mods.map((m) => ({ id: 'm' + m.id, time: m.time, name: m.name, kind: 'Belajar mandiri · 25 mnt', on: m.on, src: 'm', rid: m.id })))
+      .sort((a, b) => a.time < b.time ? -1 : 1)
+      .map((x) => ({
+        time: x.time, name: x.name, kind: x.kind, on: x.on,
+        aria: 'Pengingat ' + x.name + ' jam ' + x.time,
+        toggle: () => {
+          if (x.src === 'r') this.setState({ routines: s.routines.map((y) => y.id === x.rid ? Object.assign({}, y, { on: !y.on }) : y) });
+          else this.setState({ mods: s.mods.map((y) => y.id === x.rid ? Object.assign({}, y, { on: !y.on }) : y) });
+        },
+        track: 'width: 44px; height: 26px; border-radius: 999px; position: relative; display: block; transition: background 200ms; background: ' + (x.on ? '#12B76A' : '#C3CDC8'),
+        knob: 'position: absolute; top: 3px; width: 20px; height: 20px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 2px rgba(0,0,0,0.2); transition: left 200ms; left: ' + (x.on ? '21px' : '3px')
+      }));
+
+    const firstPending = s.routines.find((r) => !r.done);
+
+    const d = s.draft;
+    const setDraft = (patch) => this.setState({ draft: Object.assign({}, d, patch) });
+    const unitOpts = [5, 10, 15, 20].map((u) => ({ label: u + ' unit', sel: d.units === u, pick: () => setDraft({ units: u }), style: chip(d.units === u) }));
+    const repOpts = ['Setiap hari', 'Sen–Jum', 'Akhir pekan'].map((u) => ({ label: u, sel: d.rep === u, pick: () => setDraft({ rep: u }), style: chip(d.rep === u) }));
+    const valid = d.name.trim().length > 0;
+
+    const DUR = 25 * 60 * 1000;
+    const el = s.elapsed + (s.running ? Date.now() - s.startedAt : 0);
+    const left = Math.max(0, DUR - el);
+    if (s.running && left === 0) setTimeout(() => this.setState({ running: false, finished: true, elapsed: DUR }), 0);
+    const mm = String(Math.floor(left / 60000)).padStart(2, '0');
+    const ss = String(Math.floor((left % 60000) / 1000)).padStart(2, '0');
+    const circ = 741.4;
+    const m = s.mods[s.mod] || s.mods[0];
+
+    return {
+      streak: (allWajib || learned) ? 5 : 4,
+      s0: dsp(0), s1: dsp(1), s2: dsp(2), s3: dsp(3), s4: dsp(4),
+      fruit: st >= 5 ? 'inline' : 'none',
+      bloom: allWajib ? 'inline' : 'none',
+      treeAria: 'Pohon tahap ' + stages[st][1] + ', ' + s.water + ' tetes air',
+      stageName: stages[st][1],
+      growBar: 'height: 100%; border-radius: 999px; background: #12B76A; transition: width 600ms cubic-bezier(.2,.8,.2,1); width: ' + pct + '%',
+      growText: next ? (next[0] - s.water) + ' tetes lagi jadi ' + next[1] : 'Sudah tahap tertinggi. Kebunmu bertambah tiap bulan.',
+      justWatered: s.watered,
+      tabs: [['today', 'Hari ini'], ['cal', 'Kalender'], ['rem', 'Pengingat']].map(([id, label]) => ({ label: label, sel: s.tab === id, pick: () => this.setState({ tab: id }), style: seg(s.tab === id) })),
+      isToday: s.tab === 'today', isCal: s.tab === 'cal', isRem: s.tab === 'rem',
+      routines: routines, rDone: rDoneN + '/' + rTotal, mods: mods,
+      cal: cal, gardenCount: gardenCount,
+      dayTitle: s.selDay + ' Oktober' + (s.selDay === 12 ? ' (hari ini)' : ''),
+      dayDetail: dayDetail,
+      rems: rems,
+      notif: s.notif,
+      notifTitle: firstPending ? firstPending.name : 'Waktunya belajar 25 menit',
+      testNotif: () => { this.setState({ notif: true }); },
+      notifDone: () => {
+        if (firstPending) { this.setState({ notif: false, routines: s.routines.map((x) => x.id === firstPending.id ? Object.assign({}, x, { done: true }) : x) }); this.water(1); }
+        else this.setState({ notif: false });
+      },
+      notifSnooze: () => this.setState({ notif: false }),
+      addRoutine: () => this.setState({ sheet: 'routine', draft: { name: '', time: '06:00', units: 10, rep: 'Setiap hari' } }),
+      addModule: () => this.setState({ sheet: 'module', draft: { name: '', time: '20:00', units: 10, rep: 'Setiap hari' } }),
+      sheetOpen: !!s.sheet,
+      isModSheet: s.sheet === 'module', isRoutSheet: s.sheet === 'routine',
+      sheetTitle: s.sheet === 'module' ? 'Modul belajar baru' : 'Rutinitas wajib baru',
+      nameLabel: s.sheet === 'module' ? 'Nama modul' : 'Nama rutinitas',
+      namePh: s.sheet === 'module' ? 'mis. Python untuk data' : 'mis. Minum air 8 gelas',
+      draftName: d.name, draftTime: d.time,
+      onName: (e) => setDraft({ name: e.target.value.slice(0, 60) }),
+      onTime: (e) => setDraft({ time: e.target.value || d.time }),
+      unitOpts: unitOpts, repOpts: repOpts,
+      closeSheet: () => this.setState({ sheet: null }),
+      saveSheet: () => {
+        if (!valid) return;
+        if (s.sheet === 'module') this.setState({ sheet: null, mods: s.mods.concat([{ id: Date.now(), name: d.name.trim(), unit: 'Unit 1', done: 0, total: d.units, time: d.time, on: true, todayDone: false }]) });
+        else this.setState({ sheet: null, routines: s.routines.concat([{ id: Date.now(), name: d.name.trim(), time: d.time, rep: d.rep, done: false, on: true }]) });
+      },
+      saveStyle: 'height: 56px; border-radius: 999px; border: 0; font-size: 16px; font-weight: 800; cursor: pointer; ' + (valid ? 'background: #027A48; color: #FFFFFF' : 'background: #DCE3DF; color: #6B7873'),
+      timerOn: s.open,
+      modName: m ? m.name : '', modUnit: m ? m.unit : '',
+      sessionLabel: s.finished ? 'Sesi selesai' : (s.running ? 'Fokus · 25 menit' : 'Dijeda'),
+      clock: s.finished ? 'Beres!' : mm + ':' + ss,
+      ringDash: (circ * (s.finished ? 1 : el / DUR)).toFixed(1) + ' ' + circ,
+      timerMood: s.finished ? 'celebrate' : (s.running ? 'focus' : 'calm'),
+      hamziLine: s.finished ? 'Kerja bagus! Pohonmu dapat 1 tetes air.' : (s.running ? 'Fokus dulu ya, aku jagain waktunya.' : 'Istirahat sebentar boleh.'),
+      notFinished: !s.finished, finished: s.finished,
+      pauseLabel: s.running ? 'Jeda' : 'Lanjut',
+      pauseResume: () => s.running ? this.setState({ running: false, elapsed: el }) : this.setState({ running: true, startedAt: Date.now() }),
+      finish: () => this.setState({ running: false, finished: true, elapsed: el }),
+      close: () => {
+        this.setState({ open: false, finished: false, elapsed: 0, mods: s.mods.map((x, i) => i === s.mod ? Object.assign({}, x, { todayDone: true, done: Math.min(x.total, x.done + 1) }) : x) });
+        this.water(1);
+      },
+      minimize: () => this.setState({ open: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

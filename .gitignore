@@ -1,0 +1,14 @@
+node_modules
+dist
+dev-dist
+.env
+.env.local
+.env.*.local
+tests/visual/out
+test-results
+playwright-report
+supabase/.temp
+supabase/.branches
+.wrangler
+*.log
+.DS_Store

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Hamzi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: {{px}}; height: {{px}}; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif; color: #054F31">
+<svg width="{{size}}" height="{{size}}" viewBox="0 0 200 200" role="img" aria-label="{{label}}">
+  <g transform="translate(100 196)">
+    <g>
+      <animateTransform attributeName="transform" type="scale" values="{{breathe}}" dur="{{breatheDur}}" repeatCount="indefinite"></animateTransform>
+      <g transform="translate(-100 -196)">
+        <path d="M150 178 C186 172 194 136 174 120" fill="none" stroke="#F3E6CC" stroke-width="15" stroke-linecap="round"></path>
+        <path d="M174 120 C170 116 166 116 164 119" fill="none" stroke="#F2E0BD" stroke-width="15" stroke-linecap="round"></path>
+        <ellipse cx="100" cy="182" rx="56" ry="36" fill="#FFF4E0"></ellipse>
+        <ellipse cx="100" cy="198" rx="44" ry="12" fill="#F2E0BD"></ellipse>
+        <path d="M40 72 C30 42 34 20 47 22 C60 24 74 38 84 48 Z" fill="#FFF4E0"></path>
+        <path d="M49 60 C44 45 46 33 52 34 C59 36 66 43 72 50 Z" fill="#FDA29B"></path>
+        <g transform="translate(200 0) scale(-1 1)">
+          <path d="M40 72 C30 42 34 20 47 22 C60 24 74 38 84 48 Z" fill="#FFF4E0"></path>
+          <path d="M49 60 C44 45 46 33 52 34 C59 36 66 43 72 50 Z" fill="#FDA29B"></path>
+        </g>
+        <ellipse cx="100" cy="96" rx="72" ry="60" fill="#FFF4E0"></ellipse>
+        <path d="M92 40 Q100 52 108 40 M80 44 Q84 52 88 46 M112 46 Q116 52 120 44" fill="none" stroke="#F2E0BD" stroke-width="5" stroke-linecap="round"></path>
+        <ellipse cx="100" cy="146" rx="46" ry="9" fill="#F2E0BD" opacity="0.6"></ellipse>
+        <path d="M50 146 Q100 166 150 146 L148 160 Q100 180 52 160 Z" fill="#12B76A"></path>
+        <path d="M52 153 Q100 172 149 153" fill="none" stroke="#027A48" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M58 160 L46 182 L60 178 Z M62 160 L64 184 L72 174 Z" fill="#039855"></path>
+        <circle cx="60" cy="158" r="8" fill="#12B76A"></circle>
+        <circle cx="56" cy="114" r="11" fill="#FDA29B" opacity="0.42"></circle>
+        <circle cx="144" cy="114" r="11" fill="#FDA29B" opacity="0.42"></circle>
+        <g stroke="#054F31" stroke-width="1.6" stroke-linecap="round" opacity="0.4">
+          <path d="M44 106 L18 102 M44 112 L16 114 M46 118 L22 126"></path>
+          <path d="M156 106 L182 102 M156 112 L184 114 M154 118 L178 126"></path>
+        </g>
+        <path d="M58 70 L82 {{browInY}}" display="{{browDisp}}" fill="none" stroke="#054F31" stroke-width="3" stroke-linecap="round"></path>
+        <path d="M142 70 L118 {{browInY}}" display="{{browDisp}}" fill="none" stroke="#054F31" stroke-width="3" stroke-linecap="round"></path>
+        <g transform="translate(72 90)">
+          <g>
+            <animateTransform attributeName="transform" type="scale" values="{{blink}}" keyTimes="0;0.93;0.96;1" dur="4.6s" repeatCount="indefinite"></animateTransform>
+            <g transform="{{eyeL}}">
+              <path d="M16.6 6.4 C14.6 4.1 9.4 4.5 9.3 8.4 C9.2 11.8 12.9 12.7 16.3 12 Q12.4 15.6 7.6 18.9" fill="none" stroke="#054F31" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(128 90)">
+          <g>
+            <animateTransform attributeName="transform" type="scale" values="{{blink}}" keyTimes="0;0.93;0.96;1" dur="4.6s" repeatCount="indefinite"></animateTransform>
+            <g transform="{{eyeR}}">
+              <path d="M16.6 6.4 C14.6 4.1 9.4 4.5 9.3 8.4 C9.2 11.8 12.9 12.7 16.3 12 Q12.4 15.6 7.6 18.9" fill="none" stroke="#054F31" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </g>
+        </g>
+        <path d="M95 106 L105 106 L100 112 Z" fill="#F97066" stroke="#F97066" stroke-width="2.5" stroke-linejoin="round"></path>
+        <path d="{{mouthD}}" fill="{{mouthFill}}" stroke="#054F31" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+        <g display="{{sparkDisp}}">
+          <path d="M158 52 L161 61 L170 64 L161 67 L158 76 L155 67 L146 64 L155 61 Z" fill="#F79009"></path>
+          <path d="M40 40 L42 45 L47 47 L42 49 L40 54 L38 49 L33 47 L38 45 Z" fill="#FDB022"></path>
+        </g>
+        <g display="{{zzDisp}}" fill="#027A48" font-family="Plus Jakarta Sans, sans-serif" font-weight="800">
+          <text x="150" y="52" font-size="18">z
+            <animate attributeName="opacity" values="0.2;1;0.2" dur="2.4s" repeatCount="indefinite"></animate>
+          </text>
+          <text x="166" y="32" font-size="24">Z
+            <animate attributeName="opacity" values="1;0.2;1" dur="2.4s" repeatCount="indefinite"></animate>
+          </text>
+        </g>
+        <g display="{{confettiDisp}}">
+          <rect x="26" y="30" width="8" height="14" rx="2" fill="#F79009" transform="rotate(-20 30 37)"></rect>
+          <rect x="164" y="26" width="8" height="14" rx="2" fill="#2E90FA" transform="rotate(25 168 33)"></rect>
+          <circle cx="178" cy="70" r="5" fill="#EE46BC"></circle>
+          <circle cx="20" cy="76" r="5" fill="#12B76A"></circle>
+          <rect x="140" y="8" width="7" height="12" rx="2" fill="#7A5AF8" transform="rotate(40 143 14)"></rect>
+          <rect x="54" y="6" width="7" height="12" rx="2" fill="#F04438" transform="rotate(-35 57 12)"></rect>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mood":{"editor":"enum","options":["calm","happy","excited","focus","worried","sleepy","sleeping","celebrate"],"default":"calm"},"size":{"editor":"int","min":24,"max":400,"default":200},"mirror":{"editor":"boolean","default":false,"tsType":"boolean"},"still":{"editor":"boolean","default":false,"tsType":"boolean"},"$preview":{"width":200,"height":200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const mood = this.props.mood || 'calm';
+    const size = Number(this.props.size || 200);
+    const mirror = this.props.mirror === true || this.props.mirror === 'true';
+    const still = this.props.still === true || this.props.still === 'true';
+    const M = {
+      calm:      { r: 0,  sx: 1.5,  sy: 1.5,  dx: 0, dy: 0, blink: true,  mouth: 'M90 116 Q95 121 100 116 Q105 121 110 116', fill: 'none', name: 'tenang' },
+      happy:     { r: 90, sx: 1.45, sy: 1.45, dx: 0, dy: 2, blink: false, mouth: 'M86 114 Q93 125 100 116 Q107 125 114 114', fill: 'none', name: 'senang' },
+      excited:   { r: 0,  sx: 1.8,  sy: 1.8,  dx: 0, dy: -2, blink: true, mouth: 'M90 115 Q100 132 110 115 Z', fill: '#054F31', name: 'bersemangat' },
+      focus:     { r: 0,  sx: 1.3,  sy: 1.3,  dx: 3, dy: 3, blink: true,  mouth: 'M94 118 L106 118', fill: 'none', name: 'fokus', brow: 72 },
+      worried:   { r: 12, sx: 1.45, sy: 1.45, dx: 0, dy: 2, blink: true,  mouth: 'M90 120 Q95 115 100 118 Q105 121 110 116', fill: 'none', name: 'khawatir', brow: 60 },
+      sleepy:    { r: 0,  sx: 1.5,  sy: 0.7,  dx: 0, dy: 4, blink: false, mouth: 'M95 118 Q100 128 105 118 Q100 112 95 118 Z', fill: '#054F31', name: 'mengantuk' },
+      sleeping:  { r: 0,  sx: 1.5,  sy: 0.18, dx: 0, dy: 6, blink: false, mouth: 'M95 117 Q100 120 105 117', fill: 'none', name: 'tidur' },
+      celebrate: { r: 90, sx: 1.45, sy: 1.45, dx: 0, dy: 2, blink: false, mouth: 'M88 114 Q100 134 112 114 Z', fill: '#054F31', name: 'merayakan' }
+    };
+    const m = M[mood] || M.calm;
+    const tf = (side) => {
+      const flip = side === 'R' && mirror ? -1 : 1;
+      const rot = side === 'R' && mirror ? -m.r : m.r;
+      const outward = mood === 'worried' ? (side === 'L' ? -1 : 1) : 1;
+      const r = mood === 'worried' ? m.r * outward : rot;
+      return 'translate(' + m.dx + ' ' + m.dy + ') rotate(' + r + ') scale(' + (m.sx * flip) + ' ' + m.sy + ') translate(-12 -12)';
+    };
+    return {
+      size: size,
+      px: size + 'px',
+      label: 'Hamzi, maskot kucing, sedang ' + m.name,
+      eyeL: tf('L'),
+      eyeR: tf('R'),
+      blink: (m.blink && !still) ? '1 1;1 1;1 0.1;1 1' : '1 1;1 1;1 1;1 1',
+      breathe: still ? '1;1;1' : (mood === 'excited' || mood === 'celebrate' ? '1;1.05;1' : '1;1.018;1'),
+      breatheDur: (mood === 'excited' || mood === 'celebrate') ? '0.9s' : '4s',
+      mouthD: m.mouth,
+      mouthFill: m.fill,
+      browDisp: m.brow ? 'inline' : 'none',
+      browInY: m.brow || 70,
+      sparkDisp: mood === 'excited' ? 'inline' : 'none',
+      zzDisp: mood === 'sleeping' ? 'inline' : 'none',
+      confettiDisp: mood === 'celebrate' ? 'inline' : 'none'
+    };
+  }
+}
+</script>
+</body>
+</html>
