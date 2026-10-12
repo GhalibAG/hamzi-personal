@@ -326,7 +326,12 @@ function MobileFinance({ d, onOpen }: { d: D; onOpen: (t: Transaction) => void }
           <span className="truncate text-meta font-semibold text-ink-3">{overline(d.f)}</span>
           <h1 className="m-0 text-title leading-tight font-extrabold tracking-[-0.5px]">Keuangan</h1>
         </div>
-        <WalletPill n={d.walletCount} desktop={false} />
+        <div className="flex items-center gap-2">
+          <Link to="/keuangan/laporan" aria-label="Laporan keuangan" title="Laporan keuangan" className="flex size-11 items-center justify-center rounded-full border border-line bg-surface text-ink-muted hover:bg-surface-2">
+            <Icon.Activity size={20} />
+          </Link>
+          <WalletPill n={d.walletCount} desktop={false} />
+        </div>
       </header>
       {d.fin.error && <div className="px-4 pt-4"><ErrorState onRetry={d.fin.refetch} /></div>}
       {d.fin.loading ? <LoadingBlocks desktop={false} /> : (
@@ -359,6 +364,7 @@ function DesktopFinance({ d, onOpen }: { d: D; onOpen: (t: Transaction) => void 
           <h1 className="m-0 text-title leading-tight font-extrabold tracking-[-0.5px]">Keuangan</h1>
         </div>
         <WalletPill n={d.walletCount} desktop />
+        <Link to="/keuangan/laporan" className="inline-flex h-11 items-center gap-1.5 rounded-full border border-line bg-surface px-4 text-label-lg font-bold text-ink-muted no-underline hover:bg-surface-2">Laporan</Link>
         <button type="button" onClick={exportCsv} className="inline-flex h-11 items-center gap-1.5 rounded-full border border-line bg-surface px-4 text-label-lg font-bold text-ink-muted hover:bg-surface-2">Export CSV</button>
         <Button onClick={() => openQuick('expense')} className="shadow-day-sel" aria-keyshortcuts="E">
           + Catat <span aria-hidden="true" className="rounded-xs border border-on-primary/50 px-1.5 py-px text-micro font-bold">E</span>

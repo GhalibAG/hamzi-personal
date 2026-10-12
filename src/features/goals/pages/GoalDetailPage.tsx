@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import { dayLabelComma } from '@common/format.ts';
 import { Icon } from '@/components/icons';
 import {
-  Button, ButtonLink, Card, Columns, EmptyState, IconButton, ListSkeleton, Menu, Page, Ring, ScreenHeader, SectionTitle, StatTile,
+  Button, ButtonLink, Card, Columns, EmptyState, IconButton, ListSkeleton, Menu, Page, Ring, ScreenHeader, SectionTitle, StatTile, Tag,
 } from '@/components/ui';
 import { useRemove, useRows, useUpdate } from '@/data/hooks';
 import type { GoalContribution } from '@/data/types';
@@ -13,7 +13,7 @@ import { useMoney } from '@/lib/amounts';
 import { cx } from '@/lib/cx';
 import { useIsDesktop, useToday } from '@/lib/hooks';
 import { toastUndo } from '@/stores/ui';
-import { GOAL_KIND_LABEL, goalStatus, goalView } from '../derive';
+import { GOAL_KIND_LABEL, goalScenarios, goalStatus, goalView } from '../derive';
 import { ContributionSheet, GoalFormSheet } from '../components/GoalSheets';
 import { GoalStatusTag, shortDate } from '../components/GoalBits';
 
@@ -127,6 +127,32 @@ export default function GoalDetailPage() {
     </p>
   ) : null;
 
+  const sc = goal.status === 'aktif' ? goalScenarios(v, contributions, today) : null;
+  const scenarios = sc ? (
+    <section aria-label="Proyeksi 3 skenario" className="flex flex-col gap-2.5">
+      <SectionTitle title="Proyeksi 3 skenario" right={<span className="text-meta text-ink-3">{goal.due_date ? `sampai ${shortDate(goal.due_date)}` : `${sc.horizon} bulan`}</span>} />
+      <Card className="px-3.5 py-1">
+        <ul className="m-0 list-none p-0">
+          {sc.items.map((x) => (
+            <li key={x.key} className="flex items-center gap-3 border-b border-surface-2 py-3 last:border-b-0">
+              <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                <span className="text-body font-bold">{x.label}</span>
+                <span className="text-meta text-ink-3">
+                  setor <span className="tabular">{money.rp(x.monthly)}</span>/bln · imbal {String(x.annualPct).replace('.', ',')}%/thn
+                  {x.reachMonths ? ` · tercapai ±${x.reachMonths} bln` : ''}
+                </span>
+              </div>
+              <div className="flex flex-col items-end gap-1">
+                <span className="tabular text-body font-extrabold">{money.rp(x.projected)}</span>
+                <Tag tone={x.reached ? 'masuk' : 'ujian'}>{x.reached ? 'Tercapai' : 'Belum tercapai'}</Tag>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Card>
+    </section>
+  ) : null;
+
   const historyBlock = (
     <section aria-label="Riwayat setoran" className="flex flex-col gap-2.5">
       <SectionTitle title="Riwayat setoran" right={<span className="text-meta text-ink-3">{history.length} catatan</span>} />
@@ -161,9 +187,9 @@ export default function GoalDetailPage() {
         }
       />
       {desktop ? (
-        <Columns left={<>{hero}{note}{tiles}</>} right={historyBlock} />
+        <Columns left={<>{hero}{note}{tiles}</>} right={<>{scenarios}{historyBlock}</>} />
       ) : (
-        <div className="flex flex-col gap-4 px-4 pt-4">{hero}{note}{tiles}{historyBlock}</div>
+        <div className="flex flex-col gap-4 px-4 pt-4">{hero}{note}{tiles}{scenarios}{historyBlock}</div>
       )}
       {sheet?.kind === 'edit' && <GoalFormSheet open onClose={() => setSheet(null)} editing={goal} />}
       {sheet?.kind === 'contrib' && <ContributionSheet open onClose={() => setSheet(null)} goal={goal} mode={sheet.mode} />}

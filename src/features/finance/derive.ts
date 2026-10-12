@@ -1,6 +1,6 @@
 // Turunan keuangan (setara rpc_finance_daily/period + v_wallet_balance). Rumus di @common/calc.
 import {
-  addDays, budgetUsedPct, cycleEnd, cycleStart, daysInMonth, daysLeftInCycle, fromParts, isoWeekday, pctVsAvg, safeDailyRounded, wibTime,
+  addDays, budgetUsedPct, cycleEnd, cycleStart, daysInMonth, daysLeftInCycle, diffDays, fromParts, isoWeekday, pctVsAvg, safeDailyRounded, wibTime,
   type DateStr,
 } from '@common/calc/index.ts';
 import { BULAN, BULAN_PENDEK, HARI, dayLabelComma } from '@common/format.ts';
@@ -228,4 +228,46 @@ export function recurringLabel(rule: Pick<RecurringRule, 'freq' | 'interval_n' |
     return (n === 1 ? 'Tiap ' : `Tiap ${n} minggu, `) + (days || 'minggu');
   }
   return (n === 1 ? 'Tiap bulan' : `Tiap ${n} bulan`) + (rule.day_of_month ? ` tgl ${rule.day_of_month}` : '');
+}
+
+/* ---------- Laporan (FIN-12): periode, perbandingan, kategori, tren harian ---------- */
+
+export interface PeriodReport {
+  from: DateStr; to: DateStr; days: number;
+  expense: number; income: number; net: number;
+  prevExpense: number; prevIncome: number;
+  /** Persen perubahan pengeluaran vs periode sebelumnya (null bila sebelumnya 0). */
+  expenseChangePct: number | null;
+  byCategory: { categoryId: string | null; category: Category | undefined; amount: number; pct: number }[];
+  daily: { day: DateStr; expense: number; income: number }[];
+  avgDailyExpense: number;
+}
+
+/** Laporan periode [from, to] (inklusif) dibanding periode sebelumnya dengan panjang sama. */
+export function periodReport(transactions: Transaction[], categories: Category[], from: DateStr, to: DateStr): PeriodReport {
+  const live = transactions.filter((t) => !t.deleted_at);
+  const days = diffDays(from, to) + 1;
+  const pFrom = addDays(from, -days);
+  const pTo = addDays(from, -1);
+  const inRange = (t: Transaction, a: DateStr, b: DateStr) => t.occurred_on >= a && t.occurred_on <= b;
+  const cur = live.filter((t) => inRange(t, from, to));
+  const prev = live.filter((t) => inRange(t, pFrom, pTo));
+  const sumKind = (xs: Transaction[], k: 'expense' | 'income') => xs.filter((t) => t.kind === k).reduce((s, t) => s + t.amount, 0);
+  const expense = sumKind(cur, 'expense');
+  const income = sumKind(cur, 'income');
+  const prevExpense = sumKind(prev, 'expense');
+  const map = new Map<string | null, number>();
+  for (const t of cur) if (t.kind === 'expense') map.set(t.category_id ?? null, (map.get(t.category_id ?? null) ?? 0) + t.amount);
+  const byCategory = [...map.entries()]
+    .map(([categoryId, amount]) => ({ categoryId, amount, category: categories.find((c) => c.id === categoryId), pct: expense > 0 ? Math.round((amount / expense) * 100) : 0 }))
+    .sort((a, b) => b.amount - a.amount);
+  const daily = Array.from({ length: days }, (_, i) => {
+    const day = addDays(from, i);
+    const xs = cur.filter((t) => t.occurred_on === day);
+    return { day, expense: sumKind(xs, 'expense'), income: sumKind(xs, 'income') };
+  });
+  return {
+    from, to, days, expense, income, net: income - expense, prevExpense, prevIncome: sumKind(prev, 'income'),
+    expenseChangePct: pctVsAvg(expense, prevExpense), byCategory, daily, avgDailyExpense: Math.round(expense / Math.max(1, days)),
+  };
 }

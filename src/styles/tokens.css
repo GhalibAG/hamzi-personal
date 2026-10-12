@@ -80,10 +80,37 @@
   --nav-h:76px; --sidebar-w:240px; --chat-panel-w:380px; --content-max:1120px;
 }
 
-/* Mode gelap (P1) — hanya peran yang didefinisikan ulang; aksen modul tetap. */
+/* Mode gelap (P1). Prototipe hanya mendefinisikan mode terang; nilai di bawah adalah turunan agar kontras tetap terbaca:
+   latar pastel modul → tint gelap, teks "gelap di atas pastel" → versi terang. Pohon & maskot tetap. */
 :root[data-theme="dark"] {
+  color-scheme: dark;
+  --brand-50:#10291E; --brand-100:#163A2A; --brand-200:#1F5A3F; --brand-800:#A6F4C5; --brand-900:#D1FADF; --brand-tint:#12301F;
+
   --bg:#0B1410; --surface:#121D18; --surface-2:#1A2822; --border:#22332B; --border-strong:#2C4036;
   --text:#E8F1EC; --text-2:#B2C2BA; --text-3:#8A9C93; --text-muted:#C9D6CF;
-  --primary:var(--brand-400); --on-primary:#052E1D; --primary-soft:#123526; --on-primary-soft:var(--brand-200);
-  --primary-hover:var(--brand-300); --nav-active-pill:#1C4632; --header-bg:var(--brand-800);
+  --primary:#038450; --on-primary:#FFFFFF; --primary-hover:#027A48; --primary-soft:#123526; --on-primary-soft:#A6F4C5;
+  --nav-active-pill:#1C4632;
+  --header-bg:#05603A; --header-circle-1:#039855; --header-circle-2:#054F31; --header-circle-3:#12B76A; --on-header-sub:#D1FADF;
+  --scrim:rgba(0,0,0,.55);
+
+  --warn-bg:#3D2E0A; --warn-fg:#FEC84B; --warn-strong:#FDB022; --warn-banner-bg:#2B220B; --warn-banner-border:#6B4E0F;
+  --danger-bg:#3D1512; --danger-fg:#FDA29B; --danger-soft:#22110F; --danger-border:#6B2A23; --danger-tint:#3A1714; --danger-deep:#FECDCA;
+  --info-bg:#0D2A33; --info-fg:#67E3F9;
+
+  --mod-rencana-bg:#10233D; --mod-rencana-fg:#53B1FD; --mod-rencana-text:#84CAFF;
+  --mod-kuliah-bg:#221A45; --mod-kuliah-fg:#A48AFB; --mod-kuliah-deep:#BDB4FE; --mod-kuliah-line:#3E3275;
+  --mod-keuangan-bg:#10291E; --mod-keuangan-fg:#32D583;
+  --mod-target-bg:#33220C; --mod-target-fg:#FDB022; --mod-target-track:#3D2E0A;
+  --mod-invest-bg:#36112A; --mod-invest-fg:#F670C7;
+  --mod-belajar-bg:#0D2A33; --mod-belajar-fg:#22CCEE; --mod-belajar-text:#67E3F9;
+  --mod-rutin-bg:#3A1714; --mod-rutin-fg:#F97066;
+
+  --lm-0-bg:#0D2A33; --lm-0-fg:#67E3F9;
+  --lm-1-bg:#10233D; --lm-1-fg:#84CAFF;
+  --lm-2-bg:#33220C; --lm-2-fg:#FDB022;
+  --lm-3-bg:#221A45; --lm-3-fg:#BDB4FE;
+  --lm-4-bg:#36112A; --lm-4-fg:#F670C7;
+
+  --shadow-float:0 16px 40px rgba(0,0,0,.45); --shadow-pop:0 12px 32px rgba(0,0,0,.5); --shadow-sheet:0 -12px 32px rgba(0,0,0,.45);
+  --shadow-notif:0 16px 40px rgba(0,0,0,.5); --shadow-bubble:0 4px 12px rgba(0,0,0,.35);
 }

@@ -1,5 +1,5 @@
 // Turunan target tabungan & investasi (setara rpc_goals_overview / rpc_investments_overview).
-import { diffDays, goalMonthlyNeeded, goalProgressPct, investmentPL, monthsLeft, netCapital, type DateStr } from '@common/calc/index.ts';
+import { addDays, diffDays, futureValue, goalMonthlyNeeded, goalProgressPct, investmentPL, monthsLeft, netCapital, type DateStr } from '@common/calc/index.ts';
 import type { Asset, AssetTransaction, AssetValuation, GoalContribution, SavingsGoal } from '@/data/types';
 
 export function goalSaved(goalId: string, contributions: GoalContribution[]): number {
@@ -63,4 +63,46 @@ export const GOAL_MILESTONES = [25, 50, 75, 100] as const;
 export function crossedMilestone(prevPct: number, nextPct: number): number | null {
   const hit = GOAL_MILESTONES.filter((m) => prevPct < m && nextPct >= m);
   return hit.length ? hit[hit.length - 1] : null;
+}
+
+/* ---------- Proyeksi 3 skenario (GOAL-04) — asumsi, bukan jaminan ---------- */
+
+export interface GoalScenario {
+  key: 'pelan' | 'rencana' | 'semangat';
+  label: string;
+  monthly: number;
+  annualPct: number;
+  /** Nilai perkiraan di akhir horizon (tenggat, atau 12 bulan bila tanpa tenggat). */
+  projected: number;
+  reached: boolean;
+  /** Perkiraan bulan sampai target tercapai (null bila > 10 tahun). */
+  reachMonths: number | null;
+}
+
+/**
+ * Tiga skenario setoran dari dasar = rencana setoran (atau kebutuhan per bulan, atau rata-rata setoran 3 bulan):
+ * Pelan (75% setoran, imbal 0%), Sesuai rencana (100%, asumsi imbal), Semangat (125%, asumsi + 2%/thn).
+ */
+export function goalScenarios(v: GoalView, contributions: GoalContribution[], today: DateStr): { horizon: number; items: GoalScenario[] } | null {
+  const g = v.goal;
+  const recent = contributions
+    .filter((c) => c.goal_id === g.id && !c.deleted_at && c.contributed_at >= addDays(today, -91))
+    .reduce((s, c) => s + c.amount, 0);
+  const base = g.monthly_plan || v.monthly || Math.round(recent / 3);
+  if (!base || base <= 0 || v.saved >= g.target_amount) return null;
+  const horizon = v.monthsLeft ?? 12;
+  const mk = (key: GoalScenario['key'], label: string, factor: number, pct: number): GoalScenario => {
+    const monthly = Math.round(base * factor);
+    let reachMonths: number | null = null;
+    for (let m = 1; m <= 120; m++) {
+      if (futureValue(v.saved, monthly, pct, m) >= g.target_amount) { reachMonths = m; break; }
+    }
+    const projected = Math.round(futureValue(v.saved, monthly, pct, horizon));
+    return { key, label, monthly, annualPct: pct, projected, reached: projected >= g.target_amount, reachMonths };
+  };
+  const r = Number(g.assumed_return_pct) || 0;
+  return {
+    horizon,
+    items: [mk('pelan', 'Pelan', 0.75, 0), mk('rencana', 'Sesuai rencana', 1, r), mk('semangat', 'Semangat', 1.25, r + 2)],
+  };
 }

@@ -1,5 +1,6 @@
 // Outbox offline (TECH-SPEC §9, OFF-01..04): tulisan yang gagal karena jaringan disimpan di IndexedDB (FIFO)
 // lalu dikirim ulang saat online. Idempoten karena id dibuat klien (upsert onConflict id) dan RPC bernilai absolut.
+import { useEffect, useState } from 'react';
 import { get, set } from 'idb-keyval';
 
 export type OutboxOp =
@@ -80,4 +81,17 @@ export async function flushOutbox(send: (op: OutboxOp) => Promise<void>, onDrop?
     flushing = false;
   }
   return sent;
+}
+
+/** Hook React: jumlah perubahan yang menunggu sinkron (indikator OFF-03). */
+export function useOutboxCount(enabled: boolean): number {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    if (!enabled) return;
+    let alive = true;
+    void pendingCount().then((c) => { if (alive) setN(c); });
+    const off = onOutboxChange((c) => setN(c));
+    return () => { alive = false; off(); };
+  }, [enabled]);
+  return n;
 }

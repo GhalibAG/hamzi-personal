@@ -1,5 +1,6 @@
 // Pengaturan > Diagnostik (SET-07, TECH-SPEC §8.4): versi, mode, status sinkron, izin & langganan push,
 // push terakhir diterima, jumlah baris per tabel, ukuran data, kuota AI.
+import { useOutboxCount } from '@/data/outbox';
 import { useQuery } from '@tanstack/react-query';
 import { wibDate, wibTime } from '@common/calc/index.ts';
 import { thousands } from '@common/format.ts';
@@ -24,6 +25,7 @@ function storageSize(): string | null {
 }
 
 export function DiagnosticsSection() {
+  const pending = useOutboxCount(!DEMO);
   const online = useOnline();
   const counts = useQuery({ queryKey: ['diag-counts'], queryFn: () => repo.exportAll(), staleTime: 0 });
   const push = useQuery({ queryKey: ['diag-last-push'], queryFn: lastPushAt, staleTime: 0 });
@@ -46,7 +48,7 @@ export function DiagnosticsSection() {
       <SettingsCard title="Aplikasi">
         <InfoRow label="Versi" value={`Hamzi ${APP_VERSION}`} />
         <InfoRow label="Mode" value={DEMO ? 'Demo (localStorage)' : 'Supabase'} />
-        <InfoRow label="Status sinkron" value={DEMO ? 'Tersimpan di perangkat ini' : online ? 'Online' : 'Offline · menunggu internet'} tone={online || DEMO ? 'ok' : 'warn'} />
+        <InfoRow label="Status sinkron" value={DEMO ? 'Tersimpan di perangkat ini' : `${online ? 'Online' : 'Offline · menunggu internet'}${pending ? ` · ${pending} perubahan antre` : ''}`} tone={(online && !pending) || DEMO ? 'ok' : 'warn'} />
         <InfoRow label="Service worker" value={'serviceWorker' in navigator && navigator.serviceWorker.controller ? 'Aktif' : 'Belum aktif'} />
       </SettingsCard>
       <SettingsCard title="Pengingat">

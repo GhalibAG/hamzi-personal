@@ -47,6 +47,7 @@ export const router = createBrowserRouter([
           { path: 'keuangan', element: page(() => import('@/features/finance/pages/FinancePage')) },
           { path: 'keuangan/transaksi', element: page(() => import('@/features/finance/pages/TransactionsPage')) },
           { path: 'keuangan/anggaran', element: page(() => import('@/features/finance/pages/BudgetPage')) },
+          { path: 'keuangan/laporan', element: page(() => import('@/features/finance/pages/ReportPage')) },
           { path: 'keuangan/dompet', element: page(() => import('@/features/finance/pages/WalletsPage')) },
           { path: 'keuangan/target', element: page(() => import('@/features/goals/pages/GoalsPage')) },
           { path: 'keuangan/target/:id', element: page(() => import('@/features/goals/pages/GoalDetailPage')) },

@@ -2,6 +2,8 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router';
 import { useSettings } from '@/data/hooks';
+import { DEMO } from '@/data';
+import { useOutboxCount } from '@/data/outbox';
 import { useHotkeys, useIsDesktop, useOnline } from '@/lib/hooks';
 import { useUi, type QuickKind } from '@/stores/ui';
 import { useTimer } from '@/stores/timer';
@@ -51,6 +53,7 @@ export function AppShell() {
   const toggleChat = useUi((s) => s.toggleChat);
   const timerOpen = useTimer((s) => !!s.active && !s.minimized);
   const online = useOnline();
+  const pending = useOutboxCount(!DEMO);
   useAppearance();
 
   // ?quick=expense|income|task|timer|routine|module (manifest shortcuts, tautan notifikasi)
@@ -77,11 +80,16 @@ export function AppShell() {
     },
   });
 
-  const offline = !online && (
+  const offline = !online ? (
     <div role="status" className="sticky top-0 z-30 flex items-center justify-center gap-2 bg-warn-banner px-4 py-2 text-meta font-semibold text-warn-fg">
       <Icon.Alert size={16} /> Kamu sedang offline. Data tersimpan di perangkat; AI & sinkron menunggu internet.
+      {pending > 0 && <span className="font-extrabold">· {pending} perubahan menunggu sinkron</span>}
     </div>
-  );
+  ) : pending > 0 ? (
+    <div role="status" className="sticky top-0 z-30 flex items-center justify-center gap-2 bg-info-bg px-4 py-1.5 text-meta font-semibold text-info-fg">
+      <Icon.Repeat size={14} /> Menyinkronkan {pending} perubahan…
+    </div>
+  ) : null;
 
   const overlays = (
     <>
