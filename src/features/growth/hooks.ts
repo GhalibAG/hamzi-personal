@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { xpProgress } from '@common/calc/index.ts';
 import { useRows, useStats } from '@/data/hooks';
 import { useToday } from '@/lib/hooks';
+import { useUi } from '@/stores/ui';
 import { buildGrowthIndex, growthOverview } from './derive';
 
 /** Ringkasan Tumbuh hari ini (pohon, rutinitas, streak). */
@@ -25,4 +26,18 @@ export function useXp() {
   const s = useStats();
   const xp = s.data?.xp_total ?? 0;
   return { xp, ...xpProgress(xp) };
+}
+
+/** True selama `ms` setelah menyiram (chip "+1 tetes air", TUM-01). */
+export function useJustWatered(ms = 1800): boolean {
+  const at = useUi((s) => s.wateredAt);
+  const [, tick] = useState(0);
+  useEffect(() => {
+    if (!at) return;
+    const left = at + ms - Date.now();
+    if (left <= 0) return;
+    const t = window.setTimeout(() => tick((x) => x + 1), left + 10);
+    return () => window.clearTimeout(t);
+  }, [at, ms]);
+  return at > 0 && Date.now() - at < ms;
 }

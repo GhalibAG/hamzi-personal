@@ -1,0 +1,12 @@
+{
+  "imports": {
+    "zod": "npm:zod@3.25.76",
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@2.117.3",
+    "web-push": "npm:web-push@3.6.7"
+  },
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true
+  },
+  "lock": false
+}

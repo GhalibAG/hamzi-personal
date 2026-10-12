@@ -35,3 +35,32 @@ export function assetView(asset: Asset, txs: AssetTransaction[], vals: AssetValu
   const r = investmentPL(capital, last.value);
   return { asset, capital, value: last.value, valuedOn: last.valued_on, pl: r.pl, pct: r.pct };
 }
+
+/* ---------- Tambahan (layar Target) ---------- */
+
+export const GOAL_KIND_LABEL: Record<SavingsGoal['kind'], string> = {
+  dana_darurat: 'Dana darurat', barang: 'Barang', pendidikan: 'Pendidikan', investasi: 'Investasi', lainnya: 'Lainnya',
+};
+
+export type GoalStatus = 'selesai' | 'di_jalur' | 'terlambat' | 'dibatalkan' | 'tanpa_tenggat';
+export const GOAL_STATUS_LABEL: Record<GoalStatus, string> = {
+  selesai: 'Selesai', di_jalur: 'Di jalur', terlambat: 'Terlambat', dibatalkan: 'Dibatalkan', tanpa_tenggat: 'Tanpa tenggat',
+};
+
+/** Status GOAL-03: Selesai (progres 100% / ditandai), Terlambat (lewat tenggat atau rencana < kebutuhan), Di jalur. */
+export function goalStatus(v: GoalView, today: DateStr): GoalStatus {
+  if (v.goal.status === 'dibatalkan') return 'dibatalkan';
+  if (v.goal.status === 'selesai' || v.pct >= 100) return 'selesai';
+  if (!v.goal.due_date) return 'tanpa_tenggat';
+  if (v.goal.due_date < today) return 'terlambat';
+  if (v.onTrack === false) return 'terlambat';
+  return 'di_jalur';
+}
+
+export const GOAL_MILESTONES = [25, 50, 75, 100] as const;
+
+/** Tonggak 25/50/75/100% tertinggi yang baru terlewati (GOAL-07), atau null. */
+export function crossedMilestone(prevPct: number, nextPct: number): number | null {
+  const hit = GOAL_MILESTONES.filter((m) => prevPct < m && nextPct >= m);
+  return hit.length ? hit[hit.length - 1] : null;
+}

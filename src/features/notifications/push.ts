@@ -53,3 +53,30 @@ export async function lastPushAt(): Promise<string | null> {
     return null;
   }
 }
+
+export type PushSubStatus = 'aktif' | 'belum' | 'tidak didukung';
+
+/** Status langganan Web Push perangkat ini (Pengaturan > Notifikasi, Diagnostik). */
+export async function pushSubscriptionStatus(): Promise<PushSubStatus> {
+  if (typeof navigator === 'undefined' || !('serviceWorker' in navigator) || typeof PushManager === 'undefined') return 'tidak didukung';
+  try {
+    const reg = await navigator.serviceWorker.getRegistration();
+    if (!reg) return 'belum';
+    return (await reg.pushManager.getSubscription()) ? 'aktif' : 'belum';
+  } catch {
+    return 'belum';
+  }
+}
+
+/** Kirim pengingat uji (Edge `push-test`; demo: notifikasi lokal). Pesan ramah untuk ditampilkan. */
+export async function sendTestReminder(): Promise<{ ok: boolean; message: string }> {
+  if (!DEMO && typeof navigator !== 'undefined' && !navigator.onLine) return { ok: false, message: 'Butuh internet untuk mengirim pengingat uji.' };
+  try {
+    const r = await repo.invoke<{ ok?: boolean; sent?: number; reason?: string | null }>('push-test', {});
+    if (r?.ok) return { ok: true, message: 'Pengingat uji terkirim. Cek notifikasi HP-mu.' };
+    if (notifPermission() !== 'granted') return { ok: false, message: 'Izin notifikasi belum diberikan. Ketuk "Aktifkan" dulu.' };
+    return { ok: false, message: r?.reason ?? 'Belum ada perangkat yang berlangganan pengingat.' };
+  } catch (e) {
+    return { ok: false, message: `Pengingat uji gagal: ${(e as Error).message}` };
+  }
+}

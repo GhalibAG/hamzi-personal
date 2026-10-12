@@ -1,0 +1,95 @@
+# Konfigurasi Supabase CLI untuk pengembangan lokal Hamzi (`supabase start`, `supabase db reset`,
+# `supabase functions serve`). Production diatur di dashboard Supabase — lihat docs/DEPLOY.md.
+# [verifikasi] nama kunci di file ini mengikuti Supabase CLI terbaru; jalankan `supabase --version` dan sesuaikan bila CLI mengeluh.
+project_id = "hamzi"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+# [verifikasi] samakan dengan versi Postgres project (Dashboard > Settings > Infrastructure).
+major_version = 17
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[studio]
+enabled = true
+port = 54323
+
+[inbucket]
+# Email magic link lokal dapat dilihat di http://localhost:54324
+enabled = true
+port = 54324
+
+[storage]
+enabled = true
+file_size_limit = "10MiB"
+
+[analytics]
+enabled = false
+
+[auth]
+enabled = true
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173", "http://127.0.0.1:5173"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+enable_anonymous_sign_ins = false
+# Aplikasi SATU pengguna. Biarkan true hanya sampai akun pemilik dibuat, lalu ubah ke false
+# (lokal di sini; production: Dashboard > Authentication > Sign In / Providers > "Allow new users to sign up" = off).
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false
+max_frequency = "1m0s"
+
+[auth.external.google]
+enabled = false
+client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
+skip_nonce_check = false
+
+[edge_runtime]
+enabled = true
+policy = "per_worker"
+deno_version = 2
+
+# Secret lokal Edge Function: salin ke supabase/functions/.env (jangan di-commit) — daftar di docs/DEPLOY.md.
+# Untuk test tanpa API AI sungguhan: LLM_MOCK=1.
+
+[functions.scheduler-tick]
+# Dipanggil Cloudflare Worker dengan header x-cron-secret (bukan JWT).
+verify_jwt = false
+import_map = "./functions/deno.json"
+
+[functions.notif-action]
+# Dipanggil service worker dengan token HMAC (bukan JWT).
+verify_jwt = false
+import_map = "./functions/deno.json"
+
+[functions.push-test]
+verify_jwt = true
+import_map = "./functions/deno.json"
+
+[functions.ai-generate]
+verify_jwt = true
+import_map = "./functions/deno.json"
+
+[functions.ai-chat]
+verify_jwt = true
+import_map = "./functions/deno.json"
+
+[functions.account-delete]
+verify_jwt = true
+import_map = "./functions/deno.json"

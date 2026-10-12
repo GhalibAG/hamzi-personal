@@ -1,0 +1,19 @@
+# Cloudflare Worker penjadwal Hamzi — deploy: `cd workers/scheduler && npx wrangler deploy`
+# [verifikasi] batas gratis Cron Triggers & request Workers (1 permintaan/menit ≈ 43.200/bulan).
+name = "hamzi-scheduler"
+main = "index.js"
+compatibility_date = "2025-09-01"
+workers_dev = false
+
+[triggers]
+crons = ["* * * * *"]
+
+[vars]
+# Ganti <project-ref> dengan Reference ID project Supabase (Dashboard > Settings > General).
+TICK_URL = "https://<project-ref>.supabase.co/functions/v1/scheduler-tick"
+
+# Rahasia (JANGAN ditulis di file ini):
+#   npx wrangler secret put CRON_SECRET     # nilai sama dengan secret CRON_SECRET di Supabase Edge Functions
+
+[observability]
+enabled = true

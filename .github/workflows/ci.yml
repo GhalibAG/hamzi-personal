@@ -1,0 +1,70 @@
+# CI Hamzi (TECH-SPEC §12): typecheck, lint, unit test, test SQL (PGlite), build, cek tipe Edge Function, scan rahasia.
+# Tidak ada rahasia yang dibutuhkan; AI tidak pernah dipanggil sungguhan di CI.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run test:sql
+      - run: npm run build
+      - name: Scan rahasia di bundle (dist)
+        run: |
+          # Bundle klien hanya boleh berisi nilai publik (URL Supabase, anon/publishable key, VAPID public key).
+          PATTERN='AIza[0-9A-Za-z_-]{30,}|(^|[^A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|gsk_[A-Za-z0-9]{20,}|sb_secret_[A-Za-z0-9_-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|service_role|InJvbGUiOiJzZXJ2aWNlX3Jvb|Jyb2xlIjoic2VydmljZV9yb2xlI|icm9sZSI6InNlcnZpY2Vfcm9sZ|VAPID_PRIVATE|CRON_SECRET|NOTIF_ACTION_SECRET|GEMINI_API_KEY|GROQ_API_KEY'
+          if grep -rnIE "$PATTERN" dist; then
+            echo "::error::Kemungkinan rahasia ditemukan di bundle klien (dist)"
+            exit 1
+          fi
+          echo "Bundle bersih."
+
+  edge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: deno check Edge Functions
+        run: deno check --config supabase/functions/deno.json supabase/functions/*/index.ts
+
+  secrets-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan rahasia di repo
+        run: |
+          # Pola kunci yang mungkin bocor: Google AI (AIza…), OpenAI-style (sk-…), Groq (gsk_…), Supabase secret
+          # (sb_secret_…), JWT berperan service_role (payload base64), kunci privat PEM, dan nilai rahasia yang ditempel ke env.
+          PATTERN='AIza[0-9A-Za-z_-]{30,}|(^|[^A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|gsk_[A-Za-z0-9]{20,}|sb_secret_[A-Za-z0-9_-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|InJvbGUiOiJzZXJ2aWNlX3Jvb|Jyb2xlIjoic2VydmljZV9yb2xlI|icm9sZSI6InNlcnZpY2Vfcm9sZ|(SERVICE_ROLE_KEY|VAPID_PRIVATE_KEY|CRON_SECRET|NOTIF_ACTION_SECRET|GEMINI_API_KEY|GROQ_API_KEY)[[:space:]]*[=:][[:space:]]*["'"'"']?[A-Za-z0-9_.+/-]{16,}'
+          if git grep -nIE "$PATTERN" -- . ':!.github/workflows/ci.yml' ':!package-lock.json'; then
+            echo "::error::Kemungkinan rahasia ditemukan di repo. Pindahkan ke secret (Supabase/Cloudflare/GitHub)."
+            exit 1
+          fi
+          # File env lokal tidak boleh ikut ter-commit
+          if git ls-files | grep -E '(^|/)\.env($|\.local$|\.[a-z]+\.local$)|supabase/functions/\.env$'; then
+            echo "::error::File .env ter-commit"
+            exit 1
+          fi
+          echo "Repo bersih."

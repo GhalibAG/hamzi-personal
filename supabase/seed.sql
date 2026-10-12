@@ -1,0 +1,3 @@
+-- Hamzi tidak memakai data seed: akun asli dimulai kosong.
+-- Dompet "Tunai" dan 15 kategori default dibuat otomatis oleh trigger handle_new_user (0002_rls.sql, TECH-SPEC §5.2)
+-- saat akun pertama kali mendaftar. Data contoh prototipe hanya ada di MODE DEMO klien (src/data/seed.ts).
