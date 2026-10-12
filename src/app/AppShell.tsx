@@ -31,6 +31,9 @@ function useAppearance() {
     const apply = () => {
       const dark = s.theme === 'dark' || (s.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
       root.dataset.theme = dark ? 'dark' : 'light';
+      root.style.colorScheme = dark ? 'dark' : 'light';
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', dark ? '#05603A' : '#027A48');
     };
     apply();
     const m = window.matchMedia('(prefers-color-scheme: dark)');

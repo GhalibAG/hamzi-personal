@@ -8,6 +8,20 @@
     <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-180.png" />
     <title>Hamzi</title>
+    <script>
+      (function() {
+        try {
+          var raw = localStorage.getItem('hamzi-demo-v1');
+          var s = raw ? JSON.parse(raw).user_settings?.[0] : null;
+          var t = s ? s.theme : 'system';
+          var dark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', dark ? '#05603A' : '#027A48');
+        } catch(e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

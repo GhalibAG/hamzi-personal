@@ -4,7 +4,8 @@ import { Icon } from '@/components/icons';
 import { Mascot } from '@/components/mascot/Mascot';
 import { Kbd, ProgressBar } from '@/components/ui';
 import { cx } from '@/lib/cx';
-import { useUi } from '@/stores/ui';
+import { toast, useUi } from '@/stores/ui';
+import { useSettings, useUpdateSettings } from '@/data/hooks';
 import { useGrowth, useXp } from '@/features/growth/hooks';
 import { useUnreadCount } from '@/features/notifications/unread';
 import { TABS } from './nav';
@@ -18,6 +19,14 @@ export function Sidebar() {
   const unread = useUnreadCount();
   const { data } = useGrowth();
   const xp = useXp();
+  const s = useSettings();
+  const upd = useUpdateSettings();
+  const isDark = s.theme === 'dark' || (s.theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const toggleTheme = () => {
+    const next = isDark ? 'light' : 'dark';
+    upd.mutate({ theme: next });
+    toast(next === 'dark' ? 'Tema gelap diaktifkan' : 'Tema terang diaktifkan');
+  };
   return (
     <nav aria-label="Navigasi utama" className="flex h-full w-60 shrink-0 flex-col gap-1.5 overflow-y-auto border-r border-line bg-surface px-3.5 py-5">
       <Link to="/" className="flex items-center gap-2.5 px-1.5 pb-3.5 text-ink no-underline">
@@ -54,6 +63,15 @@ export function Sidebar() {
         <Icon.Gear size={22} />
         <span className="flex-1">Pengaturan</span>
       </Link>
+      <button
+        type="button"
+        onClick={toggleTheme}
+        aria-label={isDark ? 'Ganti ke tema terang' : 'Ganti ke tema gelap'}
+        className={cx(itemCls, 'border-0 text-left font-bold bg-transparent text-ink-muted hover:bg-surface-2')}
+      >
+        {isDark ? <Icon.Sun size={22} /> : <Icon.Moon size={22} />}
+        <span className="flex-1">{isDark ? 'Mode Terang' : 'Mode Gelap'}</span>
+      </button>
       <div className="mt-auto flex flex-col gap-2 rounded-xl bg-surface-2 p-3">
         <div className="flex items-center gap-2">
           <span className="flex size-8 items-center justify-center rounded-[10px] bg-rutin-bg text-rutin-fg"><Icon.Flame size={18} /></span>
