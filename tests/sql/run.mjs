@@ -121,7 +121,7 @@ for (const f of files) {
     process.exit(1);
   }
 }
-assert.equal(files.length, 11, 'harus ada 11 migrasi 0001…0011');
+assert.equal(files.length, 12, 'harus ada 12 migrasi 0001…0012');
 
 // =====================================================================================
 console.log('\nTest vector TECH-SPEC §13 (versi SQL)');
@@ -273,6 +273,54 @@ await test('RLS: anon tidak melihat data; rpc_ping boleh', async () => {
   await rejects(db.query(`select count(*) from public.tasks`), /permission denied/);
   assert.equal(await one(`select public.rpc_ping()`), 1);
   await rejects(db.query(`select public.rpc_routine_set(gen_random_uuid(), current_date, 1)`), /permission denied/);
+});
+
+await test('RLS & validasi public.notes: isolasi dua pengguna, catatan kosong ditolak, anon ditolak', async () => {
+  const UA = await newUser('CatatanA');
+  const UB = await newUser('CatatanB');
+
+  // Catatan kosong total ditolak (check constraint)
+  await as(UA);
+  await rejects(db.query(`insert into public.notes(title, body) values (null, '')`), /check/i);
+  await rejects(db.query(`insert into public.notes(title, body) values ('', '')`), /check/i);
+  await rejects(db.query(`insert into public.notes(title, body) values ('   ', '   ')`), /check/i);
+
+  // Judul > 120 atau body > 20000 ditolak
+  await rejects(db.query(`insert into public.notes(title, body) values ($1, 'isi')`, ['x'.repeat(121)]), /check/i);
+  await rejects(db.query(`insert into public.notes(title, body) values ('judul', $1)`, ['x'.repeat(20001)]), /check/i);
+
+  // Pengguna A membuat 2 catatan: satu disematkan (hanya judul), satu biasa (hanya isi)
+  const NA1 = await one(`insert into public.notes(title, body, pinned) values ('Catatan Penting A', '', true) returning id`);
+  const NA2 = await one(`insert into public.notes(title, body) values (null, 'Isi catatan A tanpa judul') returning id`);
+  assert.equal(num(await one(`select count(*) from public.notes`)), 2);
+
+  // Pengguna B tidak bisa melihat catatan A
+  await as(UB);
+  assert.equal(num(await one(`select count(*) from public.notes`)), 0);
+
+  // Pengguna B tidak bisa mengubah catatan A
+  const upd = await db.query(`update public.notes set body = 'dibajak B' where id = $1`, [NA1]);
+  assert.equal(upd.affectedRows ?? 0, 0);
+
+  // Pengguna B tidak bisa menghapus catatan A
+  const del = await db.query(`delete from public.notes where id = $1`, [NA1]);
+  assert.equal(del.affectedRows ?? 0, 0);
+
+  // Pengguna B tidak bisa menyisipkan catatan atas nama Pengguna A
+  await rejects(db.query(`insert into public.notes(user_id, body) values ($1, 'titipan')`, [UA]), /row-level security/i);
+
+  // Anon tidak punya akses
+  await asAnon();
+  await rejects(db.query(`select count(*) from public.notes`), /permission denied/i);
+  await rejects(db.query(`insert into public.notes(body) values ('isi anon')`), /permission denied/i);
+  await rejects(db.query(`update public.notes set body = 'isi anon' where id = $1`, [NA1]), /permission denied/i);
+  await rejects(db.query(`delete from public.notes where id = $1`, [NA1]), /permission denied/i);
+
+  // Pengguna A memeriksa kembali datanya (utuh dan tidak terganggu)
+  await as(UA);
+  assert.equal(await one(`select title from public.notes where id = $1`, [NA1]), 'Catatan Penting A');
+  assert.equal(await one(`select body from public.notes where id = $1`, [NA2]), 'Isi catatan A tanpa judul');
+  assert.equal(await one(`select pinned from public.notes where id = $1`, [NA1]), true);
 });
 
 await test('RLS: scheduled_notifications hanya baca + ubah read_at oleh pengguna', async () => {
@@ -880,7 +928,7 @@ await test('hapus auth.users → semua data pengguna terhapus (cascade) tanpa er
   const before = num(await one(`select count(*) from public.tasks where user_id = $1`, [U1]));
   assert.ok(before > 0);
   await db.query(`delete from auth.users where id = $1`, [U1]);
-  for (const t of ['tasks', 'wallets', 'categories', 'xp_events', 'user_settings', 'attendances', 'courses']) {
+  for (const t of ['tasks', 'notes', 'wallets', 'categories', 'xp_events', 'user_settings', 'attendances', 'courses']) {
     assert.equal(num(await one(`select count(*) from public.${t} where user_id = $1`, [U1])), 0, t);
   }
   assert.equal(num(await one(`select count(*) from public.profiles where id = $1`, [U1])), 0);

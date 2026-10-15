@@ -1,12 +1,12 @@
 // Pencarian global (SRCH-01) + filter tugas (TASK-12): pencocokan lokal atas cache data (tanpa server).
 import { normName } from '@common/match.ts';
-import type { Category, Course, LearningModule, Project, Routine, SourceTag, Task, Transaction, Wallet } from '@/data/types';
+import type { Category, Course, LearningModule, Note, Project, Routine, SourceTag, Task, Transaction, Wallet } from '@/data/types';
 
-export type GroupKey = 'tugas' | 'proyek' | 'matkul' | 'transaksi' | 'modul' | 'rutinitas';
+export type GroupKey = 'tugas' | 'proyek' | 'matkul' | 'transaksi' | 'modul' | 'rutinitas' | 'catatan';
 export const GROUP_LABEL: Record<GroupKey, string> = {
-  tugas: 'Tugas', proyek: 'Proyek', matkul: 'Matkul', transaksi: 'Transaksi', modul: 'Modul', rutinitas: 'Rutinitas',
+  tugas: 'Tugas', proyek: 'Proyek', matkul: 'Matkul', transaksi: 'Transaksi', modul: 'Modul', rutinitas: 'Rutinitas', catatan: 'Catatan',
 };
-export const GROUP_ORDER: GroupKey[] = ['tugas', 'proyek', 'matkul', 'transaksi', 'modul', 'rutinitas'];
+export const GROUP_ORDER: GroupKey[] = ['tugas', 'proyek', 'matkul', 'transaksi', 'modul', 'rutinitas', 'catatan'];
 
 export interface TaskFilter {
   status: 'semua' | 'terbuka' | 'selesai';
@@ -23,7 +23,7 @@ export function activeFilterCount(f: TaskFilter): number {
 
 export interface SearchData {
   tasks: Task[]; projects: Project[]; courses: Course[]; transactions: Transaction[]; categories: Category[];
-  wallets: Wallet[]; modules: LearningModule[]; routines: Routine[];
+  wallets: Wallet[]; modules: LearningModule[]; routines: Routine[]; notes: Note[];
 }
 
 /** Cocok bila semua kata kueri ada di salah satu teks (tanpa beda huruf besar/kecil & tanda baca). */
@@ -37,7 +37,7 @@ export function matcher(q: string): (...texts: (string | null | undefined)[]) =>
 }
 
 export interface SearchResult {
-  tasks: Task[]; projects: Project[]; courses: Course[]; transactions: Transaction[]; modules: LearningModule[]; routines: Routine[];
+  tasks: Task[]; projects: Project[]; courses: Course[]; transactions: Transaction[]; modules: LearningModule[]; routines: Routine[]; notes: Note[];
 }
 
 export function search(q: string, d: SearchData, f: TaskFilter): SearchResult {
@@ -60,7 +60,7 @@ export function search(q: string, d: SearchData, f: TaskFilter): SearchResult {
       return hit(t.title, t.notes, t.project_id ? prj.get(t.project_id) : null, t.course_id ? crs.get(t.course_id) : null);
     }).sort((a, b) => Number(a.status === 'selesai') - Number(b.status === 'selesai') || (a.due_at ?? '9').localeCompare(b.due_at ?? '9'))
     : [];
-  if (!hasQ) return { tasks, projects: [], courses: [], transactions: [], modules: [], routines: [] };
+  if (!hasQ) return { tasks, projects: [], courses: [], transactions: [], modules: [], routines: [], notes: [] };
   const digits = q.replace(/[^\d]/g, '');
   return {
     tasks,
@@ -72,6 +72,9 @@ export function search(q: string, d: SearchData, f: TaskFilter): SearchResult {
       .sort((a, b) => b.occurred_at.localeCompare(a.occurred_at)),
     modules: d.modules.filter((m) => !m.deleted_at && hit(m.title, m.category)),
     routines: d.routines.filter((r) => !r.deleted_at && hit(r.name)),
+    notes: (d.notes ?? [])
+      .filter((n) => !n.deleted_at && hit(n.title, n.body))
+      .sort((a, b) => (b.note_date || '').localeCompare(a.note_date || '')),
   };
 }
 

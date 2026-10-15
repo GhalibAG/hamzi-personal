@@ -193,7 +193,7 @@ export function createSupabaseRepo(): Repo {
 
     async exportAll() {
       const names: (TableName | 'profiles' | 'user_settings')[] = [
-        'profiles', 'user_settings', 'projects', 'milestones', 'tasks', 'subtasks', 'events', 'routines', 'routine_logs',
+        'profiles', 'user_settings', 'projects', 'milestones', 'tasks', 'subtasks', 'events', 'notes', 'routines', 'routine_logs',
         'learning_modules', 'learning_units', 'study_sessions', 'water_events', 'xp_events', 'wallets', 'categories',
         'transactions', 'budgets', 'recurring_rules', 'semesters', 'courses', 'course_schedules', 'attendances', 'exams',
         'grade_components', 'savings_goals', 'goal_contributions', 'assets', 'asset_transactions', 'asset_valuations',
@@ -211,7 +211,7 @@ export function createSupabaseRepo(): Repo {
       // Urutan FK (TECH-SPEC §16). "replace" = hapus dulu (soft untuk tabel ber-deleted_at tidak cukup → hard delete milik sendiri).
       const order = [
         'projects', 'milestones', 'semesters', 'courses', 'course_schedules', 'grade_components', 'exams', 'attendances',
-        'tasks', 'subtasks', 'events', 'routines', 'routine_logs', 'learning_modules', 'learning_units', 'study_sessions',
+        'tasks', 'subtasks', 'events', 'notes', 'routines', 'routine_logs', 'learning_modules', 'learning_units', 'study_sessions',
         'wallets', 'categories', 'transactions', 'budgets', 'recurring_rules', 'savings_goals', 'goal_contributions',
         'assets', 'asset_transactions', 'asset_valuations',
       ];

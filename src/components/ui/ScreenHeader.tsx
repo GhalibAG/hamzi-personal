@@ -5,14 +5,14 @@ import { cx } from '@/lib/cx';
 import { IconButton } from './Button';
 
 /** Header layar non-Beranda (DESIGN-SYSTEM §4): overline 12/600 + judul 26/800; kanan tombol 44. */
-export function ScreenHeader({ overline, title, right, back, className }: {
-  overline?: ReactNode; title: ReactNode; right?: ReactNode; back?: string | boolean; className?: string;
+export function ScreenHeader({ overline, title, right, back, onBack, className }: {
+  overline?: ReactNode; title: ReactNode; right?: ReactNode; back?: string | boolean; onBack?: () => void; className?: string;
 }) {
   const nav = useNavigate();
   return (
     <header className={cx('flex flex-wrap items-center gap-3 px-4 pt-5 lg:px-0 lg:pt-0', className)}>
       {back && (
-        <IconButton label="Kembali" onClick={() => (typeof back === 'string' ? nav(back) : nav(-1))}>
+        <IconButton label="Kembali" onClick={onBack ?? (() => (typeof back === 'string' ? nav(back) : nav(-1)))}>
           <Icon.ChevronLeft size={20} />
         </IconButton>
       )}

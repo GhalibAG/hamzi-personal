@@ -11,7 +11,7 @@ export const SCHEMA_VERSION = 2;
 
 /** Tabel yang dikenali saat impor (selain profiles & user_settings). push_subscriptions khusus perangkat → tidak diimpor. */
 export const IMPORT_TABLES = [
-  'projects', 'milestones', 'tasks', 'subtasks', 'events', 'routines', 'routine_logs', 'learning_modules', 'learning_units',
+  'projects', 'milestones', 'tasks', 'subtasks', 'events', 'notes', 'routines', 'routine_logs', 'learning_modules', 'learning_units',
   'study_sessions', 'water_events', 'xp_events', 'wallets', 'categories', 'transactions', 'budgets', 'recurring_rules',
   'semesters', 'courses', 'course_schedules', 'attendances', 'exams', 'grade_components', 'savings_goals', 'goal_contributions',
   'assets', 'asset_transactions', 'asset_valuations', 'scheduled_notifications', 'ai_conversations', 'ai_messages', 'ai_actions',

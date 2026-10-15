@@ -46,6 +46,12 @@ export interface Task extends Base {
 }
 export interface Subtask extends Base { task_id: string; title: string; done: boolean; sort: number }
 export interface CalEvent extends Base { title: string; starts_at: string; ends_at?: string | null; all_day: boolean; notes?: string | null }
+export interface Note extends Base {
+  title?: string | null;
+  body: string;
+  note_date: string;
+  pinned: boolean;
+}
 
 export interface Routine extends Base {
   name: string; kind: 'check' | 'count'; target_count: number; is_required: boolean;
@@ -125,7 +131,7 @@ export interface AiAction extends Base { message_id: string; state: 'pending' | 
 export interface AiRequest extends Base { kind: string; cache_key: string; payload: unknown; response: unknown; provider?: string | null; model?: string | null; status: string; feedback?: -1 | 1 | null; error?: string | null }
 
 export interface Tables {
-  projects: Project; milestones: Milestone; tasks: Task; subtasks: Subtask; events: CalEvent;
+  projects: Project; milestones: Milestone; tasks: Task; subtasks: Subtask; events: CalEvent; notes: Note;
   routines: Routine; routine_logs: RoutineLog; learning_modules: LearningModule; learning_units: LearningUnit;
   study_sessions: StudySession; water_events: WaterEvent; xp_events: XpEvent;
   wallets: Wallet; categories: Category; transactions: Transaction; budgets: Budget; recurring_rules: RecurringRule;
@@ -138,6 +144,6 @@ export type TableName = keyof Tables;
 
 /** Tabel yang memakai soft delete (`deleted_at`). */
 export const SOFT_DELETE: TableName[] = [
-  'projects', 'milestones', 'tasks', 'events', 'routines', 'learning_modules', 'semesters', 'courses', 'exams',
+  'projects', 'milestones', 'tasks', 'events', 'notes', 'routines', 'learning_modules', 'semesters', 'courses', 'exams',
   'transactions', 'savings_goals', 'goal_contributions', 'ai_conversations',
 ];

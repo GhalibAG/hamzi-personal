@@ -274,6 +274,17 @@ export const Icon = {
       <path d="M14 3v5h5" />
     </>
   )),
+  Pin: make('Pin', () => (
+    <>
+      <path d="M12 17v5M5 17h14l-2-7V4h1V2H6v2h1v4z" />
+    </>
+  )),
+  Note: make('Note', () => (
+    <>
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+      <path d="M14 3v5h5M9 13h6M9 17h4" />
+    </>
+  )),
   Image: make('Image', () => (
     <>
       <rect x="3" y="4" width="18" height="16" rx="3" />

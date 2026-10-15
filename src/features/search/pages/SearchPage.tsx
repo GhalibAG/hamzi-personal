@@ -28,6 +28,7 @@ const GROUP_STYLE: Record<GroupKey, { tone: ModTone; icon: ReactNode }> = {
   transaksi: { tone: 'keuangan', icon: <Icon.Receipt size={20} /> },
   modul: { tone: 'belajar', icon: <Icon.Book size={20} /> },
   rutinitas: { tone: 'rutin', icon: <Icon.Repeat size={20} /> },
+  catatan: { tone: 'invest', icon: <Icon.Note size={20} /> },
 };
 
 function Hl({ text, q }: { text: string; q: string }) {
@@ -132,7 +133,8 @@ export default function SearchPage() {
   const wallets = useRows('wallets').rows;
   const modules = useRows('learning_modules');
   const routines = useRows('routines');
-  const queries = [tasks, projects, courses, transactions, modules, routines];
+  const notes = useRows('notes');
+  const queries = [tasks, projects, courses, transactions, modules, routines, notes];
   const loading = queries.some((x) => x.isLoading);
   const isError = queries.some((x) => x.isError);
 
@@ -145,8 +147,8 @@ export default function SearchPage() {
 
   const res = useMemo(() => search(q, {
     tasks: tasks.rows, projects: projects.rows, courses: courses.rows, transactions: transactions.rows, categories, wallets,
-    modules: modules.rows, routines: routines.rows,
-  }, f), [q, f, tasks.rows, projects.rows, courses.rows, transactions.rows, categories, wallets, modules.rows, routines.rows]);
+    modules: modules.rows, routines: routines.rows, notes: notes.rows,
+  }, f), [q, f, tasks.rows, projects.rows, courses.rows, transactions.rows, categories, wallets, modules.rows, routines.rows, notes.rows]);
 
   const prjName = new Map(projects.rows.map((p) => [p.id, p.name]));
   const crsName = new Map(courses.rows.map((c) => [c.id, c.name]));
@@ -173,6 +175,11 @@ export default function SearchPage() {
     ['rutinitas', res.routines.map((r) => ({
       id: r.id, to: `/tumbuh/rutinitas/${r.id}`, title: r.name,
       meta: [repeatLabel(r.repeat_days), r.is_required ? 'wajib' : 'kebiasaan', r.archived ? 'diarsip' : null].filter(Boolean).join(' · '),
+    }))],
+    ['catatan', res.notes.map((n) => ({
+      id: n.id, to: `/catatan/${n.id}`,
+      title: n.title || n.body.split('\n')[0]?.slice(0, 60) || 'Catatan tanpa judul',
+      meta: [dayLabel(n.note_date), n.pinned ? 'Disematkan' : null].filter(Boolean).join(' · '),
     }))],
   ];
   const total = groups.reduce((s, [, r]) => s + r.length, 0);

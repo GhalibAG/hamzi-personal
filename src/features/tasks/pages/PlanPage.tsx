@@ -207,6 +207,7 @@ function MobilePlan({ d, tab, setTab, sel, setSel, onNewProject }: { d: PlanData
         right={(
           <>
             <IconButton label="Cari" onClick={() => nav('/cari')}><Icon.Search size={20} /></IconButton>
+            <IconButton label="Buka catatan" onClick={() => nav('/catatan')}><Icon.Note size={20} /></IconButton>
             <IconButton label="Buka kalender bulan" onClick={() => nav('/rencana/kalender')}><Icon.Calendar size={20} /></IconButton>
           </>
         )}
@@ -233,9 +234,14 @@ function MiniCalendar({ d, sel, setSel }: { d: PlanData; sel: string; setSel: (s
   return (
     <div className="rounded-3xl border border-line bg-surface px-4 py-3.5">
       <div className="mb-1 flex items-center justify-between">
-        <Link to="/rencana/kalender" aria-label={`Buka kalender ${BULAN[ym.month]} ${ym.year}`} className="text-card font-extrabold text-ink no-underline hover:text-primary">
-          {BULAN[ym.month]} {ym.year}
-        </Link>
+        <div className="flex items-center gap-2.5">
+          <Link to="/rencana/kalender" aria-label={`Buka kalender ${BULAN[ym.month]} ${ym.year}`} className="text-card font-extrabold text-ink no-underline hover:text-primary">
+            {BULAN[ym.month]} {ym.year}
+          </Link>
+          <Link to="/catatan" className="text-label font-bold text-primary no-underline hover:text-primary-hover">
+            Catatan
+          </Link>
+        </div>
         <span className="-mr-1.5 flex">
           <button type="button" aria-label="Bulan sebelumnya" onClick={() => nav(-1)} className={arrow}><span className={circle}><Icon.ChevronLeft size={16} /></span></button>
           <button type="button" aria-label="Bulan berikutnya" onClick={() => nav(1)} className={arrow}><span className={circle}><Icon.ChevronRight size={16} /></span></button>

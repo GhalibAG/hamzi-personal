@@ -6,13 +6,13 @@ import {
 import type { Db } from './rpc-logic';
 import { recomputeStats } from './rpc-logic';
 import { DEFAULT_SETTINGS, uuid } from './repo';
-import type { Category, Course, Task, Transaction, Wallet } from './types';
+import type { Category, Course, Note, Task, Transaction, Wallet } from './types';
 
 export const DEMO_USER = '00000000-0000-0000-0000-000000000001';
 
 export function emptyDb(): Db {
   return {
-    projects: [], milestones: [], tasks: [], subtasks: [], events: [],
+    projects: [], milestones: [], tasks: [], subtasks: [], events: [], notes: [],
     routines: [], routine_logs: [], learning_modules: [], learning_units: [], study_sessions: [],
     water_events: [], xp_events: [], wallets: [], categories: [], transactions: [], budgets: [], recurring_rules: [],
     semesters: [], courses: [], course_schedules: [], attendances: [], exams: [], grade_components: [],
@@ -243,6 +243,41 @@ export function buildSeed(now: Date = new Date()): Db {
   fill(pkm, 7, 10, ['Cari ide', 'Studi literatur', 'Tulis latar belakang', 'Tulis metode', 'Susun anggaran', 'Minta tanda tangan', 'Konsultasi dosen', 'Cek format', 'Unggah ke SIMBELMAWA'], (i) => (i < 6 ? pm1.id : pm2.id), 'proyek');
   fill(porto, 2, 10, ['Pilih desain', 'Tulis bio singkat', 'Halaman proyek', 'Halaman kontak', 'Optimasi gambar', 'SEO dasar', 'Mode gelap', 'Uji di HP', 'Deploy ke hosting', 'Pasang domain'], () => om1.id, 'proyek');
   db.events.push({ id: uuid(), title: 'Seminar karier fakultas', starts_at: at(4, '13:00'), ends_at: at(4, '15:00'), all_day: false, notes: 'Aula lantai 3', deleted_at: null });
+
+  // ---------- Catatan ("catatan hidup") ----------
+  const sampleNotes: Note[] = [
+    {
+      id: uuid(),
+      title: 'Prinsip & target semester ini',
+      body: 'Fokus jaga IPK di atas 3,65, konsisten olahraga pagi 20 menit, dan batasi jajan kopi maksimal 2 kali seminggu. Jangan lupa review mingguan tiap Minggu malam.',
+      note_date: day(-10),
+      pinned: true,
+      created_at: at(-10, '08:30'),
+      updated_at: at(-2, '14:00'),
+      deleted_at: null,
+    },
+    {
+      id: uuid(),
+      title: 'Ide topik tugas akhir & riset',
+      body: 'Rencana topik AI agent untuk personal planner dengan model ringan lokal atau edge worker. Cari referensi paper SIGMOD / CHI terbaru di perpus kampus.',
+      note_date: day(0),
+      pinned: false,
+      created_at: at(0, '10:15'),
+      updated_at: at(0, '10:15'),
+      deleted_at: null,
+    },
+    {
+      id: uuid(),
+      title: 'Rekomendasi buku dari dosen',
+      body: 'Designing Data-Intensive Applications (Kleppmann) bab 5-7 tentang replikasi & konsistensi data. Target baca pas akhir pekan di kos.',
+      note_date: day(-3),
+      pinned: false,
+      created_at: at(-3, '16:45'),
+      updated_at: at(-3, '16:45'),
+      deleted_at: null,
+    },
+  ];
+  db.notes.push(...sampleNotes);
 
   // ---------- Tumbuh: rutinitas ----------
   const R = (name: string, kind: 'check' | 'count', target: number, required: boolean, days: number[], remind: string | null, sort: number, enabled = true) => {

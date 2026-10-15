@@ -16,8 +16,9 @@ Semua layar dan alur di PRD P0/P1 sudah dibangun dan berjalan di **mode demo** (
 | Chat Hamzi | Percakapan, lampiran + dialog privasi, kartu usulan (centang, simpan, urungkan 24 jam), review mingguan `/chat?review=minggu`, share target, riwayat AI + izin data |
 | Pengingat | Server: Worker tiap menit → `scheduler-tick` → Web Push + aksi notifikasi (HMAC). App: `ReminderEngine` (banner dalam app/notifikasi lokal; di mode demo menggantikan server saat app terbuka), kotak `/notifikasi` |
 | Pengaturan | Profil, tampilan, notifikasi (izin, langganan, panduan baterai, jenis pengingat sistem, jam tenang), akademik, keuangan, tumbuh, privasi AI, data (export JSON/CSV, impor, reset demo), diagnostik, keluar, hapus akun |
+| Catatan | Catatan pribadi bebas ("catatan hidup"): daftar `/catatan` & editor `/catatan/baru` + `/catatan/:id` (HP & desktop), disematkan, pencarian lokal case-insensitive, kelompok per bulan, pratinjau 2 baris, validasi Zod + deteksi data sensitif, soft delete dengan toast Urungkan, tautan masuk di Rencana, dan integrasi pencarian global |
 | Masuk & Onboarding | Google / magic link (Supabase), onboarding 6 langkah (saran rutinitas, anggaran, pasang PWA, aktifkan pengingat, panduan baterai) |
-| Backend | Migrasi 0001–0011 (RLS semua tabel, RPC atomik, RPC baca, penjadwal, chat & storage), 6 Edge Functions, Worker cron, CI (typecheck, lint, test, test SQL, build, e2e, deno check, scan rahasia), keepalive |
+| Backend | Migrasi 0001–0012 (RLS semua tabel, RPC atomik, RPC baca, penjadwal, chat & storage, notes), 6 Edge Functions, Worker cron, CI (typecheck, lint, test, test SQL, build, e2e, deno check, scan rahasia), keepalive |
 | Offline (mode Supabase) | Cache baca di IndexedDB, outbox tulis (FIFO, idempoten), sinkron otomatis saat online |
 
 ## 2. Bukti pengecekan (jalankan ulang kapan saja)

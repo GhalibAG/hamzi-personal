@@ -6,12 +6,20 @@ const backup = (p: Record<string, unknown> = {}) => JSON.stringify({ app: 'hamzi
 
 describe('parseBackup', () => {
   it('menerima backup Hamzi v2 dan menghitung baris', () => {
-    const r = parseBackup(backup({ tables: { tasks: [{ id: 't1' }, { id: 't2' }], user_settings: [{ theme: 'dark' }], push_subscriptions: [{ id: 'p' }], asing: [] } }));
+    const r = parseBackup(backup({ tables: { tasks: [{ id: 't1' }, { id: 't2' }], notes: [{ id: 'n1', body: 'Catatan' }], user_settings: [{ theme: 'dark' }], push_subscriptions: [{ id: 'p' }], asing: [] } }));
     expect(r.ok).toBe(true);
     if (r.ok) {
-      expect(r.rows).toBe(2);
-      expect(Object.keys(r.tables).sort()).toEqual(['tasks', 'user_settings']);
+      expect(r.rows).toBe(3);
+      expect(Object.keys(r.tables).sort()).toEqual(['notes', 'tasks', 'user_settings']);
       expect(r.ignored.sort()).toEqual(['asing', 'push_subscriptions']);
+    }
+  });
+  it('backup lama tanpa tabel notes tetap bisa diimpor', () => {
+    const r = parseBackup(backup({ tables: { tasks: [{ id: 't1' }] } }));
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.rows).toBe(1);
+      expect(r.tables.notes).toBeUndefined();
     }
   });
   it('menolak JSON rusak, app lain, versi lain, dan baris tanpa id', () => {

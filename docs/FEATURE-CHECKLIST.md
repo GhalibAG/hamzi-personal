@@ -39,9 +39,12 @@ Kolom: **Fitur** (bahasa pengguna) · **ID** (PRD) · **Layar** (UI-SPEC/rute) �
 | 28 | Panduan baterai Android agar notifikasi sampai | AUTH-04, NOT-09 | M4 | layar onboarding langkah 6 — onboarding langkah 6 (screenshot `tests/visual/out/f/`) | [x] |
 | 29 | Offline tetap bisa mencatat | OFF-01…04 | M8 | cek manual mode pesawat — outbox `outbox.test.ts` ✓; **sisa:** mode pesawat di HP dengan Supabase | [ ] |
 | 30 | Data aman & bisa dibackup | SET-04, SET-05, NFR-04/05 | M0, M10 | export → impor ulang sukses — `settings-data.test.ts` (export → impor gabung) | [x] |
+| 31 | Catatan pribadi bebas ("catatan hidup") | NOTE-01 | M2 | unit test derive & schema; e2e buat, refresh, hapus, urungkan — `tests/unit/notes.test.ts` (22 test) + e2e `flows.spec.ts` | [x] |
 
 ## B. Daftar ID (centang saat terbukti)
 Bukti per ID: test di `tests/unit`, `tests/sql`, `tests/e2e`, perbandingan `npm run visual`, dan cek Playwright 12 Okt 2026 (lihat HANDOFF §2). ID yang belum dicentang butuh deploy/AI sungguhan atau P2 — rinciannya di HANDOFF §3–§4.
+
+**NOTE** [x] 01
 
 **AUTH** [ ] 01 [ ] 02 [ ] 03 [x] 04 [x] 06 · (P2) [ ] 05
 **HOME** [x] 01 [x] 02 [x] 03 [x] 04 [x] 05 [x] 06 [x] 07 [x] 08 [x] 09 [x] 10

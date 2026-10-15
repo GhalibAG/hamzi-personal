@@ -64,3 +64,34 @@ test('mode sembunyikan nominal menyembunyikan angka di Beranda', async ({ page }
   await expect(page.getByText('Rp 85.000')).toHaveCount(0);
   await expect(page.getByText('Rp •••••').first()).toBeVisible();
 });
+
+test('alur catatan: buat -> muncul di daftar -> refresh -> hapus -> Urungkan -> kembali', async ({ page }) => {
+  await page.goto('/catatan');
+  await page.getByRole('button', { name: 'Catatan baru' }).click();
+  await expect(page).toHaveURL(/\/catatan\/baru/);
+
+  await page.getByLabel(/Judul/).fill('Catatan e2e baru');
+  await page.getByLabel(/Isi catatan/).fill('Ini isi catatan hidup yang dibuat dalam tes e2e.');
+  await page.getByRole('button', { name: 'Simpan catatan' }).click();
+
+  await expect(page).toHaveURL('/catatan');
+  await expect(page.getByText('Catatan e2e baru')).toBeVisible();
+
+  // Refresh masih ada
+  await page.reload();
+  await expect(page.getByText('Catatan e2e baru')).toBeVisible();
+
+  // Buka editor & hapus
+  await page.getByText('Catatan e2e baru').click();
+  await expect(page).toHaveURL(/\/catatan\/[0-9a-f-]+/);
+  await page.getByRole('button', { name: 'Hapus catatan' }).first().click();
+  await page.getByRole('button', { name: 'Hapus', exact: true }).click();
+
+  // Toast Urungkan muncul & catatan terhapus dari daftar
+  await expect(page).toHaveURL('/catatan');
+  await expect(page.getByText('Catatan e2e baru')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Urungkan' }).click();
+
+  // Catatan kembali muncul
+  await expect(page.getByText('Catatan e2e baru')).toBeVisible();
+});

@@ -4,7 +4,7 @@
 //   opsi: --w=1280 --h=800 --full --click="teks tombol" --wait=800 --base=http://localhost:5173
 // Jam dibekukan ke Senin 12 Okt 2026 16:08 WIB (sama dengan prototipe) kecuali --realtime.
 import { chromium } from '@playwright/test';
-import { mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 
 const args = process.argv.slice(2);
@@ -17,7 +17,8 @@ const w = Number(opt.w ?? (desktop ? 1440 : 390));
 const h = Number(opt.h ?? (desktop ? 900 : 844));
 const base = opt.base ?? process.env.BASE ?? 'http://localhost:5173';
 
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const execPath = process.env.PW_CHROMIUM ?? (existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined);
+const browser = await chromium.launch(execPath ? { executablePath: execPath } : {});
 const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 2, locale: 'id-ID', timezoneId: 'Asia/Jakarta' });
 const page = await ctx.newPage();
 if (!opt.realtime) await page.clock.setFixedTime(new Date('2026-10-12T09:08:00Z'));
